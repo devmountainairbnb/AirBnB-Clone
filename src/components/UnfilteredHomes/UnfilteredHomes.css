@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans|Roboto');
+
+* {
+    box-sizing: border-box;
+    margin: 0rem;
+    padding: 0rem;
+}
+
+/****** Dates Guests Top Bar Styling ******/
+.dates-guests-bar {  
+    font-family: 'Noto Sans', sans-serif;
+    font-size: .88rem;
+    color: #484848;
+    display: flex;
+    border-bottom: 1px solid lightgray;
+}
+
+.dates-guests-bar p {
+    padding: .4rem .7rem;
+    border: .05rem solid #48484846;
+    border-radius: .3rem;
+    margin: .5rem .4rem;
+}
+
+.dates-guests-bar .dates {
+    margin-left: 4rem;
+}
+
+/****** Travel World Section Styling ******/
+.travel-h2 {
+    font-family: 'Roboto', sans-serif;
+    color: #3F3F3F;
+    margin: 2rem 4rem;
+    letter-spacing: .04rem;
+}
+.travel-world-section {
+    height: 5.2rem;
+    display: flex;
+    margin-bottom: 4rem;
+}
+
+.travel-world-section div {
+    width: 21%;
+    height: 4.7rem;
+    margin-left: 1rem;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    color: #3F3F3F;
+    box-shadow: .03rem .07rem .19rem rgba(63, 63, 63, 0.34);
+    position: relative;
+}
+
+.travel-world-section h4 {
+    position: absolute;
+    left: 7.5rem;
+    top: 1.1rem;
+    letter-spacing: .027rem;
+}
+
+.travel-world-section h6 {
+    position: absolute;
+    left: 7.53rem;
+    top: 2.6rem;
+    letter-spacing: .04rem;
+    font-size: .75rem;
+    color:rgba(63, 63, 63, 0.64);
+}
+
+.travel-world-section img {
+    width: 6.4rem;
+}
+
+.travel-world-section .paris {
+    margin-left: 4rem;
+}
+
+/****** Top Rated Section Styling ******/
+
+.rated-homes-container {
+    height: 30rem;
+}
+
+.rated-homes-container p {
+    margin-left: 4rem;
+    color: rgba(63, 63, 63, 0.897);
+}
+
+.rated-homes-container h2 {
+    font-family: 'Roboto', sans-serif;
+    color: #3F3F3F;
+    margin: .5rem 4rem;
+    letter-spacing: .04rem;
+}
+
+/****** Top Rated Section Styling ******/
+
+.picked-homes-container {
+    height: 40rem;
+
+}
+
+.picked-homes-container h2 {
+    font-family: 'Roboto', sans-serif;
+    color: #3F3F3F;
+    margin: .5rem 4rem;
+    letter-spacing: .04rem;
+
+}
+
