@@ -1,11 +1,17 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Listing extends Component {
-    render() {
-        return (
-            <div>Listing Component</div>
-        )
-    }
+function Listing(){
+    return (
+        <div>
+            <h1>Listing</h1>
+            <span>header</span>
+            <div>
+                Images
+            </div>
+            
+
+        </div>
+    )
 }
 
 export default Listing
