@@ -1,0 +1,30 @@
+.listingImages{
+    background-color: #333;
+    height: 50vh;
+
+}
+.listingBody{
+    display: flex;
+    margin: 0 auto;
+    max-width: 70vw;
+    justify-content: center;
+}
+.listInfoContainer{
+    max-width: 80vw;
+}
+.listingHead{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: wrap;
+}
+.detailSpan{
+    margin-right: 1em;
+}
+.stickyBooking{
+    display: flex;
+    justify-content: center;
+    background-color: #AAA;
+    width: 40em;
+    margin: 1em;
+}
