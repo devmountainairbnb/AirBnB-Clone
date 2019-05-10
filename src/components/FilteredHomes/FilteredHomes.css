@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans|Roboto');
+
+* {
+    box-sizing: border-box;
+    margin: 0rem;
+    padding: 0rem;
+}
+
+/****** Dates Guests Top Bar Styling ******/
+.dates-guests-bar {  
+    font-family: 'Noto Sans', sans-serif;
+    font-size: .88rem;
+    color: #484848;
+    display: flex;
+    border-bottom: 1px solid lightgray;
+}
+
+.dates-guests-bar p {
+    padding: .4rem .7rem;
+    border: .05rem solid #48484846;
+    border-radius: .3rem;
+    margin: .5rem .4rem;
+}
+
+.dates-guests-bar .dates {
+    margin-left: 4rem;
+}
+
+/****** Explore Section Styling ******/
+.filtered-container h2 {
+    font-family: 'Roboto', sans-serif;
+    color: #3F3F3F;
+    margin: 2rem 4rem;
+    letter-spacing: .04rem;
+}
+.explore-section {
+    height: 5.2rem;
+    display: flex;
+    margin-bottom: 4rem;
+}
+
+.explore-section div {
+    width: 21.3%;
+    height: 5.2rem;
+    /* border: 1px solid black; */
+    margin-left: 1rem;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    color: #3F3F3F;
+    box-shadow: .03rem .1rem .22rem rgba(63, 63, 63, 0.21);
+}
+
+.explore-section h4 {
+    margin-top: 1.8rem;
+    margin-left: 1.5rem;
+    letter-spacing: .027rem;
+}
+
+.explore-section img {
+    width: 6.4rem;
+}
+
+.explore-section .explore-homes {
+    margin-left: 4rem;
+}
