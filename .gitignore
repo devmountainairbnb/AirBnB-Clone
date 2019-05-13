@@ -27,5 +27,4 @@ yarn-error.log*
 
 
 # unused
-/db/grab_listing.sql
 /server/controllers/listingCtrl.js
