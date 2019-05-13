@@ -23,3 +23,9 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+
+
+
+# unused
+/db/grab_listing.sql
+/server/controllers/listingCtrl.js
