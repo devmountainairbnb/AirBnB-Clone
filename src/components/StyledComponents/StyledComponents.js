@@ -18,6 +18,15 @@ position: absolute;
 bottom: 1rem;
 right: 2rem;
 `
+export const LoginButton = styled.button`
+width: ${props => props.login ? "15.5rem" : "5.5rem"};
+height 2.5rem;
+border-radius: 5px;
+background-color: #F76464;
+color: white;
+border: none;
+margin: 1.5rem;
+`
 
 export const BookingDateInput = styled.input`
 width: 8.9rem;

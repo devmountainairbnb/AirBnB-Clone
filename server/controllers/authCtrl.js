@@ -39,14 +39,21 @@ module.exports = {
         if(!userArr[0]) {
             return res.status(200).send({message: 'user not found'})
         }
-        const result = bcrypt.compareSync(password, userArr[0].acc_hash)
+        const result = bcrypt.compareSync(password, userArr[0].hash)
         if(!result) {
             return res.status(401).send({message: 'Password Incorrect'})
         }
-        req.session.user = {email: userArr[0].acc_email, id: userArr[0].acc_id};
+        req.session.user = {email: userArr[0].email, user_id: userArr[0].user_id};
         res.status(200).send({
             message: 'Login successful',
             loggedIn: true
         })
     },
+    logout(req, res) {
+        req.session.destroy(() => res.sendStatus(200)); 
+      },
+    userData(req, res) {
+        if(req.session.user) res.status(200).send(req.session.user)
+        else res.status(401).send('Please Login')
+    }
 }
