@@ -5,12 +5,13 @@
 }
 
 .homecard-container {
-    margin: 1.5rem .5rem .5rem 4rem;
+    margin: 1.5rem .2rem .5rem 4rem;
     color: #3F3F3F;
 }
 
 .homecard-container img {
     width: 17rem;
+    height: 12rem;
     border-radius: .2rem;
 }
 
