@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getHomes } from './../../ducks/homesReducer'
+import { getHomes, getHomesTopRated } from './../../ducks/homesReducer'
 import { connect } from 'react-redux'
 import HomeCard from './../HomeCard/HomeCard'
 import HeaderLoggedIn from './../Header/HeaderLoggedIn'
@@ -9,12 +9,12 @@ import './UnfilteredHomes.css'
 class UnfilteredHomes extends Component {
     componentDidMount() {
         this.props.getHomes()
+        this.props.getHomesTopRated()
     }
 
     render() {
-        console.log(this.props.homes.homes)
-        let homes = this.props.homes.homes.map((home, i) => {
-            return <HomeCard key={home.property_id} home={home}/>
+        let homes = this.props.homes.topRatedHomes.map((home, i) => {
+            return <HomeCard key={home.title} home={home}/>
         })
 
         return (
@@ -57,7 +57,8 @@ class UnfilteredHomes extends Component {
                 <div className="rated-homes-container">
                     <h2>Top-rated homes</h2>
                     <p>Explore some of the best-reviewed homes in the world</p>
-                    {homes}
+                    <div className="homes-display-container">{homes}</div>
+                    
                 </div>
 
                 <div className="picked-homes-container">
@@ -72,8 +73,9 @@ class UnfilteredHomes extends Component {
 
 function mapStatetoProps(reduxStoreState) {
     return {
-        homes: reduxStoreState.homes
+        homes: reduxStoreState.homes,
+        topRatedHomes: reduxStoreState.homes
     }
 }
 
-export default connect(mapStatetoProps, {getHomes})(UnfilteredHomes)
+export default connect(mapStatetoProps, {getHomes, getHomesTopRated})(UnfilteredHomes)
