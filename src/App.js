@@ -17,7 +17,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/filteredHomes" component={FilteredHomes} />
           <Route path="/unfilteredHomes" component={UnfilteredHomes} />
-          <Route path="/listing" component={Listing} />
+          <Route path="/listing/:property_id" component={Listing} />
           <Route path="/newProperty" component={NewProperty} />
         </Switch>
       </HashRouter>
