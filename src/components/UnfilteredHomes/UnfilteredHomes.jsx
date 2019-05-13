@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import Header from './../Header/Header'
+import HeaderLoggedIn from './../Header/HeaderLoggedIn'
+import Footer from './../../components/Footer/Footer'
 import './UnfilteredHomes.css'
 
 class UnfilteredHomes extends Component {
     render() {
         return (
             <div>
-                <Header/>
+                <HeaderLoggedIn/>
                 <div className="dates-guests-bar">
                     <p className="dates">Dates</p>
                     <p>Guests</p>
@@ -49,7 +50,7 @@ class UnfilteredHomes extends Component {
                 <div className="picked-homes-container">
                     <h2>Homes in *City*</h2>
                 </div>
-
+                <Footer/>
             </div>
         )
     }
