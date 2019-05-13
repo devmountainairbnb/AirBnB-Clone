@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "aws-sdk": "^2.452.0",
+    "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
@@ -11,8 +12,11 @@
     "massive": "^5.8.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
+    "redux": "^4.0.1",
+    "redux-promise-middleware": "^6.1.0",
     "styled-components": "^4.2.0"
   },
   "scripts": {
