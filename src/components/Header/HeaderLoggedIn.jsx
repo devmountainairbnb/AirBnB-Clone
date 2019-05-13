@@ -8,7 +8,7 @@ class HeaderLoggedIn extends Component {
         return (
             <header className="header-container">
                 <div className="header-top-left-content">
-                    <img className="airbnb-logo" src={logo}/>
+                    <img className="airbnb-logo" alt="logo" src={logo}/>
                     <BookingCardInput placeholder="Anywhere &#8226; Homes"/>
                 </div>
                 <div className="header-top-right-content">
