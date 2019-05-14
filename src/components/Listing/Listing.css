@@ -1,7 +1,30 @@
-.listingImages{
-    background-color: #333;
-    height: 50vh;
 
+.imagePrimary{
+    overflow: hidden;
+    margin-right: 1px;
+    width: 50%;
+    height: 100%
+}
+.imageWrapper{
+    overflow: hidden;
+    margin: 1px;
+    width: calc(25% - 2px);
+    height: calc(50% - 2px)
+}
+
+.listingImg{
+    transition: transform .7s;
+    width: 100%;
+    height: 100%;
+}
+
+.listingImages{
+    height: 35em;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: #FFF;
+    width: 100%
 }
 .listingBody{
     display: flex;
@@ -27,4 +50,8 @@
     background-color: #AAA;
     width: 40em;
     margin: 1em;
+}
+
+.listingImg:hover, .listingPrimary:hover{
+    transform: scale(1.05)
 }
