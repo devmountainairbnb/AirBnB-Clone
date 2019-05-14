@@ -3,6 +3,8 @@ import Header from '../Header/Header'
 import Lightbox from 'react-image-lightbox'
 import {getListing} from '../../ducks/listingReducer'
 import {updateBookingDates, updateBookingStart, updateBookingEnd} from '../../ducks/bookingReducer'
+// import Icon from '../StyledComponents/AmenitiesIcons/index'
+import amenities from './AmenitiesMapper'
 
 
 import Calendar from 'react-calendar'
@@ -78,6 +80,7 @@ class Listing extends Component {
             <div>
                 <Header />
                 <div className='listingImages'>
+                    {amenities(details)}
                     {imgView}
                     {isOpen && (
                         <Lightbox
@@ -110,9 +113,9 @@ class Listing extends Component {
                                 <br/>
                             </div>
                             <div className='hostInfo'>
-                                <img src='https://placekitten.com/80/80' alt='host'/>
+                                <img src={details.profile_pic_url} alt='host' className='hostProfile'/>
                                 <br/>
-                                <span>{/* 'host first name' */} Frank</span>
+                                <span>{details.first_name}</span>
                             </div>
                         </div>
                         <div className='propertyInfo'>
