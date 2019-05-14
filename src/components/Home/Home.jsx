@@ -3,6 +3,9 @@ import './Home.css'
 import chillbus from './backgrounds/chillbus.jpg'
 import logo from './backgrounds/airbnb-red.png'
 import { BookingCardInput, BookingCardButton, BookingDateInput, CancelButton, LoginButton } from './../StyledComponents/StyledComponents'
+import bannerPic from './backgrounds/city.jpg'
+import Footer from './../Footer/Footer.jsx'
+import axios from 'axios';
 // import { connect } from 'react-redux'
 // import { getData } from './../../ducks/userReducer'    
 
@@ -12,24 +15,94 @@ class Home extends Component {
 
         this.state = {
             toggleLogin: false,
-            toggleSignup: false
+            toggleSignup: false,
+            first_name: '',
+            last_name: '',
+            profile_pic_url: '',
+            phone: '',
+            email: '',
+            password: '',
+            recommended: [
+                { name: 'Los Angeles', cost: 131, img: 'https://images.unsplash.com/photo-1503891450247-ee5f8ec46dc3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' },
+                { name: 'London', cost: 123, img: 'https://images.unsplash.com/photo-1481014472607-f71254019973?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' },
+                { name: 'Barcelona', cost: 103, img: 'https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' },
+                { name: 'New York', cost: 126, img: 'https://images.unsplash.com/photo-1520222984843-df35ebc0f24d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' },
+                { name: 'San Francisco', cost: 169, img: 'https://images.unsplash.com/photo-1533609209125-a94e5577125f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }
+            ]
+
         }
     }
 
     componentDidMount() {
+        // this.props.getData()
+    }
 
+    async login() {
+        const { email, password } = this.state
+        const response = await axios.post('/auth/login', { email, password })
+        if (response.data.loggedIn) {
+            // this.props.history.push('/')
+            console.log('user is logged in')
+        }
+        else {
+            console.log('Incorrect login')
+        }
+        this.setState({
+            email: '',
+            password: '',
+            toggleLogin: false
+        })
+    }
+
+    async register() {
+        const { first_name, last_name, phone, email, password, profile_pic_url } = this.state
+        let response = await axios.post('auth/register', { first_name, last_name, phone, profile_pic_url, email, password })
+        if (response.data.loggedIn) {
+            console.log('user is registered')
+        }
+        else {
+            console.log('email is already in use.')
+        }
+        this.setState({
+            first_name: '',
+            last_name: '',
+            profile_pic_url: '',
+            phone: '',
+            email: '',
+            password: '',
+            toggleSignup: false
+        })
+    }
+
+    handleInputChange(name, value) {
+        this.setState({
+            [name]: value
+        })
     }
 
     render() {
-        let { toggleLogin, toggleSignup } = this.state
+
+        let { toggleLogin, toggleSignup, recommended } = this.state
+        let map = recommended.map(place => {
+            console.log(place)
+            return (
+                <div className="place-relative" key={place.name}>
+                    <img className="place-container" src={place.img} alt={place.name} />
+                    <div className="text-absolute">
+                        <div>{place.name}</div>
+                        <div className="place-cost">${place.cost}/night average</div>
+                    </div>
+                </div>
+            )
+        })
         return (
-            <div>
+            <div className="flex-column">
                 <div className="homeheader-relative">
                     {/* login toggle */}
                     <div className={toggleLogin ? 'login' : 'login hidden'}>
                         <CancelButton onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })}>X</CancelButton>
-                        <BookingCardInput login placeholder="Email Address" />
-                        <BookingCardInput login placeholder="Password" type="password" />
+                        <BookingCardInput value={this.state.email} name="email" onChange={(e) => this.handleInputChange('email', e.target.value)} login placeholder="Email Address" />
+                        <BookingCardInput value={this.state.password} name="password" onChange={(e) => this.handleInputChange('password', e.target.value)} login placeholder="Password" />
                         <div className="flex-remember">
                             <div>
                                 <input type="checkbox"></input>
@@ -37,8 +110,20 @@ class Home extends Component {
                             </div>
                             <div>Show Password</div>
                         </div>
-                        <LoginButton login>Login</LoginButton>
+                        <LoginButton onClick={() => this.login()} login>Login</LoginButton>
                     </div>
+                    {/* Signup toggle */}
+                    <div className={toggleSignup ? 'signup' : 'signup hidden'}>
+                        <CancelButton onClick={() => this.setState({ toggleSignup: !this.state.toggleSignup })}>X</CancelButton>
+                        <BookingCardInput value={this.state.first_name} name="first_name" onChange={(e) => this.handleInputChange('first_name', e.target.value)} placeholder="First Name"></BookingCardInput>
+                        <BookingCardInput value={this.state.last_name} name="last_name" onChange={(e) => this.handleInputChange('last_name', e.target.value)} placeholder="Last Name"></BookingCardInput>
+                        <BookingCardInput value={this.state.phone} name="phone" onChange={(e) => this.handleInputChange('phone', e.target.value)} placeholder="Phone Number"></BookingCardInput>
+                        <BookingCardInput value={this.state.profile_pic_url} name="profile_pic_url" onChange={(e) => this.handleInputChange('profile_pic_url', e.target.value)} placeholder="Profile Pic Url"></BookingCardInput>
+                        <BookingCardInput value={this.state.email} name="email" onChange={(e) => this.handleInputChange('email', e.target.value)} placeholder="Email"></BookingCardInput>
+                        <BookingCardInput value={this.state.password} name="password" onChange={(e) => this.handleInputChange('password', e.target.value)} placeholder="Password"></BookingCardInput>
+                        <LoginButton onClick={() => this.register()} login>Sign Up</LoginButton>
+                    </div>
+
                     <header className="home-header-container">
                         <div className="header-top-left-content">
                             {/* Logo in the top right */}
@@ -65,11 +150,11 @@ class Home extends Component {
                         <div className="flex-check-inout">
                             <div>
                                 <div>CHECK-IN</div>
-                                <BookingDateInput type="date"></BookingDateInput>
+                                <BookingDateInput placeholder="mm/dd/yyyy"></BookingDateInput>
                             </div>
                             <div>
                                 <div>CHECKOUT</div>
-                                <BookingDateInput type="date"></BookingDateInput>
+                                <BookingDateInput placeholder="mm/dd/yyyy"></BookingDateInput>
                             </div>
                         </div>
                         <div>
@@ -81,9 +166,42 @@ class Home extends Component {
                         <BookingCardButton>Search</BookingCardButton>
                     </div>
                 </div>
+                <div className="explore-box">
+                    <h4 className="explore-airbnb">Explore Airbnb</h4>
+                    <div className="explore-container">
+                        <div className="explore-content">
+                            <img src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
+                            <h4 className="space">Homes</h4>
+                        </div>
+                        <div className="explore-content">
+                            <img src="https://images.unsplash.com/photo-1513883583436-c8bbfbc3b215?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
+                            <h4 className="space">Experiences</h4>
+                        </div>
+                        <div className="explore-content">
+                            <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
+                            <h4 className="space">Restaurants</h4>
+                        </div>
+                    </div>
+                </div>
+                <div className="explore-box">
+                    <h4 className="recommended-for-you">Recommended for you</h4>
+                    <div className="recommended-pictures-box">
+                        {map}
+                    </div>
+                </div>
+                {/* <div className="explore-box">
+                    <img width="1185" height="300" src={bannerPic} alt=""/>
+                </div> */}
+                {/* <Footer /> */}
             </div>
         )
     }
 }
+
+// function mapStateToProps(reduxStoreState) {
+//     return {
+//         user: reduxStoreState.user
+//     }
+// }
 
 export default Home

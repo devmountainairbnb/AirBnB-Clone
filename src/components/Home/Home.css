@@ -1,3 +1,9 @@
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* top header and first 100vh of screen */
 .background-img {
     width: 100%;
     height: 100vh;
@@ -57,13 +63,13 @@
     border-radius: 5px;
     position: absolute;
     top: 15%;
-    left: 20%;
-    color: #00383ae8;
+    left: 10%;
+    color: rgb(72, 72, 72);
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: .6rem;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .flex-check-inout {
@@ -105,6 +111,22 @@
     align-items: center;
     justify-content: space-evenly;
 }
+ /* SIGNUP TOGGLE STYLES */
+.signup {
+    position: absolute;
+    width: 400px;
+    height: 450px;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    top: calc(50% - 225px);
+    right: calc(50% - 200px);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
 
 .hidden {
     display: none;
@@ -114,4 +136,95 @@
     display: flex;
     justify-content: space-between;
     width: 80%;
+}
+
+/* explore airbnb */
+.explore-box {
+    width: 90%;
+    /* border: 1px solid black; */
+    
+}
+
+.explore-container {
+    height: 4.2rem;
+    display: flex;
+    /* border: 1px solid black; */
+    color: #00383ae8;
+}
+
+.explore-container div {
+    width: 21.3%;
+    height: 3.6rem;
+    /* border: 1px solid black; */
+    margin-right: 1rem;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    color: #3F3F3F;
+    box-shadow: .03rem .1rem .22rem rgba(63, 63, 63, 0.21);
+}
+
+.explore-airbnb {
+    margin: 1rem 0;
+    letter-spacing: .027rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: rgb(72, 72, 72);
+    /* border: 1px solid black; */
+}
+
+.explore-container img {
+    height: 3.6rem;
+}
+
+.explore-content {
+    display: flex;
+    align-items: center;
+}
+
+.space {
+    margin-left: .8rem;
+}
+
+/* Recommended for you content */
+.recommended-pictures-box {
+    width: 90%;
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+}
+
+.place-container {
+    height: 300px;
+    width: 233px;
+    border-radius: 4px;
+    margin: .3rem;
+}
+
+.place-relative {
+    position: relative;
+}
+
+.text-absolute {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    bottom: 20%;
+    right: 25%;
+    color: #ffffff;
+    font-size: .8rem;
+    font-weight: 900;
+}
+
+.place-cost {
+    font-size: .7rem;
+}
+
+.recommended-for-you {
+    letter-spacing: .027rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: rgb(72, 72, 72);
+    margin-top: 2rem;
+    margin-bottom: .5rem;
 }
