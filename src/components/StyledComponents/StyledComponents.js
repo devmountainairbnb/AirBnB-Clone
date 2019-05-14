@@ -44,5 +44,4 @@ font-size: 1rem;
 font-weight: 200;
 background-color: white;
 border: 1px solid lightgray;
-margin: 1rem;
 `
