@@ -13,9 +13,3 @@ const rootReducer = combineReducers({
 })
 
 export default createStore(rootReducer, applyMiddleware(promiseMiddleware))
-
-// let mapStateToProps = (reduxState) {
-//     return {
-//         user: reduxState.user
-//     }
-// }
