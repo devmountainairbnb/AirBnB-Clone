@@ -63,7 +63,8 @@ module.exports = {
             carbon_monoxide_detector,
             private_bathroom
         } = req.body
-        const { id } = req.session.user
+        // const { id } = req.session.user
+        const id = 1;
 
         const db = req.app.get('db')
         const newListing = await db.create_listing([

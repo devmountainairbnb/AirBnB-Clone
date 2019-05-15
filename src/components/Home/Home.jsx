@@ -6,6 +6,7 @@ import { BookingCardInput, BookingCardButton, BookingDateInput, CancelButton, Lo
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { getHomes } from './../../ducks/homesReducer'
+import Footer from './../Footer/Footer'
 
 class Home extends Component {
     constructor() {
@@ -202,7 +203,8 @@ class Home extends Component {
                     <div className="flex-homes">
                         {mapHomes}
                     </div>
-                </div> 
+                </div>
+                <Footer /> 
             </div>
         )
     }
