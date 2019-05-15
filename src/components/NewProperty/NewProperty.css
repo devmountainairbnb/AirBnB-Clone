@@ -1,32 +1,117 @@
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans|Roboto');
-
 * {
     box-sizing: border-box;
     margin: 0rem;
     padding: 0rem;
 }
 
-.new-prop-form {
-    width: 100%;
-    height: 100vh;
+.new-property-listing {
+    background-image: url('https://a0.muscache.com/airbnb/static/photos.6f837cb4.png');
+    background-size: 30rem;
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    height: 110rem;
+
+}
+
+.main-body-property {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-side {
+    width: 25rem;
+    margin-left: 9rem;
+}
+
+.right-side {
+    width: 25rem;
+    margin-right: 9rem;
+    margin-top: 4rem;
+}
+
+.step-one {
+    height: 24rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    font-family: 'Noto Sans', sans-serif;
+    align-items: flex-start;
+    margin-top: 3.5rem;
 }
 
-.input-form {
-    width: 50%;
+.new-property-listing h1 {
+    color: rgba(63, 63, 63, 0.925);
+    font-weight: lighter;
+    font-size: 2rem;
+    line-height: 2.4rem;
+    margin: 3.8rem 0rem 1rem 9rem;
+    width: 34rem;
+    padding-bottom: 1rem;
+    border-bottom: .1rem solid rgb(3, 155, 160);
+}
+
+.new-property-listing h2 {
+    width: 22rem;
+    color: rgba(63, 63, 63, 0.925);
+    font-weight: lighter;
+    font-size: 1.5rem;
+    line-height: 2.4rem;
+    margin-bottom: 1.6rem;
+}
+
+.new-property-listing h6 {
+    font-size: .8rem;
+    color: #B1B1B1;
+    letter-spacing: .05rem; 
+}
+
+.location {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
-.amenities {
+.new-property-listing select {
+    color: rgba(63, 63, 63, 0.925);
+    background: transparent;
+    border: .04rem solid rgba(177, 177, 177, 0.534);
+    width: 9.7rem;
+    margin-right: .6rem;
+    height: 2rem;
+    font-size: .9rem;
+}
+
+.step-two {
+    color: #3F3F3F;
+    height: 24rem;
+}
+
+.beds-counter,
+.baths-counter {
+    width: 18rem;
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    font-size: .8rem;
 }
 
-form input {
-    margin: 1.5rem .5rem;
+.step-two h6,
+.step-three h6 {
+    margin-bottom: .5rem;
+}
+
+.step-three {
+    height: 30rem;
+    color: #3F3F3F;
+}
+
+.amenities input {
+    color: rgba(63, 63, 63, 0.925);
+}
+
+.step-four textarea {
+    height: 9rem;
+    width: 20rem;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    margin: .9rem .6rem 0rem 0rem;
+    padding-left: .3rem;
+    font-size: .9rem;
 }
