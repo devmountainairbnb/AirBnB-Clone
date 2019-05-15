@@ -19,8 +19,6 @@ module.exports = {
             details: listing[0],
             urls
         }
-        
-        console.log(data)
 
         res.status(200).send(data)
     },

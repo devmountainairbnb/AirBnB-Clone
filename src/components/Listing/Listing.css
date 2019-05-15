@@ -1,4 +1,6 @@
+body{
 
+}
 .imagePrimary{
     overflow: hidden;
     margin-right: 1px;
@@ -33,7 +35,7 @@
     justify-content: center;
 }
 .listInfoContainer{
-    max-width: 80vw;
+    max-width: 50vw
 }
 .listingHead{
     display: flex;
@@ -48,8 +50,10 @@
     display: flex;
     justify-content: center;
     background-color: #AAA;
-    width: 40em;
+    width: 22em;
     margin: 1em;
+    height: 30em;
+    /* position: absolute */
 }
 
 .listingImg:hover, .listingPrimary:hover{
@@ -59,4 +63,23 @@
     width: 5em;
     height: 5em;
     border-radius: 20em;
+}
+.amenityWrapper{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+}
+
+.amenityTrue, .amenityFalse {
+    width: 50%;
+    padding-top: 1em;
+    font-size: 16px;
+    color: #555;
+    align-items: center;
+    
+}
+
+.amenityFalse{
+    color: #DDD;
 }
