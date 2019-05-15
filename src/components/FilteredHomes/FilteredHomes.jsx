@@ -27,7 +27,6 @@ class FilteredHomes extends Component {
                         <h4>Restaurants</h4>
                     </div>  
                 </div>
-
                 <h2>Where To Stay</h2>
                 <div className="homes-container">
                     mapping of homes....

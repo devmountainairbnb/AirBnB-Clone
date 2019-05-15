@@ -8,8 +8,8 @@ class HeaderLoggedIn extends Component {
         return (
             <header className="header-container">
                 <div className="header-top-left-content">
-                    <img className="airbnb-logo" src={logo} alt=""/>
-                    <BookingCardInput placeholder="Anywhere &#8226; Homes"/>
+                    <img className="airbnb-logo" src={logo} alt="" />
+                    <BookingCardInput placeholder="Anywhere &#8226; Homes" />
                 </div>
                 <div className="header-top-right-content">
                     <div>Add Listing</div>
@@ -17,7 +17,7 @@ class HeaderLoggedIn extends Component {
                     <div>Saved</div>
                     <div>Trips</div>
                     <div>Help</div>
-                    <img src="http://placehold.jp/006699/cccc00/35x35.jpg" alt=""/>
+                    <img src="http://placehold.jp/006699/cccc00/35x35.jpg" alt="" />
                 </div>
             </header>
         )

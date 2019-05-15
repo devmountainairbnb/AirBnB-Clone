@@ -24,3 +24,8 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+
+
+
+# unused
+/server/controllers/listingCtrl.js

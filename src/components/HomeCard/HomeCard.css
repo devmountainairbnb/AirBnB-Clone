@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.homecard-container {
+    margin: 1.5rem .2rem .5rem 4rem;
+    color: #3F3F3F;
+}
+
+.homecard-container img {
+    width: 17rem;
+    height: 12rem;
+    border-radius: .2rem;
+}
+
+.homecard-container h4 {
+    text-transform: uppercase;
+    font-size: .9rem;
+}
+
+.homecard-container h5 {
+    font-size: .87rem;
+    font-weight: lighter;
+    margin-top: .13rem;
+}
+
+.homecard-container h6 {
+    font-size: .7rem;
+    font-weight: bolder;
+    margin-top: .13rem;
+}

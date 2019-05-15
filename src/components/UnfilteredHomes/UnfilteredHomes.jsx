@@ -1,10 +1,22 @@
 import React, { Component } from 'react'
+import { getHomes, getHomesTopRated } from './../../ducks/homesReducer'
+import { connect } from 'react-redux'
+import HomeCard from './../HomeCard/HomeCard'
 import HeaderLoggedIn from './../Header/HeaderLoggedIn'
 import Footer from './../../components/Footer/Footer'
 import './UnfilteredHomes.css'
 
 class UnfilteredHomes extends Component {
+    componentDidMount() {
+        this.props.getHomes()
+        this.props.getHomesTopRated()
+    }
+
     render() {
+        let homes = this.props.homes.topRatedHomes.map((home, i) => {
+            return <HomeCard key={home.title} home={home}/>
+        })
+
         return (
             <div>
                 <HeaderLoggedIn/>
@@ -45,15 +57,25 @@ class UnfilteredHomes extends Component {
                 <div className="rated-homes-container">
                     <h2>Top-rated homes</h2>
                     <p>Explore some of the best-reviewed homes in the world</p>
+                    <div className="homes-display-container">{homes}</div>
+                    
                 </div>
 
                 <div className="picked-homes-container">
                     <h2>Homes in *City*</h2>
                 </div>
+                
                 <Footer/>
             </div>
         )
     }
 }
 
-export default UnfilteredHomes
+function mapStatetoProps(reduxStoreState) {
+    return {
+        homes: reduxStoreState.homes,
+        topRatedHomes: reduxStoreState.homes
+    }
+}
+
+export default connect(mapStatetoProps, {getHomes, getHomesTopRated})(UnfilteredHomes)

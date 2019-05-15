@@ -3,6 +3,7 @@ const express = require('express');
 const massive = require('massive');
 const session = require('express-session');
 const authCtrl = require('./controllers/authCtrl');
+const homesCtrl = require('./controllers/homesCtrl')
 
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 
@@ -22,7 +23,16 @@ app.use(session({
     saveUninitialized: false
 }))
 
+//AUTH ENDPOINTS
 app.post('/auth/register', authCtrl.register)
 app.post('/auth/login', authCtrl.login)
 app.get('/auth/logout', authCtrl.logout)
 app.get('/auth/user-data', authCtrl.userData)
+
+//HOMES ENDPOINTS
+app.get('/api/homes', homesCtrl.getHomes)
+
+app.get('/api/listing/:property_id', homesCtrl.getListing)
+
+app.get('/api/topratedhomes', homesCtrl.getHomesTopRated)
+app.post('/api/createlisting', homesCtrl.createListing)

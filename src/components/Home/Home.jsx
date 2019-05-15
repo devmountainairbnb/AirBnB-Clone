@@ -3,11 +3,9 @@ import './Home.css'
 import chillbus from './backgrounds/chillbus.jpg'
 import logo from './backgrounds/airbnb-red.png'
 import { BookingCardInput, BookingCardButton, BookingDateInput, CancelButton, LoginButton } from './../StyledComponents/StyledComponents'
-import bannerPic from './backgrounds/city.jpg'
-import Footer from './../Footer/Footer.jsx'
-import axios from 'axios';
-// import { connect } from 'react-redux'
-// import { getData } from './../../ducks/userReducer'    
+import axios from 'axios'
+import { connect } from 'react-redux'
+import { getHomes } from './../../ducks/homesReducer'
 
 class Home extends Component {
     constructor() {
@@ -34,7 +32,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        // this.props.getData()
+        this.props.getHomes()
     }
 
     async login() {
@@ -81,10 +79,9 @@ class Home extends Component {
     }
 
     render() {
-
+        let { homes } = this.props.homes
         let { toggleLogin, toggleSignup, recommended } = this.state
-        let map = recommended.map(place => {
-            console.log(place)
+        let mapPlaces = recommended.map(place => {
             return (
                 <div className="place-relative" key={place.name}>
                     <img className="place-container" src={place.img} alt={place.name} />
@@ -92,6 +89,17 @@ class Home extends Component {
                         <div>{place.name}</div>
                         <div className="place-cost">${place.cost}/night average</div>
                     </div>
+                </div>
+            )
+        })
+        let mapHomes = homes.map(home => {
+            console.log(home)
+            return (
+                <div className="house-box">
+                    <img className="home-img" src={home.image_url[0]} alt="" />
+                    <div>{home.title[0]}</div>
+                    <div className="cost-per-night">${home.cost[0]} per night</div>
+                    <h6>&#9733;&#9733;&#9733;&#9733;&#9733; &#8729;Superhost</h6>
                 </div>
             )
         })
@@ -186,22 +194,24 @@ class Home extends Component {
                 <div className="explore-box">
                     <h4 className="recommended-for-you">Recommended for you</h4>
                     <div className="recommended-pictures-box">
-                        {map}
+                        {mapPlaces}
                     </div>
                 </div>
-                {/* <div className="explore-box">
-                    <img width="1185" height="300" src={bannerPic} alt=""/>
-                </div> */}
-                {/* <Footer /> */}
+                <div className="explore-box">
+                    <h4 className="recommended-for-you">Homes around the world</h4>
+                    <div className="flex-homes">
+                        {mapHomes}
+                    </div>
+                </div> 
             </div>
         )
     }
 }
 
-// function mapStateToProps(reduxStoreState) {
-//     return {
-//         user: reduxStoreState.user
-//     }
-// }
+function mapStatetoProps(reduxStoreState) {
+    return {
+        homes: reduxStoreState.homes
+    }
+}
 
-export default Home
+export default connect(mapStatetoProps, { getHomes })(Home)
