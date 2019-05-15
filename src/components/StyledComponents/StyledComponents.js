@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const BookingCardInput = styled.input`
 width: ${props => props.login ? "25rem" : "18rem"};
-height: 2rem;
+height: 2.3rem;
 border: 1px solid lightgray;
 border-radius: 3px;
 `
@@ -18,6 +18,7 @@ position: absolute;
 bottom: 1rem;
 right: 2rem;
 `
+
 export const LoginButton = styled.button`
 width: ${props => props.login ? "15.5rem" : "5.5rem"};
 height 2.5rem;
@@ -30,7 +31,7 @@ margin: 1.5rem;
 
 export const BookingDateInput = styled.input`
 width: 8.9rem;
-height: 2rem;
+height: 2.3rem;
 border: 1px solid lightgray;
 border-radius 3px;
 `

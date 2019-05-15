@@ -3,6 +3,10 @@
     flex-direction: column;
     align-items: center;
 }
+
+.dark {
+    opacity: .1;
+}
 /* top header and first 100vh of screen */
 .background-img {
     width: 100%;
@@ -32,7 +36,7 @@
     position: absolute;
     top: 0;
     background: linear-gradient(0deg, rgba(153,218,255,0) 0%, rgba(0,0,0,0.3) 100%);
-    color: white;
+    color: #ffffff;
 }
 
 .header-top-left-content {
@@ -51,7 +55,12 @@
     font-weight: 600;
     border: none;
     background-color: transparent;
-    color: white;
+    color: #ffffff;
+    font-family: sans-serif;
+}
+
+.link-styles {
+    cursor: pointer;
 }
 
 .book-home-content {
@@ -72,6 +81,10 @@
     font-weight: 800;
 }
 
+.padding-input {
+    padding-left: .7rem;
+}
+
 .flex-check-inout {
     display: flex;
     margin-top: 1rem;
@@ -87,8 +100,14 @@
 
 .guests-dropdown {
     width: 18rem;
-    height: 2rem;
+    height: 2.3rem;
     border: 1px solid lightgray;
+    border-radius: 3px;
+    color: rgb(72, 72, 72);
+}
+
+.guests-dropdown:hover {
+    cursor: pointer;
 }
 
 .margin-top-guests {
@@ -100,7 +119,7 @@
     position: absolute;
     width: 500px;
     height: 350px;
-    background-color: white;
+    background-color: #ffffff;
     border: 1px solid lightgray;
     border-radius: 3px;
     top: calc(50% - 175px);
@@ -116,7 +135,7 @@
     position: absolute;
     width: 400px;
     height: 450px;
-    background-color: white;
+    background-color: #ffffff;
     border: 1px solid lightgray;
     border-radius: 3px;
     top: calc(50% - 225px);
@@ -141,8 +160,17 @@
 /* explore airbnb */
 .explore-box {
     width: 90%;
-    /* border: 1px solid black; */
-    
+}
+
+.explore-box2 {
+    width: 90%;
+    margin-left: 1rem;
+    margin-bottom: 5rem;
+}
+
+.flex-homes {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .explore-container {
@@ -153,7 +181,7 @@
 }
 
 .explore-container div {
-    width: 21.3%;
+    width: 23%;
     height: 3.6rem;
     /* border: 1px solid black; */
     margin-right: 1rem;
@@ -161,6 +189,10 @@
     font-family: 'Roboto', sans-serif;
     color: #3F3F3F;
     box-shadow: .03rem .1rem .22rem rgba(63, 63, 63, 0.21);
+}
+
+.explore-container div:hover {
+    cursor: pointer;
 }
 
 .explore-airbnb {
@@ -196,8 +228,13 @@
 .place-container {
     height: 300px;
     width: 233px;
-    border-radius: 4px;
-    margin: .3rem;
+    border-radius: 3px;
+    margin-right: .7rem;
+    font-family: sans-serif;
+}
+
+.place-container:hover {
+    cursor: pointer;
 }
 
 .place-relative {
@@ -209,11 +246,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    bottom: 20%;
+    bottom: 12%;
     right: 25%;
     color: #ffffff;
     font-size: .8rem;
     font-weight: 900;
+}
+
+.text-absolute:hover {
+    cursor: pointer;
 }
 
 .place-cost {
@@ -227,4 +268,92 @@
     color: rgb(72, 72, 72);
     margin-top: 2rem;
     margin-bottom: .5rem;
+}
+
+/* homes display styling */
+.house-box {
+    width: 285px;
+    height: 285px;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: rgb(72, 72, 72);
+}
+
+.house-box:hover {
+    cursor: pointer;
+}
+
+.house-box img {
+    width: 100%;
+    height: 200px;
+}
+
+.cost-per-night {
+    font-size: .7rem;
+}
+
+.home-img {
+    border-radius: 5px;
+}
+
+/* banner display styling */
+.banner-center {
+    width: 90%;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.banner-center .banner-img {
+    width: 99.5%;
+    height: 48vh;
+}
+
+.absolute-to-banner {
+    /* border: 2px solid pink; */
+    width: 30%;
+    height: 100%;
+    position: absolute;
+    color: #ffffff;
+    top: 3rem;
+    left: 3rem;
+}
+
+.absolute-to-banner span {
+    margin: .5rem;
+    font-size: .7rem;
+    letter-spacing: 1px;
+}
+
+.absolute-to-banner h3 {
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.absolute-to-banner p {
+    font-size: 1.2rem;
+}
+
+.absolute-to-banner button {
+    margin-top: 1rem;
+    width: 7rem;
+    height: 2.5rem;
+    color: #484848;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    font-weight: 800;
+    font-size: .7rem;
+}
+
+.absolute-to-banner button:hover {
+    cursor: pointer;
+}
+
+.flex-logo-experience {
+    display:  flex;
+    align-items: center;
 }

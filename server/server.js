@@ -38,3 +38,4 @@ app.get('/api/listing/:property_id', homesCtrl.getListing)
 
 app.get('/api/topratedhomes', homesCtrl.getHomesTopRated)
 app.post('/api/createlisting', homesCtrl.createListing)
+app.get('/api/eighthomes', homesCtrl.getEightHomes)
