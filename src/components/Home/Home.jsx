@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import './Home.css'
-import chillbus from './backgrounds/chillbus.jpg'
+import chillbus from './backgrounds/chillbus2.jpg'
 import logo from './backgrounds/airbnb-red.png'
+import whiteLogo from './backgrounds/airbnb-512.png'
 import { BookingCardInput, BookingCardButton, BookingDateInput, CancelButton, LoginButton } from './../StyledComponents/StyledComponents'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { getHomes } from './../../ducks/homesReducer'
+import { getEightHomes, getHomes } from './../../ducks/homesReducer'
 import Footer from './../Footer/Footer'
+import banner from './backgrounds/banner.jpg'
+// import { Link } from 'react-router-dom'
 
 class Home extends Component {
     constructor() {
@@ -33,7 +36,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.props.getHomes()
+        this.props.getEightHomes()
     }
 
     async login() {
@@ -80,7 +83,8 @@ class Home extends Component {
     }
 
     render() {
-        let { homes } = this.props.homes
+        let { eightHomes } = this.props.homes
+        console.log(this.props.homes)
         let { toggleLogin, toggleSignup, recommended } = this.state
         let mapPlaces = recommended.map(place => {
             return (
@@ -93,17 +97,17 @@ class Home extends Component {
                 </div>
             )
         })
-        let mapHomes = homes.map(home => {
-            console.log(home)
+        let mapHomes = eightHomes.map(home => {
             return (
-                <div className="house-box">
-                    <img className="home-img" src={home.image_url[0]} alt="" />
-                    <div>{home.title[0]}</div>
-                    <div className="cost-per-night">${home.cost[0]} per night</div>
-                    <h6>&#9733;&#9733;&#9733;&#9733;&#9733; &#8729;Superhost</h6>
-                </div>
+                    <div className="house-box">
+                        <img className="home-img" src={home.image_url[0]} alt="" />
+                        <div>{home.title[0]}</div>
+                        <div className="cost-per-night">${home.cost[0]} per night</div>
+                        <h6><span style={{ color: "#00797E" }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span> &#8729;Superhost</h6>
+                    </div>
             )
         })
+        //Ternary here for the ability to darken screen on signup and login
         return (
             <div className="flex-column">
                 <div className="homeheader-relative">
@@ -132,47 +136,49 @@ class Home extends Component {
                         <BookingCardInput value={this.state.password} name="password" onChange={(e) => this.handleInputChange('password', e.target.value)} placeholder="Password"></BookingCardInput>
                         <LoginButton onClick={() => this.register()} login>Sign Up</LoginButton>
                     </div>
-
-                    <header className="home-header-container">
-                        <div className="header-top-left-content">
-                            {/* Logo in the top right */}
-                            <img className="airbnb-logo" src={logo} alt="" />
-                        </div>
-                        {/* links in the top left */}
-                        <div className="header-top-right-content">
-                            <div className="link-styles">Become a host</div>
-                            <div className="link-styles">Help</div>
-                            <div onClick={() => this.setState({ toggleSignup: !this.state.toggleSignup })} className="link-styles">Sign Up</div>
-                            <div onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })} className="link-styles" >Log in</div>
-                        </div>
-                    </header>
-                    <img className="background-img" src={chillbus} alt="" />
-                    {/* book unique homes box */}
-                    <div className="book-home-content">
-                        <div className="book-unique-homes">Book unique homes and experiences.</div>
-                        <div>
-                            <div>WHERE</div>
-                            <BookingCardInput placeholder="Anywhere" />
-                        </div>
-                        <div>
-                        </div>
-                        <div className="flex-check-inout">
+                    <div className={toggleLogin || toggleSignup ? "dark" : ''}>
+                        <header className="home-header-container">
+                            <div className="header-top-left-content">
+                                {/* Logo in the top right */}
+                                <img className="airbnb-logo" src={logo} alt="" />
+                            </div>
+                            {/* links in the top left */}
+                            <div className="header-top-right-content">
+                                <div className="link-styles">Become a host</div>
+                                <div className="link-styles">Help</div>
+                                <div onClick={() => this.setState({ toggleSignup: !this.state.toggleSignup })} className="link-styles">Sign Up</div>
+                                <div onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })} className="link-styles" >Log in</div>
+                            </div>
+                        </header>
+                        <img className="background-img" src={chillbus} alt="" />
+                        {/* book unique homes box */}
+                        <div className="book-home-content">
+                            <div className="book-unique-homes">Book unique homes and experiences.</div>
                             <div>
-                                <div>CHECK-IN</div>
-                                <BookingDateInput placeholder="mm/dd/yyyy"></BookingDateInput>
+                                <div>WHERE</div>
+                                <BookingCardInput className="padding-input" placeholder="Anywhere" />
                             </div>
                             <div>
-                                <div>CHECKOUT</div>
-                                <BookingDateInput placeholder="mm/dd/yyyy"></BookingDateInput>
                             </div>
+                            <div className="flex-check-inout">
+                                <div>
+                                    <div>CHECK-IN</div>
+                                    <BookingDateInput className="padding-input" placeholder="mm/dd/yyyy"></BookingDateInput>
+                                </div>
+                                <div>
+                                    <div>CHECKOUT</div>
+                                    <BookingDateInput className="padding-input" placeholder="mm/dd/yyyy"></BookingDateInput>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="margin-top-guests">GUESTS</div>
+                                <select className="guests-dropdown">
+                                    <option>Guests</option>
+                                </select>
+                            </div>
+                            <BookingCardButton>Search</BookingCardButton>
                         </div>
-                        <div>
-                            <div className="margin-top-guests">GUESTS</div>
-                            <select className="guests-dropdown">
-                                <option>Guests</option>
-                            </select>
-                        </div>
-                        <BookingCardButton>Search</BookingCardButton>
+                        <Footer />
                     </div>
                 </div>
                 <div className="explore-box">
@@ -198,13 +204,24 @@ class Home extends Component {
                         {mapPlaces}
                     </div>
                 </div>
-                <div className="explore-box">
+                <div className="banner-center">
+                    <img className="banner-img" src={banner} alt="" />
+                    <div className="absolute-to-banner">
+                        <div className="flex-logo-experience">
+                            <img width="15" src={whiteLogo} alt="" />
+                            <span>EXPERIENCES</span>
+                        </div>
+                        <h3>Because you don't <br></br> travel to sleep.</h3>
+                        <p>Memorable activities led by locals, <br></br> created for the curious.</p>
+                        <button>LEARN MORE</button>
+                    </div>
+                </div>
+                <div className="explore-box2">
                     <h4 className="recommended-for-you">Homes around the world</h4>
                     <div className="flex-homes">
                         {mapHomes}
                     </div>
                 </div>
-                <Footer /> 
             </div>
         )
     }
@@ -216,4 +233,4 @@ function mapStatetoProps(reduxStoreState) {
     }
 }
 
-export default connect(mapStatetoProps, { getHomes })(Home)
+export default connect(mapStatetoProps, { getEightHomes, getHomes })(Home)
