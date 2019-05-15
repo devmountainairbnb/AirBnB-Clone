@@ -3,8 +3,7 @@ import Header from '../Header/Header'
 import Lightbox from 'react-image-lightbox'
 import {getListing} from '../../ducks/listingReducer'
 import {updateBookingDates, updateBookingStart, updateBookingEnd} from '../../ducks/bookingReducer'
-// import Icon from '../StyledComponents/AmenitiesIcons/index'
-import amenities from './AmenitiesMapper'
+import Icon from '../StyledComponents/AmenitiesIcons/index'
 
 
 import Calendar from 'react-calendar'
@@ -41,7 +40,6 @@ class Listing extends Component {
         const images = urls
 
         console.log(this.props)
-        console.log(this.state.startDateOpen)
 
         const {photoIndex, isOpen} = this.state
 
@@ -76,11 +74,29 @@ class Listing extends Component {
             }
         })
 
+
+        const amenities = (obj) => {
+            const keys = Object.keys(obj)
+            const values = Object.values(obj)
+
+            const amenities = values.map((value, i) => {
+                if(value === true){
+                    return <div className='amenityTrue' key={i}>{<Icon name={keys[i]} color='#555' width={20}/>} {keys[i]}</div>
+                }else if(value === false){
+                    return <div className='amenityFalse' key={i}>{<Icon name={keys[i]} color='#DDD' width={20}/>} {keys[i].split('_')}</div>
+                }
+            })
+
+            return amenities.filter(item => item !== undefined)
+
+
+        }
+        console.log(amenities(details))
+
         return (
             <div>
                 <Header />
                 <div className='listingImages'>
-                    {amenities(details)}
                     {imgView}
                     {isOpen && (
                         <Lightbox
@@ -100,6 +116,7 @@ class Listing extends Component {
                             }
                         />
                     )}
+
                     
                 </div>
             <br/>
@@ -140,22 +157,11 @@ class Listing extends Component {
                             </section>
                             <br/>
                             <section>
-                                Amenities
+                                <h3>Amenities</h3>
                                 <br/>
-                                        <span>Amenity </span>
-                                        <span>Amenity </span>
-                                        <span>Amenity </span>
-                                        <span>Amenity </span>
-                                        <span>Amenity </span>
-                                        <span>Amenity </span>
-    
-                                        {/* for(prop in amenity){
-                                            if(amenity = true){
-                                                return <div>{amenity name}</div>
-                                            }
-                                        }
-                                        
-                                    or something like that */}
+                                <div className='amenityWrapper'>
+                                {amenities(details)}
+                                </div>
                                         
                                     <br/>
                                     <br/>
@@ -171,7 +177,6 @@ class Listing extends Component {
                                         Booking calendars here.
                                         <Calendar selectRange='true' returnValue='range' onChange={(value) => {
                                             this.handleChange(value)}}/>
-                                        {/* <Calendar selectRange='true' activeStartDate={nextMonth}/> */}
 
                                     </div>
                                 </label>
@@ -184,17 +189,17 @@ class Listing extends Component {
                     <div className='stickyBooking'>
                         <form>
                             <label>
-                                {'$ property.cost per night'}
+                                <span><h2>${details.cost}</h2> per night</span>
                                 <br/>
                                 Reviews
                             </label>
                             <br/>
                             <input type='text' placeholder='Check In' value={this.props.booking.start_date} onFocus={() => this.setState({startDateOpen: true})}/>
+                            <input type='text' disabled placeholder='Check Out' value={this.props.booking.end_date}/>
                             {this.state.startDateOpen && <Calendar onClickDay={(value) => {
                                     this.props.updateBookingStart(value)
                                     this.setState({startDateOpen: false, endDateOpen: true})
                                     }}/>}
-                            <input type='text' disabled placeholder='Check Out' value={this.props.booking.end_date}/>
                             {this.state.endDateOpen && <Calendar onClickDay={(value) => {
                                     this.props.updateBookingEnd(value)
                                     this.setState({endDateOpen: false})
