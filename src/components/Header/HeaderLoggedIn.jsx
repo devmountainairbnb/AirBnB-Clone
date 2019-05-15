@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './HeaderLoggedIn.css'
-import logo from './../Home/backgrounds/airbnb-red.png'
+import logoTeal from './../Home/backgrounds/airbnb-teal.png'
 import { BookingCardInput } from './../../components/StyledComponents/StyledComponents'
 
 class HeaderLoggedIn extends Component {
@@ -8,7 +8,7 @@ class HeaderLoggedIn extends Component {
         return (
             <header className="header-container">
                 <div className="header-top-left-content">
-                    <img className="airbnb-logo" alt="logo" src={logo}/>
+                    <img className="airbnb-logo" alt="logo" src={logoTeal}/>
                     <BookingCardInput placeholder="Anywhere &#8226; Homes"/>
                 </div>
                 <div className="header-top-right-content">
@@ -19,6 +19,7 @@ class HeaderLoggedIn extends Component {
                     <div>Help</div>
                     <img src="http://placehold.jp/006699/cccc00/35x35.jpg" alt=""/>
                 </div>
+
             </header>
         )
     }
