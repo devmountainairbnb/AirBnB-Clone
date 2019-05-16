@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getHomes, getHomesTopRated } from './../../ducks/homesReducer'
+import { getHomesAustin, getHomesTopRated, getHomes } from './../../ducks/homesReducer'
 import { connect } from 'react-redux'
 import HomeCard from './../HomeCard/HomeCard'
 import HeaderLoggedIn from './../Header/HeaderLoggedIn'
@@ -9,11 +9,18 @@ import './UnfilteredHomes.css'
 class UnfilteredHomes extends Component {
     componentDidMount() {
         this.props.getHomes()
+        this.props.getHomesAustin()
         this.props.getHomesTopRated()
     }
 
     render() {
-        let homes = this.props.homes.topRatedHomes.map((home, i) => {
+        let homes = this.props.homes.homes.map((home, i) => {
+            return <HomeCard key={home.title} home={home}/>
+        })
+        let topRatedHomes = this.props.homes.topRatedHomes.map((home, i) => {
+            return <HomeCard key={home.title} home={home}/>
+        })
+        let homesAustin = this.props.homes.austinHomes.map((home, i) => {
             return <HomeCard key={home.title} home={home}/>
         })
 
@@ -57,12 +64,18 @@ class UnfilteredHomes extends Component {
                 <div className="rated-homes-container">
                     <h2>Top-rated homes</h2>
                     <p>Explore some of the best-reviewed homes in the world</p>
-                    <div className="homes-display-container">{homes}</div>
+                    <div className="homes-display-container">{topRatedHomes}</div>
                     
                 </div>
 
                 <div className="picked-homes-container">
-                    <h2>Homes in *City*</h2>
+                    <h2>Homes in Austin, TX</h2>
+                    <div className="homes-display-container">{homesAustin}</div>
+                </div>
+                
+                <div className="picked-homes-container">
+                    <h2>300+ Homes</h2>
+                    <div className="homes-display-container">{homes}</div>
                 </div>
                 
                 <Footer/>
@@ -78,4 +91,4 @@ function mapStatetoProps(reduxStoreState) {
     }
 }
 
-export default connect(mapStatetoProps, {getHomes, getHomesTopRated})(UnfilteredHomes)
+export default connect(mapStatetoProps, {getHomesAustin, getHomesTopRated, getHomes})(UnfilteredHomes)

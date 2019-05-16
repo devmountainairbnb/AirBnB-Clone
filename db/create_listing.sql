@@ -27,8 +27,20 @@ from address;
 insert into image (assoc_property_id, image_url)
 select max(property_id), $13
 from property;
+insert into image (assoc_property_id, image_url)
+select max(property_id), $14
+from property;
+insert into image (assoc_property_id, image_url)
+select max(property_id), $15
+from property;
+insert into image (assoc_property_id, image_url)
+select max(property_id), $16
+from property;
+insert into image (assoc_property_id, image_url)
+select max(property_id), $17
+from property;
 
 insert into amenities (assoc_property_id, kitchen, shampoo, heating, air_conditioning, washer, dryer, wifi, breakfast, indoor_fireplace, iron, hair_dryer, laptop_friendly_workspace, crib, tv, smoke_detector, carbon_monoxide_detector, private_bathroom)
-select max(property_id), $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30
+select max(property_id), $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34
 from property
 
