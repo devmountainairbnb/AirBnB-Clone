@@ -9,8 +9,27 @@
 }
 /* top header and first 100vh of screen */
 .background-img {
-    width: 100%;
+    margin: none;
+    padding: none;
+    border: none;
+    width: 100vw;
     height: 100vh;
+    background-image: url('./backgrounds/fixedChillBus.jpg');
+    background-size: 100% 100%;
+    animation:slider 20s infinite linear;
+}
+
+@keyframes slider {
+    0% { background-image: url('./backgrounds/fixedChillBus.jpg')}
+    /* 10% { background-image: url('./backgrounds/chillbus2.jpg')} */
+    10% { background-image: url('./backgrounds/fixedChillBus.jpg')}
+    20% { background-image: url('./backgrounds/cliffJumping.jpg')}
+    30% { background-image: url('./backgrounds/cliffJumping.jpg')}
+    40% { background-image: url('./backgrounds/cliffJumping.jpg')}
+    50% { background-image: url('./backgrounds/bridge.jpg')}
+    60% { background-image: url('./backgrounds/bridge.jpg')}
+    70% { background-image: url('./backgrounds/bridge.jpg')}
+    80% { background-image: url('./backgrounds/fixedChillBus.jpg')}
 }
 
 .homeheader-relative {

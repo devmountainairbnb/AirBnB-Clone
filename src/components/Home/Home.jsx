@@ -136,7 +136,6 @@ class Home extends Component {
                         <BookingCardInput value={this.state.password} name="password" onChange={(e) => this.handleInputChange('password', e.target.value)} placeholder="Password"></BookingCardInput>
                         <LoginButton onClick={() => this.register()} login>Sign Up</LoginButton>
                     </div>
-                    <div className={toggleLogin || toggleSignup ? "dark" : ''}>
                         <header className="home-header-container">
                             <div className="header-top-left-content">
                                 {/* Logo in the top right */}
@@ -150,7 +149,8 @@ class Home extends Component {
                                 <div onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })} className="link-styles" >Log in</div>
                             </div>
                         </header>
-                        <img className="background-img" src={chillbus} alt="" />
+                        {/* <img className="background-img" src={chillbus} alt="" /> */}
+                        <div className="background-img"></div>
                         {/* book unique homes box */}
                         <div className="book-home-content">
                             <div className="book-unique-homes">Book unique homes and experiences.</div>
@@ -179,7 +179,6 @@ class Home extends Component {
                             <BookingCardButton>Search</BookingCardButton>
                         </div>
                         <Footer />
-                    </div>
                 </div>
                 <div className="explore-box">
                     <h4 className="explore-airbnb">Explore Airbnb</h4>
