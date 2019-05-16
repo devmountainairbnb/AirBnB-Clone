@@ -5,12 +5,16 @@ import {getListing} from '../../ducks/listingReducer'
 import {updateBookingDates, updateBookingStart, updateBookingEnd} from '../../ducks/bookingReducer'
 import Icon from '../StyledComponents/AmenitiesIcons/index'
 
+import 'react-dates/initialize'
+import {DateRangePicker, DayPickerRangeController, SingleDatePicker} from 'react-dates'
+import 'react-dates/lib/css/_datepicker.css'
 
-import Calendar from 'react-calendar'
+import {BookingCardButton} from '../StyledComponents/StyledComponents'
 
 import './Listing.css'
 import 'react-image-lightbox/style.css'
 import { connect } from 'react-redux';
+import { stringLiteral } from '@babel/types';
 
 
 
@@ -21,8 +25,9 @@ class Listing extends Component {
         this.state = {
             photoIndex: 0,
             isOpen: false,
-            startDateOpen: false,
-            endDateOpen: false
+            opacity: 'listingImg',
+            // focusedInput: 'startDate'
+
 
         }
     }
@@ -39,37 +44,53 @@ class Listing extends Component {
         const {details, urls} = this.props.listing
         const images = urls
 
-        console.log(this.props)
 
         const {photoIndex, isOpen} = this.state
 
         let nextMonth = new Date()
         nextMonth.setMonth(nextMonth.getMonth()+1)
 
+        function capitalize(str) {
+            let arr = str.split('_')
+            let capitalized = arr[0].charAt(0).toUpperCase() + arr[0].slice(1)
+            arr.splice(0, 1, capitalized)
 
-
+            return arr.join(' ')
+        }
 
         const imgView = images.map((img, i) => {
             if(i === 0){
-                return <div className='imagePrimary'>
-                    <img
-                    className='listingImg'
+                return <div
                     key={i}
+                    className='imagePrimary'
+                    onMouseOver={() => this.setState({opacity: 'listingImgHover'})}
+                    onMouseOut={() => (this.setState({opacity: 'listingImg'}))}>
+                <img
+                    className={this.state.opacity}
+                    
                     src={img}
                     alt='property views'
                     onClick={() => this.setState({ photoIndex: i, isOpen: true })}
                     />
+
                 </div>
 
             } else {
-                return <div className='imageWrapper'>
-                    <img
-                    className='listingImg'
+                return <div 
                     key={i}
+                    className='imageWrapper'
+                    onMouseOver={() => this.setState({opacity: 'listingImgHover'})}
+                    onMouseOut={() => this.setState({opacity: 'listingImg'})}
+                    >
+                <img
+                    className={this.state.opacity}
                     src={img}
                     alt='property views'
                     onClick={() => this.setState({ photoIndex: i, isOpen: true })}
+                    
+
                     />
+
                 </div>
             }
         })
@@ -81,9 +102,9 @@ class Listing extends Component {
 
             const amenities = values.map((value, i) => {
                 if(value === true){
-                    return <div className='amenityTrue' key={i}>{<Icon name={keys[i]} color='#555' width={20}/>} {keys[i]}</div>
+                    return <div className='amenityTrue' key={i}>{<Icon name={keys[i]} color='#555' width={20}/>} {capitalize(keys[i])}</div>
                 }else if(value === false){
-                    return <div className='amenityFalse' key={i}>{<Icon name={keys[i]} color='#DDD' width={20}/>} {keys[i].split('_')}</div>
+                    return <div className='amenityFalse' key={i}>{<Icon name={keys[i]} color='#DDD' width={20}/>} {capitalize(keys[i])}</div>
                 }
             })
 
@@ -91,7 +112,7 @@ class Listing extends Component {
 
 
         }
-        console.log(amenities(details))
+
 
         return (
             <div>
@@ -174,9 +195,17 @@ class Listing extends Component {
                                     <br/>
                                     <br/>
                                     <div>
-                                        Booking calendars here.
-                                        <Calendar selectRange='true' returnValue='range' onChange={(value) => {
-                                            this.handleChange(value)}}/>
+                                    <DayPickerRangeController
+                                        startDate={this.state.startDate} 
+                                        endDate={this.state.endDate} 
+                                        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                                        focusedInput={this.state.focusedInput}
+                                        onFocusChange={focusedInput => this.setState({ focusedInput })}
+                                        numberOfMonths={2}
+                                        hideKeyboardShortcutsPanel={true}
+                                        keepOpenOnDateSelect={true}
+                                        />
+                                        
 
                                     </div>
                                 </label>
@@ -187,36 +216,41 @@ class Listing extends Component {
     
                     <br/>
                     <div className='stickyBooking'>
-                        <form>
+                        <div>
                             <label>
-                                <span><h2>${details.cost}</h2> per night</span>
+                                <span><span className='cost'><strong>${details.cost}</strong></span> per night</span>
                                 <br/>
                                 Reviews
                             </label>
+                                <br/>
+                                <br/>
+                                <hr></hr>
+                                <br/>
+                                <label className='bookingLabels'>
+                                    <span>Dates</span>
+                                    <br/>
+                                    <DateRangePicker
+                                        startDatePlaceholderText='Check-in'
+                                        endDatePlaceholderText='Checkout'
+                                        startDate={this.state.startDate} 
+                                        startDateId="start_date_id"
+                                        endDate={this.state.endDate} 
+                                        endDateId="end_date_id"
+                                        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                                        focusedInput={this.state.focusedInput}
+                                        onFocusChange={focusedInput => this.setState({ focusedInput })}
+                                        numberOfMonths={1}
+                                    />
+                                </label>
+                                <label className='bookingLabels'>
+                                    <span>Guests</span>
+                                    <button></button>
+                                </label>
                             <br/>
-                            <input type='text' placeholder='Check In' value={this.props.booking.start_date} onFocus={() => this.setState({startDateOpen: true})}/>
-                            <input type='text' disabled placeholder='Check Out' value={this.props.booking.end_date}/>
-                            {this.state.startDateOpen && <Calendar onClickDay={(value) => {
-                                    this.props.updateBookingStart(value)
-                                    this.setState({startDateOpen: false, endDateOpen: true})
-                                    }}/>}
-                            {this.state.endDateOpen && <Calendar onClickDay={(value) => {
-                                    this.props.updateBookingEnd(value)
-                                    this.setState({endDateOpen: false})
-                                    }}/>}
-    
                             <br/>
-                            <select>
-                                <option>Guests</option>
-                                <option>Guests</option>
-                                <option>Guests</option>
-                                <option>Guests</option>
-                                <option>Guests</option>
-                            </select>
-                            <br/>
-                            <button>Book</button>
                             
-                        </form>
+                            <button className='request'>Request to Book</button>
+                        </div>
     
                     </div>
                 </div>
