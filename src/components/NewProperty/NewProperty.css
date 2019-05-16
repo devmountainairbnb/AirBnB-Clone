@@ -5,12 +5,11 @@
 }
 
 .new-property-listing {
-    background-image: url('https://a0.muscache.com/airbnb/static/photos.6f837cb4.png');
+    /* background-image: url('https://a0.muscache.com/airbnb/static/photos.6f837cb4.png');
     background-size: 30rem;
     background-repeat: no-repeat;
-    background-position: bottom left;
+    background-position: bottom left; */
     height: 110rem;
-
 }
 
 .main-body-property {
@@ -54,7 +53,7 @@
     font-weight: lighter;
     font-size: 1.5rem;
     line-height: 2.4rem;
-    margin-bottom: 1.6rem;
+    margin-bottom: 1.3rem;
 }
 
 .new-property-listing h6 {
@@ -98,12 +97,34 @@
 }
 
 .step-three {
-    height: 30rem;
+    height: 20rem;
     color: #3F3F3F;
 }
 
-.amenities input {
-    color: rgba(63, 63, 63, 0.925);
+.amenities {
+    display: flex;
+    width: 20.8rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.amen-container {
+    height: 3.2rem;
+    width: 16.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.amen-container h6 {
+    margin-top: .7rem;
+    color:rgba(63, 63, 63, 0.7);
+    font-size: .88rem;
+}
+
+.amen-container input {
+    margin-top: .26rem;
+
 }
 
 .step-four textarea {

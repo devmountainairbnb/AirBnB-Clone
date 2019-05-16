@@ -5,7 +5,10 @@ import { createListing } from './../../ducks/homesReducer'
 import { PropertyInput, CounterButton, ListingButton } from './../StyledComponents/StyledComponents'
 import './NewProperty.css'
 import Footer from './../Footer/Footer'
-
+import Icon from '../StyledComponents/AmenitiesIcons/index'
+import { v4 as randomString } from 'uuid';
+import Dropzone from 'react-dropzone';
+import axios from 'axios'
 
 class NewProperty extends Component {
     constructor(props) {
@@ -22,7 +25,11 @@ class NewProperty extends Component {
             bath: 0,
             rooms: 0,
             guests: 0,
-            image_url: '', 
+            image_1: '', 
+            image_2: '', 
+            image_3: '', 
+            image_4: '', 
+            image_5: '', 
             kitchen: false, 
             shampoo: false, 
             heating: false,
@@ -39,48 +46,119 @@ class NewProperty extends Component {
             tv: false,
             smoke_dectector: false,
             carbon_monoxide_detector: false,
-            private_bathroom: false
+            private_bathroom: false,
+            isUploading: false,
+            url: [],
         }
     }
 
+    getSignedRequest = (files) => {
+        for(let i = 0; i < files.length; i++) {
+
+        this.setState({ isUploading: true });
+        const fileName = `${randomString()}-${files[i].name.replace(/\s/g, '-')}`;
+        axios
+          .get('/api/signs3', {
+            params: {
+              'file-name': fileName,
+              'file-type': files[i].type,
+            },
+          })
+          .then(response => {
+            const { signedRequest, url } = response.data;
+            this.uploadFile(files[i], signedRequest, url);
+            console.log(url)
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    }
+    
+      uploadFile = (file, signedRequest, url) => {
+        const options = {
+          headers: {
+            'Content-Type': file.type,
+          },
+        };
+    
+        axios
+          .put(signedRequest, file, options)
+          .then(response => {
+            this.setState({ isUploading: false, url });
+            
+          })
+          .catch(err => {
+            this.setState({
+              isUploading: false,
+            });
+            if (err.response.status === 403) {
+              alert(
+                `Your request for a signed URL failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${
+                  err.stack
+                }`
+              );
+            } else {
+              alert(`ERROR: ${err.status}\n ${err.stack}`);
+            }
+          });
+      };
+      
+    // getSignedRequest = ([file]) => {
+    //     this.setState({ isUploading: true });
+    //     const fileName = `${randomString()}-${file.name.replace(/\s/g, '-')}`;
+    
+    //     axios
+    //       .get('/api/signs3', {
+    //         params: {
+    //           'file-name': fileName,
+    //           'file-type': file.type,
+    //         },
+    //       })
+    //       .then(response => {
+    //         const { signedRequest, image_1 } = response.data;
+    //         this.uploadFile(file, signedRequest, image_1);
+    //       })
+    //       .catch(err => {
+    //         console.log(err);
+    //       });
+    //   };
+    
+    //   uploadFile = (file, signedRequest, image_1) => {
+    //     const options = {
+    //       headers: {
+    //         'Content-Type': file.type,
+    //       },
+    //     };
+    
+    //     axios
+    //       .put(signedRequest, file, options)
+    //       .then(response => {
+    //         this.setState({ isUploading: false, image_1 });
+    //         // THEN DO SOMETHING WITH THE image_1. SEND TO DB USING POST REQUEST OR SOMETHING
+    //       })
+    //       .catch(err => {
+    //         this.setState({
+    //           isUploading: false,
+    //         });
+    //         if (err.response.status === 403) {
+    //           alert(
+    //             `Your request for a signed image_1 failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${
+    //               err.stack
+    //             }`
+    //           );
+    //         } else {
+    //           alert(`ERROR: ${err.status}\n ${err.stack}`);
+    //         }
+    //       });
+    //   };
+
     createListing = () => {
-        let { city_name, state_name, zipcode_name, street_address, title, cost, description, bed, bath, rooms, guests, image_url, kitchen, shampoo, heating,air_conditioning,washer,dryer,wifi, breakfast, indoor_fireplace, iron, hair_dryer, laptop_friendly_workspace,
+        let { city_name, state_name, zipcode_name, street_address, title, cost, description, bed, bath, rooms, guests, image_1, image_2, image_3, image_4, image_5, kitchen, shampoo, heating,air_conditioning,washer,dryer,wifi, breakfast, indoor_fireplace, iron, hair_dryer, laptop_friendly_workspace,
         crib, tv, smoke_dectector, carbon_monoxide_detector, private_bathroom } = this.state;
 
-        createListing(city_name, state_name, zipcode_name, street_address, title, cost, description, bed, bath, rooms, guests, image_url, kitchen, shampoo, heating,air_conditioning,washer,dryer,wifi, breakfast, indoor_fireplace, iron, hair_dryer, laptop_friendly_workspace,
+        createListing(city_name, state_name, zipcode_name, street_address, title, cost, description, bed, bath, rooms, guests, image_1, image_2, image_3, image_4, image_5, kitchen, shampoo, heating,air_conditioning, washer,dryer,wifi, breakfast, indoor_fireplace, iron, hair_dryer, laptop_friendly_workspace,
         crib, tv, smoke_dectector, carbon_monoxide_detector, private_bathroom);
-
-        this.setState({
-                city_name: '', 
-                state_name: '', 
-                zipcode_name: 0,
-                street_address: '',
-                title: '',
-                cost: 0, 
-                description: '',
-                bed: 0,
-                bath: 0,
-                rooms: 0,
-                guests: 0,
-                image_url:'', 
-                kitchen: false, 
-                shampoo: false, 
-                heating: false,
-                air_conditioning: false,
-                washer: false,
-                dryer: false,
-                wifi: false,
-                breakfast: false,
-                indoor_fireplace: false,
-                iron: false,
-                hair_dryer: false,
-                laptop_friendly_workspace: false,
-                crib: false,
-                tv: false,
-                smoke_dectector: false,
-                carbon_monoxide_detector: false,
-                private_bathroom: false
-            })
     }
 
     handleChange = e => {
@@ -140,6 +218,8 @@ class NewProperty extends Component {
     
 
     render() {
+        const { url, isUploading } = this.state;
+        console.log(url)
         return (
             <div className="new-property-listing">
                 <HeaderLoggedIn />
@@ -196,40 +276,92 @@ class NewProperty extends Component {
                             <h6>STEP 3</h6>
                             <h2>Which amenities do you offer?</h2>
                             <div className="amenities">
-                                <h6>Kitchen</h6>
-                                <input onClick={e => this.handleCheckBox("kitchen", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>Shampoo</h6>
-                                <input onClick={e => this.handleCheckBox("shampoo", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>Heating</h6>
-                                <input onClick={e => this.handleCheckBox("heating", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>A/C</h6>
-                                <input onClick={e => this.handleCheckBox("air_conditioning", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>Washer</h6>
-                                <input onClick={e => this.handleCheckBox("washer", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>Dryer</h6>
-                                <input onClick={e => this.handleCheckBox("dryer", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>Wifi</h6>
-                                <input onClick={e => this.handleCheckBox("wifi", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>Breakfast</h6>
-                                <input onClick={e => this.handleCheckBox("breakfast", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>Fireplace</h6>
-                                <input onClick={e => this.handleCheckBox("indoor_fireplace", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>Iron</h6>
-                                <input onClick={e => this.handleCheckBox("iron", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>Hairdryer</h6>
-                                <input onClick={e => this.handleCheckBox("hair_dryer", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>Laptop Friendly</h6>
-                                <input onClick={e => this.handleCheckBox("laptop_friendly_workspace", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>Crib</h6>
-                                <input onClick={e => this.handleCheckBox("crib", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>TV</h6>
-                                <input onClick={e => this.handleCheckBox("tv", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>Smoke Detector</h6>
-                                <input onClick={e => this.handleCheckBox("smoke_detector", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>Carbon Monoxide Detector</h6>
-                                <input onClick={e => this.handleCheckBox("carbon_monoxide_detector", e.target.checked)} type="checkbox" name="amenities"/>
-                                <h6>Private Bathroom</h6>
-                                <input onClick={e => this.handleCheckBox("private_bathroom", e.target.checked)}  type="checkbox" name="amenities"/>
+                                <div className="amen-container">
+                                    <Icon name="kitchen" style={{width: 15}}/>
+                                    <h6>Kitchen</h6>
+                                    <input onClick={e => this.handleCheckBox("kitchen", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+
+                                <div className="amen-container">
+                                    <Icon name="shampoo" width={15} fill="#000" stroke="#000"/>
+                                    <h6>Shampoo</h6>
+                                    <input onClick={e => this.handleCheckBox("shampoo", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+                                <div className="amen-container">
+                                    <Icon name="heating" width={15} fill="#000" stroke="#000"/>
+                                    <h6>Heating</h6>
+                                    <input onClick={e => this.handleCheckBox("heating", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+                                <div className="amen-container">
+                                    <Icon name="air_conditioning" width={15} fill="#000" stroke="#000"/>
+                                    <h6>Air Conditioning</h6>
+                                    <input onClick={e => this.handleCheckBox("air_conditioning", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+                                <div className="amen-container">
+                                    <Icon name="washer" width={15} fill="#000" stroke="#000"/>
+                                    <h6>Washer</h6>
+                                    <input onClick={e => this.handleCheckBox("washer", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+                                <div className="amen-container">
+                                    <Icon name="dryer" width={15} fill="#000" stroke="#000"/>
+                                    <h6>Dryer</h6>
+                                    <input onClick={e => this.handleCheckBox("dryer", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+                                <div className="amen-container">
+                                    <Icon name="wifi" width={15} fill="#000" stroke="#000"/>
+                                    <h6>Wifi</h6>
+                                    <input onClick={e => this.handleCheckBox("wifi", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+                                <div className="amen-container">
+                                    <Icon name="breakfast" width={15} fill="#000" stroke="#000"/>
+                                    <h6>Breakfast</h6>
+                                    <input onClick={e => this.handleCheckBox("breakfast", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+                                <div className="amen-container">
+                                    <Icon name="indoor_fireplace" width={15} fill="#000" stroke="#000"/>
+                                    <h6>Fireplace</h6>
+                                    <input onClick={e => this.handleCheckBox("indoor_fireplace", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+                                <div className="amen-container">
+                                    <Icon name="iron" width={15} fill="#000" stroke="#000"/>
+                                    <h6>Iron</h6>
+                                    <input onClick={e => this.handleCheckBox("iron", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+                                <div className="amen-container">
+                                    <Icon name="hair_dryer" width={15} fill="#000" stroke="#000"/>
+                                    <h6>Hairdryer</h6>
+                                    <input onClick={e => this.handleCheckBox("hair_dryer", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+                                <div className="amen-container">
+                                    <Icon name="laptop_friendly_workspace" width={15} fill="#000" stroke="#000"/>
+                                    <h6>Laptop Friendly</h6>
+                                    <input onClick={e => this.handleCheckBox("laptop_friendly_workspace", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+                                <div className="amen-container">
+                                    <Icon name="crib" width={15} fill="#000" stroke="#000"/>
+                                    <h6>Crib</h6>
+                                    <input onClick={e => this.handleCheckBox("crib", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+                                <div className="amen-container">
+                                 <Icon name="tv" width={15} fill="#000" stroke="#000"/>
+                                    <h6>TV</h6>
+                                    <input onClick={e => this.handleCheckBox("tv", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+                                <div className="amen-container">
+                                    <Icon name="smoke_detector" width={15} fill="#000" stroke="#000"/>
+                                    <h6>Smoke Detector</h6>
+                                    <input onClick={e => this.handleCheckBox("smoke_detector", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+                                <div className="amen-container">
+                                    <Icon name="carbon_monoxide_detector" width={15} fill="#000" stroke="#000"/>
+                                    <h6>Carbon Monoxide Detector</h6>
+                                    <input onClick={e => this.handleCheckBox("carbon_monoxide_detector", e.target.checked)} type="checkbox" name="amenities"/>
+                                </div>
+                                <div className="amen-container">
+                                    <Icon name="private_bathroom" width={15} fill="#000" stroke="#000"/>
+                                    <h6>Private Bathroom</h6>
+                                    <input onClick={e => this.handleCheckBox("private_bathroom", e.target.checked)}  type="checkbox" name="amenities"/>
+                                </div>
                             </div>
                         </div>
                         
@@ -264,8 +396,44 @@ class NewProperty extends Component {
                             </div>
 
                             <div className="images-select">
-                            <PropertyInput onChange={this.handleChange} type="text" name="image_url" placeholder="image_url" />
-                        
+                            {/* <PropertyInput onChange={this.handleChange} type="text" name="image_1" placeholder="image 1" />
+                            <PropertyInput onChange={this.handleChange} type="text" name="image_2" placeholder="image 2" />
+                            <PropertyInput onChange={this.handleChange} type="text" name="image_3" placeholder="image 3" />
+                            <PropertyInput onChange={this.handleChange} type="text" name="image_4" placeholder="image 4" />
+                            <PropertyInput onChange={this.handleChange} type="text" name="image_5" placeholder="image 5" /> */}
+
+
+
+                            <img src={url} alt="" width="450px" />
+
+                            <Dropzone
+                                onDropAccepted={this.getSignedRequest}
+                                style={{
+                                    position: 'relative',
+                                    width: 200,
+                                    height: 200,
+                                    borderWidth: 7,
+                                    marginTop: 100,
+                                    borderColor: 'rgb(102, 102, 102)',
+                                    borderStyle: 'dashed',
+                                    borderRadius: 5,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    fontSize: 28,
+                                }}
+                                accept="image/*"
+                                multiple={true}
+                                >
+                                {({getRootProps, getInputProps}) => (
+                                <section>
+                                    <div {...getRootProps()}>
+                                    <input {...getInputProps()}/>
+                                    <button>Upload Image</button>
+                                    </div>
+                                </section>
+                            )}
+                            </Dropzone>    
 
                             
                             </div>
