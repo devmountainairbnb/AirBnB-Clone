@@ -2,8 +2,7 @@ import React from "react";
 
 const SVG = ({
   style = {},
-  fill = "none",
-  stroke = '#333',
+  color = "#333",
   width = "100%",
   className = "",
   viewBox="0 0 37 41"
@@ -17,8 +16,8 @@ const SVG = ({
     className={`svg-icon ${className || ""}`}
     xmlnsXlink="http://www.w3.org/1999/xlink"
   >
-    <g id="Page-1" stroke={stroke} stroke-width="1" fill={fill} fill-rule="evenodd" stroke-linecap="square">
-      <g id="air_conditioning" transform="translate(0.500000, 1.000000)" stroke={stroke} stroke-width="2">
+    <g id="Page-1" stroke={color} strokeWidth="1" fill={color} fillRule="evenodd" strokeLinecap="square">
+      <g id="air_conditioning" transform="translate(0.500000, 1.000000)" stroke={color} strokeWidth="2">
             <path d="M18,0.5 L18,39" id="Line-5"></path>
             <polyline fill='none'id="Line-6" points="13 4 18 9 23.2344743 4"></polyline>
             <polyline fill='none' id="Line-6-Copy" transform="translate(18.117237, 33.500000) scale(1, -1) translate(-18.117237, -33.500000) " points="13 31 18 36 23.2344743 31"></polyline>

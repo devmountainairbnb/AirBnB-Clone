@@ -7,7 +7,7 @@ class Header extends Component {
         return (
             <header className="header-container">
                 <div className="header-top-left-content">
-                    <img className="airbnb-logo" src={logo} alt='airbnb logo'/>
+                    <img className="airbnb-logo" src={logo} alt=""/>
                     <input></input>
                 </div>
                 <div className="header-top-right-content">

@@ -20,6 +20,7 @@
     align-items: center;
     cursor: pointer; 
     background: #fff;
+    z-index: 10;
 }
 
 .sticky-footer img {
@@ -38,6 +39,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
 }
 
 .footer-content {

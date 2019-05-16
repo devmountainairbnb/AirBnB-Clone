@@ -6,6 +6,13 @@ module.exports = {
         db.get_homes()
         return res.status(200).send(response)
     },
+
+    getEightHomes: async (req, res) => {
+        const db = req.app.get('db')
+        let response = await db.get_Eight_Homes()
+        return res.status(200).send(response)
+    },
+
     getListing: async (req, res) => {
         const db = req.app.get('db')
         const {property_id} = req.params
@@ -19,8 +26,6 @@ module.exports = {
             details: listing[0],
             urls
         }
-        
-        console.log(data)
 
         res.status(200).send(data)
     },
