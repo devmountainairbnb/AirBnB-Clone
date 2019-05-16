@@ -76,7 +76,8 @@
 
 /****** Top Rated Section Styling ******/
 
-.rated-homes-container {
+.rated-homes-container,
+.picked-homes-container {
     height: 24rem;
 }
 
@@ -95,8 +96,7 @@
 /****** Top Rated Section Styling ******/
 
 .picked-homes-container {
-    height: 40rem;
-
+    height: 24rem;
 }
 
 .picked-homes-container h2 {
@@ -104,10 +104,11 @@
     color: #3F3F3F;
     margin: .5rem 4rem;
     letter-spacing: .04rem;
-
 }
 
 .homes-display-container {
     display: flex;
+    width: 100rem;
+    flex-wrap: wrap;
 }
 

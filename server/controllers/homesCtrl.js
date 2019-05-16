@@ -31,6 +31,14 @@ module.exports = {
         db.get_homes_top_rated()
         return res.status(200).send(response)
     },
+    
+    getHomesAustin: async (req, res) => {
+        const db = req.app.get('db')
+        let response = await
+        db.get_homes_austin()
+        return res.status(200).send(response)
+    },
+    
     createListing: async (req, res) => {
         const { 
             city_name, 
@@ -44,7 +52,11 @@ module.exports = {
             bath,
             rooms,
             guests,
-            image_url, 
+            image_1, 
+            image_2, 
+            image_3, 
+            image_4, 
+            image_5, 
             kitchen, 
             shampoo, 
             heating,
@@ -80,7 +92,11 @@ module.exports = {
             bath,
             rooms,
             guests,
-            image_url, 
+            image_1, 
+            image_2, 
+            image_3, 
+            image_4, 
+            image_5, 
             kitchen, 
             shampoo, 
             heating,
