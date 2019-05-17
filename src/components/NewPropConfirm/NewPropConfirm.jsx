@@ -35,7 +35,7 @@ render() {
             <h4>Summary of details:</h4>
             {lastHome}
         </div>
-        <Link to="/"><ListingButton congrats>Confirm and Return to Homepage</ListingButton></Link>
+        <Link to="/"><ListingButton congrats>Confirm and return to homepage</ListingButton></Link>
         
         <Footer/>
       </div>

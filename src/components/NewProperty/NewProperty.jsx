@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux' 
-import HeaderLoggedIn from './../Header/HeaderLoggedIn'
+import Header from './../Header/Header'
 import { createListing } from './../../ducks/homesReducer'
 import { PropertyInput, CounterButton, ListingButton, UploadImagesButton } from './../StyledComponents/StyledComponents'
 import './NewProperty.css'
@@ -161,29 +161,29 @@ class NewProperty extends Component {
         for(let i = 0; i < urls.length; i++) {
             if(urls.length === 5) {
                 this.setState({
-                    image_1: this.state.urls[0],
-                    image_2: this.state.urls[1],
+                    image_1: this.state.urls[4],
+                    image_2: this.state.urls[3],
                     image_3: this.state.urls[2],
-                    image_4: this.state.urls[3],
-                    image_5: this.state.urls[4],
+                    image_4: this.state.urls[1],
+                    image_5: this.state.urls[0],
                 })
             } else if(urls.length === 4) {
                 this.setState({
-                    image_1: this.state.urls[0],
-                    image_2: this.state.urls[1],
-                    image_3: this.state.urls[2],
-                    image_4: this.state.urls[3]
+                    image_1: this.state.urls[3],
+                    image_2: this.state.urls[2],
+                    image_3: this.state.urls[1],
+                    image_4: this.state.urls[0]
                 })
             } else if(urls.length === 3) {
                 this.setState({
-                    image_1: this.state.urls[0],
+                    image_1: this.state.urls[2],
                     image_2: this.state.urls[1],
-                    image_3: this.state.urls[2]
+                    image_3: this.state.urls[0]
                 })
             } else if(urls.length === 2) {
                 this.setState({
-                    image_1: this.state.urls[0],
-                    image_2: this.state.urls[1]
+                    image_1: this.state.urls[1],
+                    image_2: this.state.urls[0]
                 }) 
             }
              else if(urls.length === 1) {
@@ -265,7 +265,7 @@ class NewProperty extends Component {
 
         return (
             <div className="new-property-listing">
-                <HeaderLoggedIn />
+                <Header />
                 <h1>Let's get started listing your space.</h1>
                 
                 <div className="main-body-property">
@@ -471,7 +471,10 @@ class NewProperty extends Component {
                                     
                                     {this.state.isUploaded ? 
                                         <div className="uploaded-images-container">{uploadedImages}
-                                        <UploadImagesButton after>Add Another +</UploadImagesButton>
+                                        {this.state.urls[0] ? 
+                                        <div></div>
+                                        : <UploadImagesButton after>Add Another +</UploadImagesButton> 
+                                    } 
                                         </div>
                                         :
                                         <div  className="upload-container">
