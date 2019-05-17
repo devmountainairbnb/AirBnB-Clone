@@ -4,7 +4,8 @@ const initialState = {
     homes: [],
     topRatedHomes: [],
     austinHomes: [],
-    eightHomes: []
+    eightHomes: [],
+    lastHome: []
 }
 
 const GET_HOMES = 'GET_HOMES'
@@ -12,6 +13,7 @@ const GET_HOMES_TOP_RATED = 'GET_HOMES_TOP_RATED'
 const GET_HOMES_AUSTIN = 'GET_HOMES_AUSTIN'
 const CREATE_NEW_HOME = 'CREATE_NEW_HOME'
 const GET_EIGHT_HOMES = 'GET_EIGHT_HOMES'
+const GET_LAST_HOME = 'GET_LAST_HOME'
 
 export function getHomes() {
     let data = axios.get('/api/homes').then(res => res.data)
@@ -25,6 +27,13 @@ export function getEightHomes() {
     let data = axios.get('/api/eighthomes').then(res => res.data)
     return {
         type: GET_EIGHT_HOMES,
+        payload: data
+    }
+}
+export function getLastHome() {
+    let data = axios.get('/api/lasthome').then(res => res.data)
+    return {
+        type: GET_LAST_HOME,
         payload: data
     }
 }
@@ -73,6 +82,8 @@ export default function reducer(state = initialState, action) {
             return {...state, homes: action.payload}    
         case GET_EIGHT_HOMES + '_FULFILLED':
             return {...state, eightHomes: action.payload}
+        case GET_LAST_HOME + '_FULFILLED':
+            return {...state, lastHome: action.payload}
         default:
             return state;     
     }

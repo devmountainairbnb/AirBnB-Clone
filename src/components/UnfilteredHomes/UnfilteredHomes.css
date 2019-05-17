@@ -93,7 +93,52 @@
     letter-spacing: .04rem;
 }
 
-/****** Top Rated Section Styling ******/
+/****** Support Bar Styling ******/
+
+.traveling-bar-container {
+    font-family: 'Roboto', sans-serif;
+    color: #3F3F3F;
+    margin: 4rem 4rem;
+    letter-spacing: .04rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 8rem;
+}
+
+.traveling-bar-container h2 {
+    margin-bottom: 1.1rem;
+}
+
+.traveling-bar-container h4 {
+    font-size: 1.1rem;
+    margin-bottom: .6rem;
+}
+
+.traveling-bar-container p {
+    font-size: .9rem;
+    width: 26rem;
+    letter-spacing: .04rem;
+}
+
+.support-standards-hosts {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+#show-all {
+    color: rgba(0, 122, 126, 0.89);
+    margin-left: 4rem;
+    height: 2.3rem;
+}
+
+#show-all:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/****** Homes Section Styling ******/
 
 .picked-homes-container {
     height: 24rem;
