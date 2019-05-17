@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import HomeCard from './../HomeCard/HomeCard'
 import HeaderLoggedIn from './../Header/HeaderLoggedIn'
 import Footer from './../../components/Footer/Footer'
+import thoughtBubble from './thought-bubble.png'
+import star from './star.png'
+import house from './house.png'
 import './UnfilteredHomes.css'
 
 class UnfilteredHomes extends Component {
@@ -64,8 +67,30 @@ class UnfilteredHomes extends Component {
                 <div className="rated-homes-container">
                     <h2>Top-rated homes</h2>
                     <p>Explore some of the best-reviewed homes in the world</p>
-                    <div className="homes-display-container">{topRatedHomes}</div>
-                    
+                    <div className="homes-display-container">{topRatedHomes}</div> 
+                </div>
+
+                <h4 id="show-all">Show all (2000+) ></h4>
+
+                <div className="traveling-bar-container">
+                    <h2>Traveling on Airbnb</h2>
+                    <div className="support-standards-hosts">
+                        <div className="24-7-support">
+                            <img src={thoughtBubble} alt=""/>
+                            <h4>24/7 customer support</h4>
+                            <p>Day or night, we're here for you. Talk to our support team from anywhere in the world, any hour of day.</p>
+                        </div>
+                        <div className="global-hospitality">
+                            <img src={house} alt=""/>
+                            <h4>Global Hospitality Standards</h4>
+                            <p>Guests review their hosts after each stay. All hosts must maintain a minimum rating and our hospitality standards to be on Airbnb.</p>
+                        </div>
+                        <div className="5-star-hosts">
+                            <img src={star} alt=""/>
+                            <h4>5-star hosts</h4>
+                            <p>From fresh-pressed sheets to tips on where to get the best brunch, our hosts are full of local hospitality.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="picked-homes-container">

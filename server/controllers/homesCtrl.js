@@ -12,6 +12,11 @@ module.exports = {
         let response = await db.get_Eight_Homes()
         return res.status(200).send(response)
     },
+    getLastHome: async (req, res) => {
+        const db = req.app.get('db')
+        let response = await db.get_last_home()
+        return res.status(200).send(response)
+    },
 
     getCities: async (req, res) => {
         const db = req.app.get('db')

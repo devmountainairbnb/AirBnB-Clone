@@ -72,12 +72,25 @@ cursor: pointer;
 `
 
 export const ListingButton = styled.button`
-width: 7rem;
+width: ${props => props.congrats ? "18rem" : "7rem"};
+font-size: ${props => props.congrats ? ".96rem" : ".8rem"};
 height 2.5rem;
 border-radius: 5px;
 background-color: rgb(3, 155, 160);
 color: white;
 border: none;
 margin: 1.5rem 1.5rem 1.5rem 0rem;
-font-size: .8rem;
+cursor: pointer;
+`
+
+export const UploadImagesButton = styled.button`
+background-color: ${props => props.after ? "#fff" : "#F76464"};
+border: ${props => props.after ? "dashed .13rem #B2B2B2" : "none"};
+color: ${props => props.after ? "#B2B2B2" : "#fff"};
+height: ${props => props.after ? "7rem" : "3rem"};
+width: ${props => props.after ? "9rem" : "11.5rem"};
+margin: ${props => props.after ? ".5rem 0rem 0rem .9rem" : ""}
+border-radius: 5px;
+font-size: .89rem;
+cursor: pointer;
 `
