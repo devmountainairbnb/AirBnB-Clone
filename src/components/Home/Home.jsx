@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
-import './Home.css'
 import chillbus from './backgrounds/chillbus2.jpg'
 import logo from './backgrounds/airbnb-red.png'
 import whiteLogo from './backgrounds/airbnb-512.png'
-import { BookingCardInput, BookingCardButton, BookingDateInput, CancelButton, LoginButton } from './../StyledComponents/StyledComponents'
+import { BookingCardInput, BookingCardButton, CancelButton, LoginButton } from './../StyledComponents/StyledComponents'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { getEightHomes, getHomes } from './../../ducks/homesReducer'
+import { getEightHomes, getHomes, getCities } from './../../ducks/homesReducer'
+import { Link } from 'react-router-dom'
+import { getData } from './../../ducks/userReducer'
+import 'react-dates/initialize'
+import { DateRangePicker } from 'react-dates'
+import 'react-dates/lib/css/_datepicker.css'
+import './Home.css'
 import Footer from './../Footer/Footer'
 import banner from './backgrounds/banner.jpg'
-// import { Link } from 'react-router-dom'
 
 class Home extends Component {
     constructor() {
@@ -23,20 +27,14 @@ class Home extends Component {
             profile_pic_url: '',
             phone: '',
             email: '',
-            password: '',
-            recommended: [
-                { name: 'Los Angeles', cost: 131, img: 'https://images.unsplash.com/photo-1503891450247-ee5f8ec46dc3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' },
-                { name: 'London', cost: 123, img: 'https://images.unsplash.com/photo-1481014472607-f71254019973?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' },
-                { name: 'Barcelona', cost: 103, img: 'https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' },
-                { name: 'New York', cost: 126, img: 'https://images.unsplash.com/photo-1520222984843-df35ebc0f24d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' },
-                { name: 'San Francisco', cost: 169, img: 'https://images.unsplash.com/photo-1533609209125-a94e5577125f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' }
-            ]
-
+            password: ''
         }
     }
 
     componentDidMount() {
+        this.props.getData()
         this.props.getEightHomes()
+        this.props.getCities()
     }
 
     async login() {
@@ -84,34 +82,41 @@ class Home extends Component {
 
     render() {
         let { eightHomes } = this.props.homes
-        console.log(this.props.homes)
-        let { toggleLogin, toggleSignup, recommended } = this.state
-        let mapPlaces = recommended.map(place => {
+        let { cities } = this.props.homes
+        let { toggleLogin, toggleSignup } = this.state
+        let mapPlaces = cities.map(place => {
+            console.log(place)
             return (
-                <div className="place-relative" key={place.name}>
-                    <img className="place-container" src={place.img} alt={place.name} />
-                    <div className="text-absolute">
-                        <div>{place.name}</div>
-                        <div className="place-cost">${place.cost}/night average</div>
+                <Link to={`/filteredhomes/${place.city_id}`}>
+                    <div className="place-relative" key={place.name}>
+                        <img className="place-container" src={place.city_img} alt={place.name} />
+                        <div className="text-absolute">
+                            <div>{place.city_name}</div>
+                            <div className="place-cost">${place.avg_cost}/night average</div>
+                        </div>
                     </div>
-                </div>
+                </Link>
             )
         })
+
         let mapHomes = eightHomes.map(home => {
             return (
+                <Link to={`/listing/${home.property_id}`} style={{ textDecoration: 'none' }}>
                     <div className="house-box">
-                        <img className="home-img" src={home.image_url[0]} alt="" />
-                        <div>{home.title[0]}</div>
-                        <div className="cost-per-night">${home.cost[0]} per night</div>
+                        <img className="home-img" src={home.img_url} alt="" />
+                        <div>{home.title}</div>
+                        <div className="cost-per-night">${home.cost} per night</div>
                         <h6><span style={{ color: "#00797E" }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span> &#8729;Superhost</h6>
                     </div>
+                </Link>
             )
         })
         //Ternary here for the ability to darken screen on signup and login
         return (
-            <div className="flex-column">
+            <div className={toggleSignup || toggleLogin ? 'flex-column dark' : 'flex-column'}>
                 <div className="homeheader-relative">
                     {/* login toggle */}
+                    <div className={!toggleLogin ? '' : 'dark'}></div>
                     <div className={toggleLogin ? 'login' : 'login hidden'}>
                         <CancelButton onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })}>X</CancelButton>
                         <BookingCardInput value={this.state.email} name="email" onChange={(e) => this.handleInputChange('email', e.target.value)} login placeholder="Email Address" />
@@ -126,6 +131,7 @@ class Home extends Component {
                         <LoginButton onClick={() => this.login()} login>Login</LoginButton>
                     </div>
                     {/* Signup toggle */}
+                    <div className={!toggleSignup ? '' : 'dark'}></div>
                     <div className={toggleSignup ? 'signup' : 'signup hidden'}>
                         <CancelButton onClick={() => this.setState({ toggleSignup: !this.state.toggleSignup })}>X</CancelButton>
                         <BookingCardInput value={this.state.first_name} name="first_name" onChange={(e) => this.handleInputChange('first_name', e.target.value)} placeholder="First Name"></BookingCardInput>
@@ -136,65 +142,84 @@ class Home extends Component {
                         <BookingCardInput value={this.state.password} name="password" onChange={(e) => this.handleInputChange('password', e.target.value)} placeholder="Password"></BookingCardInput>
                         <LoginButton onClick={() => this.register()} login>Sign Up</LoginButton>
                     </div>
-                        <header className="home-header-container">
-                            <div className="header-top-left-content">
-                                {/* Logo in the top right */}
-                                <img className="airbnb-logo" src={logo} alt="" />
-                            </div>
-                            {/* links in the top left */}
-                            <div className="header-top-right-content">
-                                <div className="link-styles">Become a host</div>
-                                <div className="link-styles">Help</div>
-                                <div onClick={() => this.setState({ toggleSignup: !this.state.toggleSignup })} className="link-styles">Sign Up</div>
-                                <div onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })} className="link-styles" >Log in</div>
-                            </div>
-                        </header>
-                        {/* <img className="background-img" src={chillbus} alt="" /> */}
-                        <div className="background-img"></div>
-                        {/* book unique homes box */}
-                        <div className="book-home-content">
-                            <div className="book-unique-homes">Book unique homes and experiences.</div>
-                            <div>
-                                <div>WHERE</div>
-                                <BookingCardInput className="padding-input" placeholder="Anywhere" />
-                            </div>
-                            <div>
-                            </div>
-                            <div className="flex-check-inout">
-                                <div>
-                                    <div>CHECK-IN</div>
-                                    <BookingDateInput className="padding-input" placeholder="mm/dd/yyyy"></BookingDateInput>
-                                </div>
-                                <div>
-                                    <div>CHECKOUT</div>
-                                    <BookingDateInput className="padding-input" placeholder="mm/dd/yyyy"></BookingDateInput>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="margin-top-guests">GUESTS</div>
-                                <select className="guests-dropdown">
-                                    <option>Guests</option>
-                                </select>
-                            </div>
-                            <BookingCardButton>Search</BookingCardButton>
+                    <header className="home-header-container">
+                        <div className="header-top-left-content">
+                            {/* Logo in the top right */}
+                            <img className="airbnb-logo" src={logo} alt="" />
                         </div>
-                        <Footer />
+                        {/* links in the top left */}
+                        <div className="header-top-right-content">
+                            <div className="link-styles">Become a host</div>
+                            <div className="link-styles">Help</div>
+                            <div onClick={() => this.setState({ toggleSignup: !this.state.toggleSignup })} className="link-styles">Sign Up</div>
+                            <div onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })} className="link-styles" >Log in</div>
+                        </div>
+                    </header>
+                    {/* <img className="background-img" src={chillbus} alt="" /> */}
+                    <div className="background-img"></div>
+                    {/* book unique homes box */}
+                    <div className="book-home-content">
+                        <div className="book-unique-homes">Book unique homes and experiences.</div>
+                        <div>
+                            <div>WHERE</div>
+                            <BookingCardInput className="padding-input" placeholder="Anywhere" />
+                        </div>
+                        <div>
+                        </div>
+                        <div className="flex-check-inout">
+                            <div>
+                                <div className="flex-checkinout">
+                                    <div>CHECK-IN</div>
+                                    <div className='checkout'>CHECKOUT</div>
+                                </div>
+                                <DateRangePicker
+                                    startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                                    startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+                                    endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                                    endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+                                    onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
+                                    focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                                    onFocusChange={focusedInput => this.setState({ focusedInput })}
+                                    numberOfMonths={1}
+                                    hideKeyboardShortcutsPanel
+                                    daySize={30}
+                                    endDatePlaceholderText='mm/dd/yyyy'
+                                    startDatePlaceholderText='mm/dd/yyyy'
+
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <div className="margin-top-guests">GUESTS</div>
+                            <select className="guests-dropdown">
+                                <option>Guests</option>
+                            </select>
+                        </div>
+                        <BookingCardButton>Search</BookingCardButton>
+                    </div>
+                    <Footer />
                 </div>
                 <div className="explore-box">
                     <h4 className="explore-airbnb">Explore Airbnb</h4>
                     <div className="explore-container">
-                        <div className="explore-content">
-                            <img src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
-                            <h4 className="space">Homes</h4>
-                        </div>
-                        <div className="explore-content">
-                            <img src="https://images.unsplash.com/photo-1513883583436-c8bbfbc3b215?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
-                            <h4 className="space">Experiences</h4>
-                        </div>
-                        <div className="explore-content">
-                            <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
-                            <h4 className="space">Restaurants</h4>
-                        </div>
+                        <Link to="/unfilteredhomes" className="explore-link-tags">
+                            <div className="explore-content">
+                                <img src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
+                                <h4 className="space">Homes</h4>
+                            </div>
+                        </Link>
+                        <Link className='explore-link-tags'>
+                            <div className="explore-content">
+                                <img src="https://images.unsplash.com/photo-1513883583436-c8bbfbc3b215?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
+                                <h4 className="space">Experiences</h4>
+                            </div>
+                        </Link>
+                        <Link className='explore-link-tags'>
+                            <div className="explore-content">
+                                <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
+                                <h4 className="space">Restaurants</h4>
+                            </div>
+                        </Link>
                     </div>
                 </div>
                 <div className="explore-box">
@@ -228,8 +253,9 @@ class Home extends Component {
 
 function mapStatetoProps(reduxStoreState) {
     return {
-        homes: reduxStoreState.homes
+        homes: reduxStoreState.homes,
+        userData: reduxStoreState.user
     }
 }
 
-export default connect(mapStatetoProps, { getEightHomes, getHomes })(Home)
+export default connect(mapStatetoProps, { getEightHomes, getHomes, getData, getCities })(Home)

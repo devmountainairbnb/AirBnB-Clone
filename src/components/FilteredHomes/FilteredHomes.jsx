@@ -1,9 +1,26 @@
 import React, { Component } from 'react'
 import Header from './../Header/Header'
 import './FilteredHomes.css'
+import { connect } from 'react-redux'
+import { getHomesByCity } from './../../ducks/homesReducer'
 
 class FilteredHomes extends Component {
+
+    componentDidMount() {
+        this.props.getHomesByCity(this.props.match.params)
+        console.log(this.props)
+    }
+
     render() {
+        console.log(111111, this.props.homes.cityHomes)
+        let { cityHomes } = this.props.homes
+        console.log(cityHomes)
+        // let map = cityHomes.map(home => {
+        //     // console.log(home)
+        //     return (
+        //         <div></div>
+        //     )
+        // })
         return (
             <div className="filtered-container">
                 <Header/>
@@ -11,7 +28,6 @@ class FilteredHomes extends Component {
                     <p className="dates">Dates</p>
                     <p>Guests</p>
                 </div>
-
                 <h2>Explore City</h2>
                 <div className="explore-section">
                     <div className="explore-homes">
@@ -29,7 +45,7 @@ class FilteredHomes extends Component {
                 </div>
                 <h2>Where To Stay</h2>
                 <div className="homes-container">
-                    mapping of homes....
+                    {/* {map} */}
                 </div>
 
             </div>
@@ -37,4 +53,10 @@ class FilteredHomes extends Component {
     }
 }
 
-export default FilteredHomes
+function mapStatetoProps(reduxStoreState) {
+    return {
+        homes: reduxStoreState.homes
+    }
+}
+
+export default connect(mapStatetoProps, { getHomesByCity })(FilteredHomes)

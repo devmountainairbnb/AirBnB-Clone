@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 const initialState = {
     start_date: '',
     end_date: '',
