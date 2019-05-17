@@ -18,10 +18,15 @@ module.exports = {
         return res.status(200).send(response)
     },
 
+    getCities: async (req, res) => {
+        const db = req.app.get('db')
+        let response = await db.get_Cities()
+        return res.status(200).send(response)
+    },
+
     getListing: async (req, res) => {
         const db = req.app.get('db')
         const {property_id} = req.params
-
         let listing = await db.grab_listing([property_id])
         let images = await db.grab_listing_images([property_id])
 
