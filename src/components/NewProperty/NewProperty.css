@@ -23,7 +23,7 @@
 }
 
 .right-side {
-    width: 25rem;
+    width: 35rem;
     margin-right: 9rem;
     margin-top: 4rem;
 }
@@ -54,6 +54,10 @@
     font-size: 1.5rem;
     line-height: 2.4rem;
     margin-bottom: 1.3rem;
+}
+
+.right-side h2 {
+    width: 30rem;
 }
 
 .new-property-listing h6 {
@@ -103,7 +107,7 @@
 
 .amenities {
     display: flex;
-    width: 20.8rem;
+    width: 20.4rem;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -129,10 +133,48 @@
 
 .step-four textarea {
     height: 9rem;
-    width: 20rem;
+    width: 26rem;
     border: 1px solid lightgray;
     border-radius: 3px;
     margin: .9rem .6rem 0rem 0rem;
     padding-left: .3rem;
     font-size: .9rem;
 }
+
+.upload-container {
+    width: 26rem;
+    height: 20rem;
+    border-radius: .4rem;
+    border: dashed .13rem #B2B2B2;
+    background: #F8F8F8;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-container button {
+    display: flex;
+    justify-content: space-between;
+    padding: 0rem 1.7rem;
+}
+
+.uploaded-images-container {
+    width: 26rem;
+    padding: 1rem 2.5rem;
+    height: 33.6rem;
+    border-radius: .4rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;  
+    flex-wrap: wrap; 
+    border: dashed .13rem rgb(3, 155, 160);
+}
+
+.uploaded-images-container img {
+    margin: .5rem;
+}
+

@@ -10,7 +10,6 @@ const initialState = {
 const GET_LISTING = 'GET_LISTING'
 
 export function getListing(params) {
-
     let data = axios.get(`/api/listing/${params.property_id}`).then(res => res.data)
     return {
         type: GET_LISTING,

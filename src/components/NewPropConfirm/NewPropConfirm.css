@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+    margin: 0rem;
+    padding: 0rem;
+}
+
+.property-confirm {
+    height: 100vh;
+    position: relative;
+    background-image: url('https://a0.muscache.com/airbnb/static/photos.6f837cb4.png');
+    background-size: 30rem;
+    background-repeat: no-repeat;
+    background-position: 8.2% 100%;
+}
+
+.property-congrats {
+    position: absolute;
+    right: 12rem;
+    top: 14.5rem;
+    color: rgba(63, 63, 63, 0.925);
+}
+
+.property-details {
+    position: absolute;
+    right: 36.6rem;
+    top: 21rem;
+    color: rgba(63, 63, 63, 0.925);
+}
+
+.property-info {
+    font-size: 1rem;
+    line-height: 1.8rem;
+    margin-top: .6rem;
+}
+
+.property-confirm button {
+    position: absolute;
+    right: 26.6rem;
+    top: 31rem;
+}

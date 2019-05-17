@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .dark {
@@ -12,7 +13,7 @@
     margin: none;
     padding: none;
     border: none;
-    width: 100%;
+    width: 100vw;
     overflow-y: hidden;
     height: 100vh;
     background-image: url('./backgrounds/chillbus2.jpg');
@@ -156,9 +157,9 @@
     background-color: #ffffff;
     border: 1px solid lightgray;
     border-radius: 3px;
-    top: calc(50% - 175px);
+    top: calc(50vh - 175px);
     right: calc(50% - 250px);
-    z-index: 2;
+    z-index: 15;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -172,13 +173,23 @@
     background-color: #ffffff;
     border: 1px solid lightgray;
     border-radius: 3px;
-    top: calc(50% - 225px);
+    top: calc(50vh - 225px);
     right: calc(50% - 200px);
-    z-index: 2;
+    z-index: 15;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+}
+
+.dark {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    z-index: 13;
+    opacity: .9;
+    overflow: hidden;
 }
 
 .hidden {
@@ -192,6 +203,16 @@
 }
 
 /* explore airbnb */
+
+.explore-link-tags {
+    width: 22%;
+    text-decoration: none;
+    /* border: 1px solid black; */
+    height: 9.2vh;
+    margin-right: 1rem;
+    box-shadow: .03rem .1rem .22rem rgba(63, 63, 63, 0.21);
+}
+
 .explore-box {
     width: 90%;
 }

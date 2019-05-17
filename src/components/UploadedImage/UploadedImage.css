@@ -1,0 +1,17 @@
+* {
+    box-sizing: border-box;
+    margin: 0rem;
+    padding: 0rem;
+}
+
+.uploaded-image img {
+    width: 9rem;
+    height: 7rem;
+    position: relative;
+}
+
+.uploaded-image p {
+    color:rgba(63, 63, 63, 0.7);
+    margin-left: .7rem;
+}
+

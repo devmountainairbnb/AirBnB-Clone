@@ -7,4 +7,4 @@ select distinct
 from property p
 join image i on p.property_id = i.assoc_property_id
 group by p.property_id
-limit 8
+limit 16
