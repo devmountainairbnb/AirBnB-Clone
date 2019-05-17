@@ -1,3 +1,6 @@
+* {
+    color: #484848
+}
 .imagePrimary{
     overflow: hidden;
     margin-right: 1px;
@@ -10,51 +13,39 @@
     width: calc(25% - 2px);
     height: calc(50% - 2px)
 }
-.imageContainer{
+
+.imageContainer,
+.imageContainerHovered,
+.imageContainerHovered:hover{
     width: 100%;
     height: 100%;
     display: none;
     
 }
-.imageContainerHovered{
-    width: 100%;
-    height: 100%;
+.imageContainerHovered,
+.imageContainerHovered:hover{
     display: contents;
     background: rgba(136, 134, 134, 1)
 }
-.imageContainerHovered:hover{
-    display: contents;
-}
 
 
-.listingImg{
-    transition: transform .7s, opacity .7s;
-    width: 100%;
-    height: 100%;
-}
-.listingImg:hover{
+
+.listingImg,
+.listingImg:hover,
+.listingImgHover{
     transition: transform .7s, opacity .7s;
     width: 100%;
     height: 100%;
 }
 .listingImgHover{
-    transition: transform .7s, opacity .7s;
-
     opacity: .7;
-    width: 100%;
-    height: 100%;
 }
 .listingImgHover:hover{
     opacity: 1;
     transform: scale(1.05);
-    transition: transform .7s;
-    
+    transition: transform .7s;  
 }
-/* .listingImgHover:after{
-    transform: scale(1);
-    transition: transform .7s, opacity .7s;
 
-} */
 
 .listingImages{
     height: 35em;
@@ -64,6 +55,10 @@
     background-color: #000;
     width: 100%
 }
+
+
+
+
 .listingBody{
     display: flex;
     margin: 0 auto;
@@ -80,8 +75,14 @@
     justify-content: space-between;
     overflow: wrap;
 }
-.detailSpan{
+
+.detailSpan,
+.detailSubhead{
     margin-right: 1em;
+    color: #484848;
+}
+.detailsContainer{
+    margin-left: 20px
 }
 .stickyBooking{
     display: flex;
@@ -90,8 +91,7 @@
     border: 1px solid #e4e4e4;
     width: 376px;
     margin-left: 45px;
-    
-    padding: 12px 24px ;
+    padding: 20px 24px ;
     height: 30em;
     position: sticky;
     top: 20px
@@ -151,4 +151,9 @@
 }
 .bookingLabels{
     font-size: 12px
+}
+
+.divider{
+    margin-top: 1em;
+    margin-bottom: 1em
 }
