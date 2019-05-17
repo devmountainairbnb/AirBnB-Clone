@@ -2,13 +2,15 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux' 
 import HeaderLoggedIn from './../Header/HeaderLoggedIn'
 import { createListing } from './../../ducks/homesReducer'
-import { PropertyInput, CounterButton, ListingButton } from './../StyledComponents/StyledComponents'
+import { PropertyInput, CounterButton, ListingButton, UploadImagesButton } from './../StyledComponents/StyledComponents'
 import './NewProperty.css'
 import Footer from './../Footer/Footer'
 import Icon from '../StyledComponents/AmenitiesIcons/index'
+import UploadedImage from './../UploadedImage/UploadedImage'
 import { v4 as randomString } from 'uuid';
 import Dropzone from 'react-dropzone';
 import axios from 'axios'
+import cloud from './icons8-upload-to-cloud-50.png'
 
 class NewProperty extends Component {
     constructor(props) {
@@ -47,32 +49,32 @@ class NewProperty extends Component {
             smoke_dectector: false,
             carbon_monoxide_detector: false,
             private_bathroom: false,
+            isUploaded: false,
             isUploading: false,
-            url: [],
+            urls: [],
         }
     }
 
     getSignedRequest = (files) => {
-        for(let i = 0; i < files.length; i++) {
-
         this.setState({ isUploading: true });
-        const fileName = `${randomString()}-${files[i].name.replace(/\s/g, '-')}`;
-        axios
-          .get('/api/signs3', {
-            params: {
-              'file-name': fileName,
-              'file-type': files[i].type,
-            },
-          })
-          .then(response => {
-            const { signedRequest, url } = response.data;
-            this.uploadFile(files[i], signedRequest, url);
-            console.log(url)
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
+        for(let i = 0; i < files.length; i++) {
+            const fileName = `${randomString()}-${files[i].name.replace(/\s/g, '-')}`;
+            axios
+            .get('/api/signs3', {
+                params: {
+                    'file-name': fileName,
+                    'file-type': files[i].type,
+                },
+            })
+            .then(response => {
+                const { signedRequest, url } = response.data;
+                this.uploadFile(files[i], signedRequest, url);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+        this.setState({ isUploaded: true });
     }
     
       uploadFile = (file, signedRequest, url) => {
@@ -85,8 +87,8 @@ class NewProperty extends Component {
         axios
           .put(signedRequest, file, options)
           .then(response => {
-            this.setState({ isUploading: false, url });
-            
+            this.setState({ isUploading: false, urls: [...this.state.urls, url] });
+            console.log(this.state.urls)
           })
           .catch(err => {
             this.setState({
@@ -153,12 +155,50 @@ class NewProperty extends Component {
     //       });
     //   };
 
-    createListing = () => {
-        let { city_name, state_name, zipcode_name, street_address, title, cost, description, bed, bath, rooms, guests, image_1, image_2, image_3, image_4, image_5, kitchen, shampoo, heating,air_conditioning,washer,dryer,wifi, breakfast, indoor_fireplace, iron, hair_dryer, laptop_friendly_workspace,
+    createListing = async () => {
+        let urls = await this.state.urls
+        console.log(urls)
+        for(let i = 0; i < urls.length; i++) {
+            if(urls.length === 5) {
+                this.setState({
+                    image_1: this.state.urls[0],
+                    image_2: this.state.urls[1],
+                    image_3: this.state.urls[2],
+                    image_4: this.state.urls[3],
+                    image_5: this.state.urls[4],
+                })
+            } else if(urls.length === 4) {
+                this.setState({
+                    image_1: this.state.urls[0],
+                    image_2: this.state.urls[1],
+                    image_3: this.state.urls[2],
+                    image_4: this.state.urls[3]
+                })
+            } else if(urls.length === 3) {
+                this.setState({
+                    image_1: this.state.urls[0],
+                    image_2: this.state.urls[1],
+                    image_3: this.state.urls[2]
+                })
+            } else if(urls.length === 2) {
+                this.setState({
+                    image_1: this.state.urls[0],
+                    image_2: this.state.urls[1]
+                }) 
+            }
+             else if(urls.length === 1) {
+                this.setState({
+                    image_1: this.state.urls[0]
+                }) 
+            }
+        }
+        let { city_name, state_name, zipcode_name, street_address, title, cost, description, bed, bath, rooms, guests, image_1, image_2, image_3, image_4, image_5, kitchen, shampoo, heating, air_conditioning,washer, dryer, wifi, breakfast, indoor_fireplace, iron, hair_dryer, laptop_friendly_workspace,
         crib, tv, smoke_dectector, carbon_monoxide_detector, private_bathroom } = this.state;
 
         createListing(city_name, state_name, zipcode_name, street_address, title, cost, description, bed, bath, rooms, guests, image_1, image_2, image_3, image_4, image_5, kitchen, shampoo, heating,air_conditioning, washer,dryer,wifi, breakfast, indoor_fireplace, iron, hair_dryer, laptop_friendly_workspace,
         crib, tv, smoke_dectector, carbon_monoxide_detector, private_bathroom);
+        
+        this.props.history.push('/propertyConfirm')
     }
 
     handleChange = e => {
@@ -215,11 +255,14 @@ class NewProperty extends Component {
         })
     }
 
-    
-
     render() {
-        const { url, isUploading } = this.state;
-        console.log(url)
+        const { urls, url } = this.state;
+        let uploadedImages = urls.map(image => {
+            return (
+                <UploadedImage image={image}/>
+            )
+        })
+
         return (
             <div className="new-property-listing">
                 <HeaderLoggedIn />
@@ -392,19 +435,13 @@ class NewProperty extends Component {
                             <textarea onChange={this.handleChange} type="text" name="description" placeholder="Description"></textarea>
 
                             <div className="cost-type">
-                                <PropertyInput short onChange={this.handleChange} type="text" name="cost" placeholder="Cost" />
+                                <PropertyInput short onChange={this.handleChange} type="text" name="cost" placeholder="Cost $USD" />
                             </div>
 
                             <div className="images-select">
-                            {/* <PropertyInput onChange={this.handleChange} type="text" name="image_1" placeholder="image 1" />
-                            <PropertyInput onChange={this.handleChange} type="text" name="image_2" placeholder="image 2" />
-                            <PropertyInput onChange={this.handleChange} type="text" name="image_3" placeholder="image 3" />
-                            <PropertyInput onChange={this.handleChange} type="text" name="image_4" placeholder="image 4" />
-                            <PropertyInput onChange={this.handleChange} type="text" name="image_5" placeholder="image 5" /> */}
-
-
 
                             <img src={url} alt="" width="450px" />
+                            <h2>Add photos to your listing</h2>
 
                             <Dropzone
                                 onDropAccepted={this.getSignedRequest}
@@ -429,7 +466,19 @@ class NewProperty extends Component {
                                 <section>
                                     <div {...getRootProps()}>
                                     <input {...getInputProps()}/>
-                                    <button>Upload Image</button>
+                                    <div>
+
+                                    
+                                    {this.state.isUploaded ? 
+                                        <div className="uploaded-images-container">{uploadedImages}
+                                        <UploadImagesButton after>Add Another +</UploadImagesButton>
+                                        </div>
+                                        :
+                                        <div  className="upload-container">
+                                            <UploadImagesButton onClick={() => this.setState({upload: !this.state.upload})}><img src={cloud} alt="" width="20" color="#fff"/>Upload Images</UploadImagesButton>    
+                                        </div>
+                                    }
+                                    </div>
                                     </div>
                                 </section>
                             )}
