@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { getHomesAustin, getHomesTopRated, getHomes } from './../../ducks/homesReducer'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import HomeCard from './../HomeCard/HomeCard'
-import HeaderLoggedIn from './../Header/HeaderLoggedIn'
+import Header from './../Header/Header'
 import Footer from './../../components/Footer/Footer'
 import thoughtBubble from './thought-bubble.png'
 import star from './star.png'
@@ -21,7 +22,11 @@ class UnfilteredHomes extends Component {
             return <HomeCard key={home.title} home={home}/>
         })
         let topRatedHomes = this.props.homes.topRatedHomes.map((home, i) => {
-            return <HomeCard key={home.title} home={home}/>
+            return (
+                <Link to={`/listing/${home.property_id}`} style={{"text-decoration": "none"}}>
+            <HomeCard key={home.title} home={home}/>
+            </Link>
+            )
         })
         let homesAustin = this.props.homes.austinHomes.map((home, i) => {
             return <HomeCard key={home.title} home={home}/>
@@ -29,7 +34,7 @@ class UnfilteredHomes extends Component {
 
         return (
             <div>
-                <HeaderLoggedIn/>
+                <Header/>
                 <div className="dates-guests-bar">
                     <p className="dates">Dates</p>
                     <p>Guests</p>
