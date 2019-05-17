@@ -68,6 +68,7 @@ app.get('/auth/user-data', authCtrl.userData)
 //HOMES ENDPOINTS
 app.get('/api/homes', homesCtrl.getHomes)
 app.get('/api/cities', homesCtrl.getCities)
+app.get('/api/city/:city_id', homesCtrl.getHomesByCity)
 
 app.get('/api/listing/:property_id', homesCtrl.getListing)
 

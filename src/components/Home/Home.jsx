@@ -14,7 +14,6 @@ import 'react-dates/lib/css/_datepicker.css'
 import './Home.css'
 import Footer from './../Footer/Footer'
 import banner from './backgrounds/banner.jpg'
-import { NONAME } from 'dns';
 
 class Home extends Component {
     constructor() {
@@ -85,34 +84,39 @@ class Home extends Component {
         let { eightHomes } = this.props.homes
         let { cities } = this.props.homes
         let { toggleLogin, toggleSignup } = this.state
-        console.log(this.props.homes.cities)
         let mapPlaces = cities.map(place => {
+            console.log(place)
             return (
-                <div className="place-relative" key={place.name}>
-                    <img className="place-container" src={place.city_img} alt={place.name} />
-                    <div className="text-absolute">
-                        <div>{place.city_name}</div>
-                        <div className="place-cost">${place.avg_cost}/night average</div>
+                <Link to={`/filteredhomes/${place.city_id}`}>
+                    <div className="place-relative" key={place.name}>
+                        <img className="place-container" src={place.city_img} alt={place.name} />
+                        <div className="text-absolute">
+                            <div>{place.city_name}</div>
+                            <div className="place-cost">${place.avg_cost}/night average</div>
+                        </div>
                     </div>
-                </div>
+                </Link>
             )
         })
+
         let mapHomes = eightHomes.map(home => {
-            console.log(home)
             return (
-                <div className="house-box">
-                    <img className="home-img" src={home.image_url[0]} alt="" />
-                    <div>{home.title[0]}</div>
-                    <div className="cost-per-night">${home.cost[0]} per night</div>
-                    <h6><span style={{ color: "#00797E" }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span> &#8729;Superhost</h6>
-                </div>
+                <Link to={`/listing/${home.property_id}`} style={{ textDecoration: 'none' }}>
+                    <div className="house-box">
+                        <img className="home-img" src={home.img_url} alt="" />
+                        <div>{home.title}</div>
+                        <div className="cost-per-night">${home.cost} per night</div>
+                        <h6><span style={{ color: "#00797E" }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span> &#8729;Superhost</h6>
+                    </div>
+                </Link>
             )
         })
         //Ternary here for the ability to darken screen on signup and login
         return (
-            <div className="flex-column">
+            <div className={toggleSignup || toggleLogin ? 'flex-column dark' : 'flex-column'}>
                 <div className="homeheader-relative">
                     {/* login toggle */}
+                    <div className={!toggleLogin ? '' : 'dark'}></div>
                     <div className={toggleLogin ? 'login' : 'login hidden'}>
                         <CancelButton onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })}>X</CancelButton>
                         <BookingCardInput value={this.state.email} name="email" onChange={(e) => this.handleInputChange('email', e.target.value)} login placeholder="Email Address" />
@@ -127,6 +131,7 @@ class Home extends Component {
                         <LoginButton onClick={() => this.login()} login>Login</LoginButton>
                     </div>
                     {/* Signup toggle */}
+                    <div className={!toggleSignup ? '' : 'dark'}></div>
                     <div className={toggleSignup ? 'signup' : 'signup hidden'}>
                         <CancelButton onClick={() => this.setState({ toggleSignup: !this.state.toggleSignup })}>X</CancelButton>
                         <BookingCardInput value={this.state.first_name} name="first_name" onChange={(e) => this.handleInputChange('first_name', e.target.value)} placeholder="First Name"></BookingCardInput>
@@ -150,8 +155,8 @@ class Home extends Component {
                             <div onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })} className="link-styles" >Log in</div>
                         </div>
                     </header>
-                    <img className="background-img" src={chillbus} alt="" />
-                    {/* <div className="background-img"></div> */}
+                    {/* <img className="background-img" src={chillbus} alt="" /> */}
+                    <div className="background-img"></div>
                     {/* book unique homes box */}
                     <div className="book-home-content">
                         <div className="book-unique-homes">Book unique homes and experiences.</div>
@@ -178,8 +183,8 @@ class Home extends Component {
                                     numberOfMonths={1}
                                     hideKeyboardShortcutsPanel
                                     daySize={30}
-                                endDatePlaceholderText='mm/dd/yyyy'
-                                startDatePlaceholderText='mm/dd/yyyy'
+                                    endDatePlaceholderText='mm/dd/yyyy'
+                                    startDatePlaceholderText='mm/dd/yyyy'
 
                                 />
                             </div>
@@ -197,20 +202,24 @@ class Home extends Component {
                 <div className="explore-box">
                     <h4 className="explore-airbnb">Explore Airbnb</h4>
                     <div className="explore-container">
-                    <Link style={{textDecoration: 'none', margin: 'none', padding: 'none', border: 'none'}}>
-                        <div className="explore-content">
-                            <img src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
-                            <h4 className="space">Homes</h4>
-                        </div>
-                    </Link>
-                        <div className="explore-content">
-                            <img src="https://images.unsplash.com/photo-1513883583436-c8bbfbc3b215?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
-                            <h4 className="space">Experiences</h4>
-                        </div>
-                        <div className="explore-content">
-                            <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
-                            <h4 className="space">Restaurants</h4>
-                        </div>
+                        <Link to="/unfilteredhomes" className="explore-link-tags">
+                            <div className="explore-content">
+                                <img src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
+                                <h4 className="space">Homes</h4>
+                            </div>
+                        </Link>
+                        <Link className='explore-link-tags'>
+                            <div className="explore-content">
+                                <img src="https://images.unsplash.com/photo-1513883583436-c8bbfbc3b215?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
+                                <h4 className="space">Experiences</h4>
+                            </div>
+                        </Link>
+                        <Link className='explore-link-tags'>
+                            <div className="explore-content">
+                                <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
+                                <h4 className="space">Restaurants</h4>
+                            </div>
+                        </Link>
                     </div>
                 </div>
                 <div className="explore-box">

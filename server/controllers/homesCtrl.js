@@ -24,6 +24,14 @@ module.exports = {
         return res.status(200).send(response)
     },
 
+    getHomesByCity: async (req, res) => {
+        let { city_id } = req.params
+        console.log(req.params)
+        const db = req.app.get('db')
+        let response = await db.getHomesByCity([city_id])
+        return res.status(200).send(response)
+    },
+
     getListing: async (req, res) => {
         const db = req.app.get('db')
         const {property_id} = req.params
