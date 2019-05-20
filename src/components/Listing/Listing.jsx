@@ -6,7 +6,7 @@ import {updateBookingDates, updateBookingStart, updateBookingEnd} from '../../du
 import Icon from '../StyledComponents/AmenitiesIcons/index'
 
 import 'react-dates/initialize'
-import {DateRangePicker, DayPickerRangeController, SingleDatePicker} from 'react-dates'
+import {DateRangePicker, DayPickerRangeController, SingleDatePicker, DayPickerSingleDateController} from 'react-dates'
 import 'react-dates/lib/css/_datepicker.css'
 
 import {BookingCardButton} from '../StyledComponents/StyledComponents'
@@ -15,7 +15,7 @@ import './Listing.css'
 import 'react-image-lightbox/style.css'
 import { connect } from 'react-redux';
 import { stringLiteral } from '@babel/types';
-
+const moment = require('moment');
 
 
 class Listing extends Component {
@@ -26,7 +26,8 @@ class Listing extends Component {
             photoIndex: 0,
             isOpen: false,
             opacity: 'listingImg',
-            // focusedInput: 'startDate'
+            focusedInput: null,
+            focusedInputControlled: null,
 
 
         }
@@ -47,9 +48,6 @@ class Listing extends Component {
 
 
         const {photoIndex, isOpen} = this.state
-
-        let nextMonth = new Date()
-        nextMonth.setMonth(nextMonth.getMonth()+1)
 
         function capitalize(str) {
             let arr = str.split('_')
@@ -114,6 +112,8 @@ class Listing extends Component {
 
         }
 
+        console.log(this.state)
+
 
         return (
             <div>
@@ -159,25 +159,24 @@ class Listing extends Component {
                         </div>
                         <div className='propertyInfo'>
                             <section className='propertyDetails'>
-                                <h4>Property Details</h4>
-                                <span className='detailSpan'>{details.guests} guests</span>
-                                <span className='detailSpan'>{details.rooms} rooms</span>
-                                <span className='detailSpan'>{details.bed} beds</span>
-                                <span className='detailSpan'>{details.bath} baths</span>
-                            </section>
-                            <br/>
-                                <hr></hr>
-                            <br/>
+                                <span className='detailSubhead'>{<Icon name='air_conditioning' width={16}/>} <strong>Property Details</strong></span>
+                                <br/>
+                                <div className='detailsContainer'>
+                                    <span className='detailSpan'>{details.guests} guests</span>
+                                    <span className='detailSpan'>{details.rooms} rooms</span>
+                                    <span className='detailSpan'>{details.bed} beds</span>
+                                    <span className='detailSpan'>{details.bath} baths</span>
+                                </div>   
                             <div>
                                 {/* On airbnb, this is where other stuff like "Great Location"
                             or "Great Check-in Experience" are listed. */}
                             </div>
+                            </section>
+                                <hr className='divider'></hr>
                             <section>
                         <p>{details.description}</p>
-                            <br/>
-                                <hr></hr>
                             </section>
-                            <br/>
+                                <hr className='divider'></hr>
                             <section>
                                 <h3>Amenities</h3>
                                 <br/>
@@ -185,11 +184,8 @@ class Listing extends Component {
                                 {amenities(details)}
                                 </div>
                                         
-                                    <br/>
-                                    <br/>
-                                <hr></hr>
                             </section>
-                                    <br/>
+                                <hr className='divider'></hr>
                             <section>
                                 <label>
                                     Availability
@@ -197,14 +193,13 @@ class Listing extends Component {
                                     <br/>
                                     <div>
                                     <DayPickerRangeController
-                                        startDate={this.state.startDate} 
-                                        endDate={this.state.endDate} 
-                                        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
-                                        focusedInput={this.state.focusedInput}
-                                        onFocusChange={focusedInput => this.setState({ focusedInput })}
+                                        startDate={this.state.startDateControlled || this.state.startDate} 
+                                        endDate={this.state.endDateControlled || this.state.endDate} 
+                                        onDatesChange={({ startDate, endDate }) => this.setState({ startDateControlled: startDate, endDateControlled: endDate })}
+                                        focusedInput={this.state.focusedInputControlled || 'startDate'}
+                                        onFocusChange={focusedInput => this.setState({focusedInputControlled: focusedInput})}
                                         numberOfMonths={2}
                                         hideKeyboardShortcutsPanel={true}
-                                        keepOpenOnDateSelect={true}
                                         />
                                         
 
@@ -233,9 +228,9 @@ class Listing extends Component {
                                     <DateRangePicker
                                         startDatePlaceholderText='Check-in'
                                         endDatePlaceholderText='Checkout'
-                                        startDate={this.state.startDate} 
+                                        startDate={this.state.startDate || this.state.startDateControlled} 
                                         startDateId="start_date_id"
-                                        endDate={this.state.endDate} 
+                                        endDate={this.state.endDate || this.state.endDateControlled} 
                                         endDateId="end_date_id"
                                         onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
                                         focusedInput={this.state.focusedInput}
