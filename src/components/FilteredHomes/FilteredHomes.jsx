@@ -7,6 +7,7 @@ import { getHomesByCity } from './../../ducks/homesReducer'
 class FilteredHomes extends Component {
 
     componentDidMount() {
+        window.scrollTo(0,0)
         this.props.getHomesByCity(this.props.match.params)
         console.log(this.props)
     }
