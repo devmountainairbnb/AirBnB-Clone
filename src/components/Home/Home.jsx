@@ -17,6 +17,8 @@ import logo from './backgrounds/airbnb-red.png'
 import whiteLogo from './backgrounds/airbnb-512.png'
 import banner from './backgrounds/banner.jpg'
 
+import HomeCarousel from './Carousel'
+
 class Home extends Component {
     constructor() {
         super()
@@ -104,8 +106,8 @@ class Home extends Component {
 
         let mapHomes = eightHomes.map(home => {
             return (
-                <Link to={`/listing/${home.property_id}`} style={{ textDecoration: 'none' }}>
-                    <div className="house-box">
+                <Link to={`/listing/${home.property_id}`} style={{ textDecoration: 'none' }} className="house-box">
+                    <div>
                         <img className="home-img" src={home.img_url} alt="" />
                         <div>{home.title}</div>
                         <div className="cost-per-night">${home.cost} per night</div>
@@ -168,6 +170,7 @@ class Home extends Component {
                     </header>
                     {/* <img className="background-img" src={chillbus} alt="" /> */}
                     <div className="background-img"></div>
+                    {/* <HomeCarousel></HomeCarousel> */}
                     <div className="book-home-content">
                         <div className="book-unique-homes">Book unique homes and experiences.</div>
                         <div>
