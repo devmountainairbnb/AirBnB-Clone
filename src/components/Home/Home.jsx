@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
-import chillbus from './backgrounds/chillbus2.jpg'
-import logo from './backgrounds/airbnb-red.png'
-import whiteLogo from './backgrounds/airbnb-512.png'
 import { BookingCardInput, BookingCardButton, CancelButton, LoginButton } from './../StyledComponents/StyledComponents'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { getEightHomes, getHomes, getCities } from './../../ducks/homesReducer'
 import { Link } from 'react-router-dom'
-import { getData } from './../../ducks/userReducer'
 import 'react-dates/initialize'
 import { DateRangePicker } from 'react-dates'
 import 'react-dates/lib/css/_datepicker.css'
 import './Home.css'
+import Header from './../Header/Header'
 import Footer from './../Footer/Footer'
+import { getEightHomes, getHomes, getCities } from './../../ducks/homesReducer'
+import { getData } from './../../ducks/userReducer'
+
+import chillbus from './backgrounds/chillbus2.jpg'
+import logo from './backgrounds/airbnb-red.png'
+import whiteLogo from './backgrounds/airbnb-512.png'
 import banner from './backgrounds/banner.jpg'
 
 class Home extends Component {
@@ -82,11 +84,11 @@ class Home extends Component {
     }
 
     render() {
+        console.log(this.props)
         let { eightHomes } = this.props.homes
         let { cities } = this.props.homes
         let { toggleLogin, toggleSignup, togglePassword } = this.state
         let mapPlaces = cities.map(place => {
-            console.log(place)
             return (
                 <Link to={`/filteredhomes/${place.city_id}`}>
                     <div className="place-relative" key={place.name}>
@@ -114,7 +116,14 @@ class Home extends Component {
         })
         return (
             <div className={toggleSignup || toggleLogin ? 'flex-column dark' : 'flex-column'}>
-                <div className="homeheader-relative">
+                {
+                    this.props.userData.user_id ? (
+                        <Header />
+                    ) : (
+                        <div></div>
+                    )
+                }
+                <div className={this.props.userData.user_id ? 'display-none' : 'homeheader-relative'}>
                     {/* login toggle */}
                     <div className={!toggleLogin ? '' : 'dark'}></div>
                     <div className={toggleLogin ? 'login' : 'login hidden'}>
@@ -157,9 +166,8 @@ class Home extends Component {
                             <div onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })} className="link-styles" >Log in</div>
                         </div>
                     </header>
-                    <img className="background-img" src={chillbus} alt="" />
-                    {/* <div className="background-img"></div> */}
-                    {/* book unique homes box */}
+                    {/* <img className="background-img" src={chillbus} alt="" /> */}
+                    <div className="background-img"></div>
                     <div className="book-home-content">
                         <div className="book-unique-homes">Book unique homes and experiences.</div>
                         <div>
@@ -201,6 +209,7 @@ class Home extends Component {
                     </div>
                     <Footer />
                 </div>
+                
                 <div className="explore-box">
                     <h4 className="explore-airbnb">Explore Airbnb</h4>
                     <div className="explore-container">
