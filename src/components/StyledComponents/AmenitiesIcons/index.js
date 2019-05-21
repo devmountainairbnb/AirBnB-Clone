@@ -18,6 +18,10 @@ import TV from './TV'
 import Washer from './Washer'
 import WiFi from './WiFi'
 
+import Home from './Home'
+import Location from './Location'
+import SprayBottle from './SprayBottle'
+
 
 const Icon = props => {
   switch (props.name) {
@@ -55,6 +59,12 @@ const Icon = props => {
       return <Washer {...props} />;
     case 'wifi':
       return <WiFi {...props} />;
+    case 'home':
+      return <Home {...props} />;
+    case 'location':
+      return <Location {...props} />;
+    case 'spray_bottle':
+      return <SprayBottle {...props} />;
     default:
       return;
   }
