@@ -18,7 +18,7 @@
 }
 
 .header-container {
-    width: 100%;
+    width: 100vw;
     height: 12vh;
     border-bottom: 1px solid rgba(211, 211, 211, 0.781);
     display: flex;
@@ -26,6 +26,7 @@
     color: #484848e1;
     font-size: .85rem;
     font-weight: bolder;
+    overflow: hidden;
 }
 
 .airbnb-logo {
@@ -46,7 +47,7 @@
     align-items: center;
 }
 
-.header-top-left-content input {
+.searchbar {
     margin-left: 1.3rem;
     border: none;
     box-shadow: .06rem .09rem .23rem rgba(58, 57, 57, 0.336);
@@ -56,6 +57,12 @@
     background-repeat: no-repeat;
     background-position: 4% 45%;
     background-size: 5.8%;
+}
+
+.search {
+    background-image: none;
+    padding-left: 1rem;
+    font-size: 1rem;
 }
 
 .header-top-left-content input::placeholder {
@@ -101,4 +108,73 @@
 
 .slide {
     top: 5.9rem;
+}
+
+.helpmenu {
+    width: 25rem;
+    height: 44rem;
+    background: #fff;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    box-shadow: -.18rem .25rem .32rem rgba(155, 153, 150, 0.325);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: .5rem 1.7rem;
+    z-index: 15;
+    display: none;
+    cursor: pointer;
+}
+
+.helpslide {
+    display: block;
+}
+
+.helpmenu input {
+    font-size: .88rem;
+    font-weight: bolder;
+    opacity: .75;
+    width: 21rem;
+    height: 2.4rem;
+}
+
+.helpmenu input::placeholder {
+    background-image: url('https://img.icons8.com/material/24/000000/search.png');
+    background-repeat: no-repeat;
+    background-position: 3% 45%;
+    background-size: 6%;
+    padding-left: 2.3rem;
+}
+
+.helpmenu h2 {
+    font-size: .97rem;
+    padding: .9rem 0rem 1.1rem 5.5rem;
+    border-bottom: 1px solid rgba(211, 211, 211, 0.781); 
+}
+
+.helpmenu h3 {
+    padding-top: 1rem;
+}
+
+.helpmenu h4 {
+    padding-top: .4rem;
+    font-weight: lighter;
+    font-size: .88rem;
+    color: #039096;
+}
+
+.helpmenu h5 {
+    padding: 2rem 0rem 0rem 0rem;
+}
+
+.helpmenu h6 {
+    font-size: .96rem;
+    padding: 1.7rem 0rem .76rem 0rem;
+}
+
+.helpmenu p {
+    font-weight: lighter;
 }

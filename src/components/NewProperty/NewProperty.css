@@ -5,10 +5,6 @@
 }
 
 .new-property-listing {
-    /* background-image: url('https://a0.muscache.com/airbnb/static/photos.6f837cb4.png');
-    background-size: 30rem;
-    background-repeat: no-repeat;
-    background-position: bottom left; */
     height: 110rem;
 }
 
@@ -146,7 +142,7 @@
     height: 20rem;
     border-radius: .4rem;
     border: dashed .13rem #B2B2B2;
-    background: #F8F8F8;
+    background: rgb(241, 239, 239);
     margin-top: 2rem;
     margin-bottom: 2rem;
     display: flex;
