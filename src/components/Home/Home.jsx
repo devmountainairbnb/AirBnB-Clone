@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
-import chillbus from './backgrounds/chillbus2.jpg'
-import logo from './backgrounds/airbnb-red.png'
-import whiteLogo from './backgrounds/airbnb-512.png'
 import { BookingCardInput, BookingCardButton, CancelButton, LoginButton } from './../StyledComponents/StyledComponents'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { getEightHomes, getHomes, getCities } from './../../ducks/homesReducer'
 import { Link } from 'react-router-dom'
-import { getData } from './../../ducks/userReducer'
 import 'react-dates/initialize'
 import { DateRangePicker } from 'react-dates'
 import 'react-dates/lib/css/_datepicker.css'
 import './Home.css'
+import Header from './../Header/Header'
 import Footer from './../Footer/Footer'
+import { getEightHomes, getHomes, getCities } from './../../ducks/homesReducer'
+import { getData } from './../../ducks/userReducer'
+
+import chillbus from './backgrounds/chillbus2.jpg'
+import logo from './backgrounds/airbnb-red.png'
+import whiteLogo from './backgrounds/airbnb-512.png'
 import banner from './backgrounds/banner.jpg'
 
 class Home extends Component {
@@ -27,7 +29,8 @@ class Home extends Component {
             profile_pic_url: '',
             phone: '',
             email: '',
-            password: ''
+            password: '',
+            togglePassword: true
         }
     }
 
@@ -70,7 +73,7 @@ class Home extends Component {
             phone: '',
             email: '',
             password: '',
-            toggleSignup: false
+            toggleSignup: true
         })
     }
 
@@ -81,11 +84,11 @@ class Home extends Component {
     }
 
     render() {
+        console.log(this.props)
         let { eightHomes } = this.props.homes
         let { cities } = this.props.homes
-        let { toggleLogin, toggleSignup } = this.state
+        let { toggleLogin, toggleSignup, togglePassword } = this.state
         let mapPlaces = cities.map(place => {
-            console.log(place)
             return (
                 <Link to={`/filteredhomes/${place.city_id}`}>
                     <div className="place-relative" key={place.name}>
@@ -111,22 +114,28 @@ class Home extends Component {
                 </Link>
             )
         })
-        //Ternary here for the ability to darken screen on signup and login
         return (
             <div className={toggleSignup || toggleLogin ? 'flex-column dark' : 'flex-column'}>
-                <div className="homeheader-relative">
+                {
+                    this.props.userData.user_id ? (
+                        <Header />
+                    ) : (
+                        <div></div>
+                    )
+                }
+                <div className={this.props.userData.user_id ? 'display-none' : 'homeheader-relative'}>
                     {/* login toggle */}
                     <div className={!toggleLogin ? '' : 'dark'}></div>
                     <div className={toggleLogin ? 'login' : 'login hidden'}>
                         <CancelButton onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })}>X</CancelButton>
-                        <BookingCardInput value={this.state.email} name="email" onChange={(e) => this.handleInputChange('email', e.target.value)} login placeholder="Email Address" />
-                        <BookingCardInput value={this.state.password} name="password" onChange={(e) => this.handleInputChange('password', e.target.value)} login placeholder="Password" />
+                        <BookingCardInput className="padding-input" value={this.state.email} name="email" onChange={(e) => this.handleInputChange('email', e.target.value)} login placeholder="Email Address" />
+                        <BookingCardInput className="padding-input" type={togglePassword ? 'password' : 'text'} value={this.state.password} name="password" onChange={(e) => this.handleInputChange('password', e.target.value)} login placeholder="Password" />
                         <div className="flex-remember">
-                            <div>
+                            <div className="remember-me">
                                 <input type="checkbox"></input>
                                 Remember Me
                             </div>
-                            <div>Show Password</div>
+                            <div onClick={() => this.setState({ togglePassword: !this.state.togglePassword })} className="show-password">Show Password</div>
                         </div>
                         <LoginButton onClick={() => this.login()} login>Login</LoginButton>
                     </div>
@@ -134,22 +143,24 @@ class Home extends Component {
                     <div className={!toggleSignup ? '' : 'dark'}></div>
                     <div className={toggleSignup ? 'signup' : 'signup hidden'}>
                         <CancelButton onClick={() => this.setState({ toggleSignup: !this.state.toggleSignup })}>X</CancelButton>
-                        <BookingCardInput value={this.state.first_name} name="first_name" onChange={(e) => this.handleInputChange('first_name', e.target.value)} placeholder="First Name"></BookingCardInput>
-                        <BookingCardInput value={this.state.last_name} name="last_name" onChange={(e) => this.handleInputChange('last_name', e.target.value)} placeholder="Last Name"></BookingCardInput>
-                        <BookingCardInput value={this.state.phone} name="phone" onChange={(e) => this.handleInputChange('phone', e.target.value)} placeholder="Phone Number"></BookingCardInput>
-                        <BookingCardInput value={this.state.profile_pic_url} name="profile_pic_url" onChange={(e) => this.handleInputChange('profile_pic_url', e.target.value)} placeholder="Profile Pic Url"></BookingCardInput>
-                        <BookingCardInput value={this.state.email} name="email" onChange={(e) => this.handleInputChange('email', e.target.value)} placeholder="Email"></BookingCardInput>
-                        <BookingCardInput value={this.state.password} name="password" onChange={(e) => this.handleInputChange('password', e.target.value)} placeholder="Password"></BookingCardInput>
+                        <BookingCardInput className="padding-input" value={this.state.first_name} name="first_name" onChange={(e) => this.handleInputChange('first_name', e.target.value)} placeholder="First Name"></BookingCardInput>
+                        <BookingCardInput className="padding-input" value={this.state.last_name} name="last_name" onChange={(e) => this.handleInputChange('last_name', e.target.value)} placeholder="Last Name"></BookingCardInput>
+                        <BookingCardInput className="padding-input" value={this.state.phone} name="phone" onChange={(e) => this.handleInputChange('phone', e.target.value)} placeholder="Phone Number"></BookingCardInput>
+                        <BookingCardInput className="padding-input" value={this.state.profile_pic_url} name="profile_pic_url" onChange={(e) => this.handleInputChange('profile_pic_url', e.target.value)} placeholder="Profile Pic Url"></BookingCardInput>
+                        <BookingCardInput className="padding-input" value={this.state.email} name="email" onChange={(e) => this.handleInputChange('email', e.target.value)} placeholder="Email"></BookingCardInput>
+                        <BookingCardInput className="padding-input" value={this.state.password} name="password" onChange={(e) => this.handleInputChange('password', e.target.value)} placeholder="Password"></BookingCardInput>
+                        <div className="already-have-account">Already have an Airbnb account? <span onClick={() => this.setState({ toggleSignup: false, toggleLogin: true })} className="login-in-signup">Log in</span></div>
                         <LoginButton onClick={() => this.register()} login>Sign Up</LoginButton>
                     </div>
                     <header className="home-header-container">
                         <div className="header-top-left-content">
                             {/* Logo in the top right */}
-                            <img className="airbnb-logo" src={logo} alt="" />
+                            <img className="airbnb-logo2" src={logo} alt="" />
                         </div>
                         {/* links in the top left */}
                         <div className="header-top-right-content">
-                            <div className="link-styles">Become a host</div>
+                            <div className="link-styles">Host a home</div>
+                            <div className="link-styles">Host an experience</div>
                             <div className="link-styles">Help</div>
                             <div onClick={() => this.setState({ toggleSignup: !this.state.toggleSignup })} className="link-styles">Sign Up</div>
                             <div onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })} className="link-styles" >Log in</div>
@@ -157,7 +168,6 @@ class Home extends Component {
                     </header>
                     {/* <img className="background-img" src={chillbus} alt="" /> */}
                     <div className="background-img"></div>
-                    {/* book unique homes box */}
                     <div className="book-home-content">
                         <div className="book-unique-homes">Book unique homes and experiences.</div>
                         <div>
@@ -199,6 +209,7 @@ class Home extends Component {
                     </div>
                     <Footer />
                 </div>
+                
                 <div className="explore-box">
                     <h4 className="explore-airbnb">Explore Airbnb</h4>
                     <div className="explore-container">

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import HeaderLoggedIn from './../Header/HeaderLoggedIn'
 import Footer from './../Footer/Footer'
 import { getLastHome } from './../../ducks/homesReducer'
 import { ListingButton } from './../StyledComponents/StyledComponents'
@@ -26,7 +25,6 @@ render() {
 
     return (
       <div className="property-confirm">
-        <HeaderLoggedIn/>
         <div className="property-congrats">
             <h1>Congratulations!</h1>
             <h2>your posting is now viewable and ready to book!</h2>

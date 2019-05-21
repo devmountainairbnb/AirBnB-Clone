@@ -9,26 +9,26 @@
     opacity: .1;
 }
 /* top header and first 100vh of screen */
+.background-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+}
+
 .background-img {
     margin: none;
     padding: none;
     border: none;
     width: 100vw;
-    overflow-y: hidden;
     height: 100vh;
-    background-image: url('./backgrounds/chillbus2.jpg');
     background-size: 100% 100%;
-    animation:slider 40s infinite linear;
-}
-
-.background-container {
-    width: 100%;
-    height: 100vh;
+    animation:slider 30s infinite linear;
 }
 
 @keyframes slider {
-    0% { background-image: url('./backgrounds/chillbus2.jpg')}
-    7% { background-image: url('./backgrounds/chillbus2.jpg')}
+    0% { background-image: url('./backgrounds/yellowbus.jpg')}
+    7% { background-image: url('./backgrounds/yellowbus.jpg')}
     14% { background-image: url('./backgrounds/newyork.jpg')}
     21% { background-image: url('./backgrounds/newyork.jpg')}
     28% { background-image: url('./backgrounds/newyork.jpg')}
@@ -38,7 +38,7 @@
     56% { background-image: url('./backgrounds/cliffJumping.jpg')}
     63% { background-image: url('./backgrounds/cliffJumping.jpg')}
     70% { background-image: url('./backgrounds/cliffJumping.jpg')}
-    72% { background-image: url('./backgrounds/chillbus2.jpg')}
+    72% { background-image: url('./backgrounds/yellowbus.jpg')}
 }
 .homeheader-relative {
     position: relative;
@@ -49,20 +49,22 @@
     top: 0;
 }
 
-.airbnb-logo {
-    width: 25px;
-    height: 25px;
+.airbnb-logo2 {
+    margin-bottom: 2rem;
+    margin-left: .6rem;
+    width: 1.6rem;
+    height: 1.6rem;
 }
 
 .home-header-container {
     width: 100%;
-    height: 9vh;
+    height: 14vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: absolute;
     top: 0;
-    background: linear-gradient(0deg, rgba(153,218,255,0) 0%, rgba(0,0,0,0.3) 100%);
+    background: linear-gradient(0deg, rgba(153,218,255, 0) 0%, rgba(0,0,0,0.2) 100%);
     color: #ffffff;
 }
 
@@ -78,6 +80,7 @@
 }
 
 .link-styles {
+    height: 5.5vh;
     font-size: .7rem;
     font-weight: 600;
     border: none;
@@ -86,8 +89,9 @@
     font-family: sans-serif;
 }
 
-.link-styles {
+.link-styles:hover {
     cursor: pointer;
+    border-bottom: 3px solid #ffffff;
 }
 
 .book-home-content {
@@ -169,17 +173,48 @@
 .signup {
     position: absolute;
     width: 400px;
-    height: 450px;
+    height: 500px;
     background-color: #ffffff;
     border: 1px solid lightgray;
     border-radius: 3px;
-    top: calc(50vh - 225px);
+    top: calc(50vh - 250px);
     right: calc(50% - 200px);
     z-index: 15;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 27%;
+    font-size: .8rem;
+}
+
+.show-password {
+    font-size: .7rem;
+    color: #039096;
+}
+
+.show-password:hover {
+    cursor: pointer;
+    border-bottom: 1px solid #039096;
+}
+
+.already-have-account {
+    font-size: .8rem;
+}
+
+.login-in-signup {
+    color: #039096;
+}
+
+.login-in-signup:hover {
+    cursor: pointer;
+    border-bottom: 1px solid #039096;
 }
 
 .dark {
@@ -200,6 +235,10 @@
     display: flex;
     justify-content: space-between;
     width: 80%;
+}
+
+.display-none {
+    display: none;
 }
 
 /* explore airbnb */
