@@ -53,11 +53,11 @@ class UnfilteredHomes extends Component {
     }
 
     handleSliderMin = e => {
-        this.setState({ min: e.target.value})
+        this.setState({min: e.target.value})
     }
     
     handleSliderMax = e => {
-        this.setState({ max: e.target.value})
+        this.setState({max: e.target.value})
     }
 
     render() {
@@ -139,11 +139,18 @@ class UnfilteredHomes extends Component {
                                          <CounterButton >-</CounterButton> 0 <CounterButton>+</CounterButton>
                                     </span>   
                                 </div>
-                                
+                                <div className="apply-reset">
                                 <h2 onClick={() => this.setState({
                                     toggleGuest: !this.state.toggleGuest,
                                     toggleFade: !this.state.toggleFade
                                     })}>Apply</h2>
+                                <h2 onClick={() => this.setState({
+                                    toggleGuest: !this.state.toggleGuest,
+                                    toggleFade: !this.state.toggleFade,
+                                    guests: 0,
+                                    toggleColorGuest: false
+                                    })}>Reset</h2> 
+                                </div>       
                             </div>
                     <p>Home type</p>
                     <p onClick={() => this.setState({
@@ -152,7 +159,12 @@ class UnfilteredHomes extends Component {
                         toggleFade: !this.state.toggleFade
                         })} className={this.state.toggleColorPrice ? "price-button" : ""}>Price</p>
                     <div className={this.state.togglePrice ? 'price-drop price-toggle' : 'price-drop'}>
-                        <h6>{this.state.min}</h6>
+
+                    <h4>The average nightly price is $81</h4>
+                        <div className="price-boxes">
+                            <h6>${this.state.min}</h6><h2>-</h2>
+                            <h6>${this.state.max}</h6>    
+                        </div>
                     <div className="slidercontainer">
                         <input 
                             type="range" 
@@ -161,6 +173,7 @@ class UnfilteredHomes extends Component {
                             value={this.state.min}
                             onChange={this.handleSliderMin}
                             step="1"
+                            className="min-slider"
                             />
                         <input 
                             type="range" 
@@ -172,13 +185,20 @@ class UnfilteredHomes extends Component {
                             className="max-slider"
                             />
                     </div>
-                        <h6>{this.state.max}</h6>    
                      
-
-                    <h2 onClick={() => this.setState({
-                        togglePrice: !this.state.togglePrice,
-                        toggleFade: !this.state.toggleFade
-                        })}>Apply</h2>
+                    <div className="apply-reset">
+                        <h2 onClick={() => this.setState({
+                            togglePrice: !this.state.togglePrice,
+                            toggleFade: !this.state.toggleFade
+                            })}>Apply</h2>
+                        <h2 onClick={() => this.setState({
+                                        togglePrice: !this.state.togglePrice,
+                                        toggleFade: !this.state.toggleFade,
+                                        min: 0,
+                                        max: 1000,
+                                        toggleColorPrice: false
+                                        })}>Reset</h2>     
+                    </div>    
                     </div>
                     <p>Rooms and Beds</p>
                     <p>Amenities</p>
@@ -211,7 +231,8 @@ class UnfilteredHomes extends Component {
                 </div>
 
                 <div className={this.state.guests ? "rated-homes-container" : "no-display"}>
-                    <h2>Homes Available for {this.state.guests} Guests</h2>
+                    <h2>Homes Available for {this.state.guests} {this.state.guests === 1 ? "Guest" : "Guests"}</h2>
+                    <p>Explore homes verified for quality &amp; comfort in cities around the world</p>
                     <div className="homes-display-container">
                         {displayFilter}
                     </div>      
@@ -219,6 +240,7 @@ class UnfilteredHomes extends Component {
                 
                 <div className={this.state.min > 0 || this.state.max < 1000 ? "rated-homes-container" : "no-display"}>
                     <h2>Homes Available for ${this.state.min} to ${this.state.max}</h2>
+                    <p>Explore homes verified for quality &amp; comfort in cities around the world</p>
                     <div className="homes-display-container">
                         {displayCostFilter}
                     </div>      
