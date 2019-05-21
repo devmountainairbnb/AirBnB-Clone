@@ -16,6 +16,7 @@ import { getEightHomes, getHomes, getCities } from './../../ducks/homesReducer'
 import { getData } from './../../ducks/userReducer'
 import banner from './backgrounds/banner.jpg'
 
+import Icon from './../StyledComponents/AmenitiesIcons/index'
 class Home extends Component {
     constructor() {
         super()
@@ -259,7 +260,6 @@ class Home extends Component {
                         </div>
                         <BookingCardButton>Search</BookingCardButton>
                     </div>
-                    <Footer />
                 </div>
                 
                 <div className="explore-box">
@@ -289,6 +289,9 @@ class Home extends Component {
                     <h4 className="recommended-for-you">Recommended for you</h4>
                     <div className="recommended-pictures-box">
                         {mapPlaces}
+                        <Icon name='arrow_left' />
+                        {/* <div className="left-arrow">{'<'}</div>
+                        <div className="right-arrow">{'>'}</div> */}
                     </div>
                 </div>
                 <div className="banner-center">
@@ -309,6 +312,7 @@ class Home extends Component {
                         {mapHomes}
                     </div>
                 </div>
+                <Footer />
             </div>
         )
     }

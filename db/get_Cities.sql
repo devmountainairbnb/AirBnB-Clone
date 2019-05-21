@@ -1,1 +1,1 @@
-select * from city where city_id in (63, 26, 64, 65, 66);
+select * from city where city_id in (63, 26, 64, 65, 66, 20);
