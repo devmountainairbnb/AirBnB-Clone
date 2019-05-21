@@ -11,30 +11,21 @@
     background-size: 30rem;
     background-repeat: no-repeat;
     background-position: 8.2% 100%;
+    position: relative;
 }
 
-.property-congrats {
+.main-content-prop {
+    height: 22rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: absolute;
-    right: 12rem;
-    top: 14.5rem;
-    color: rgba(63, 63, 63, 0.925);
-}
-
-.property-details {
-    position: absolute;
-    right: 22rem;
-    top: 21rem;
-    color: rgba(63, 63, 63, 0.925);
+    top: 14rem;
+    right: 13rem;
 }
 
 .property-info {
     font-size: 1rem;
     line-height: 1.8rem;
-    margin-top: .6rem;
-}
-
-.property-confirm button {
-    position: absolute;
-    right: 26.6rem;
-    top: 31rem;
+    margin-top: .8rem;
 }

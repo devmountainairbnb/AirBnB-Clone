@@ -2,7 +2,6 @@ import React from 'react'
 import './HomeCard.css'
 
 export default function HomeCard(props) {
-    console.log(props.home)
     return (
         <div className="homecard-container">
             <img src={props.home.img_url} alt="home" />

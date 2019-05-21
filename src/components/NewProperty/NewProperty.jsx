@@ -106,54 +106,6 @@ class NewProperty extends Component {
           });
       };
       
-    // getSignedRequest = ([file]) => {
-    //     this.setState({ isUploading: true });
-    //     const fileName = `${randomString()}-${file.name.replace(/\s/g, '-')}`;
-    
-    //     axios
-    //       .get('/api/signs3', {
-    //         params: {
-    //           'file-name': fileName,
-    //           'file-type': file.type,
-    //         },
-    //       })
-    //       .then(response => {
-    //         const { signedRequest, image_1 } = response.data;
-    //         this.uploadFile(file, signedRequest, image_1);
-    //       })
-    //       .catch(err => {
-    //         console.log(err);
-    //       });
-    //   };
-    
-    //   uploadFile = (file, signedRequest, image_1) => {
-    //     const options = {
-    //       headers: {
-    //         'Content-Type': file.type,
-    //       },
-    //     };
-    
-    //     axios
-    //       .put(signedRequest, file, options)
-    //       .then(response => {
-    //         this.setState({ isUploading: false, image_1 });
-    //         // THEN DO SOMETHING WITH THE image_1. SEND TO DB USING POST REQUEST OR SOMETHING
-    //       })
-    //       .catch(err => {
-    //         this.setState({
-    //           isUploading: false,
-    //         });
-    //         if (err.response.status === 403) {
-    //           alert(
-    //             `Your request for a signed image_1 failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${
-    //               err.stack
-    //             }`
-    //           );
-    //         } else {
-    //           alert(`ERROR: ${err.status}\n ${err.stack}`);
-    //         }
-    //       });
-    //   };
 
     createListing = async () => {
         let urls = await this.state.urls
@@ -195,8 +147,7 @@ class NewProperty extends Component {
         let { city_name, state_name, zipcode_name, street_address, title, cost, description, bed, bath, rooms, guests, image_1, image_2, image_3, image_4, image_5, kitchen, shampoo, heating, air_conditioning,washer, dryer, wifi, breakfast, indoor_fireplace, iron, hair_dryer, laptop_friendly_workspace,
         crib, tv, smoke_dectector, carbon_monoxide_detector, private_bathroom } = this.state;
 
-        createListing(city_name, state_name, zipcode_name, street_address, title, cost, description, bed, bath, rooms, guests, image_1, image_2, image_3, image_4, image_5, kitchen, shampoo, heating,air_conditioning, washer,dryer,wifi, breakfast, indoor_fireplace, iron, hair_dryer, laptop_friendly_workspace,
-        crib, tv, smoke_dectector, carbon_monoxide_detector, private_bathroom);
+        createListing(city_name, state_name, zipcode_name, street_address, title, cost, description, bed, bath, rooms, guests, image_1, image_2, image_3, image_4, image_5, kitchen, shampoo, heating,air_conditioning, washer, dryer, wifi, breakfast, indoor_fireplace, iron, hair_dryer, laptop_friendly_workspace, crib, tv, smoke_dectector, carbon_monoxide_detector, private_bathroom);
         
         this.props.history.push('/propertyConfirm')
     }
@@ -435,7 +386,7 @@ class NewProperty extends Component {
                             <textarea onChange={this.handleChange} type="text" name="description" placeholder="Description"></textarea>
 
                             <div className="cost-type">
-                                <PropertyInput short onChange={this.handleChange} type="text" name="cost" placeholder="Cost $USD" />
+                                <PropertyInput short onChange={this.handleChange} type="text" name="cost" placeholder="Cost" />
                             </div>
 
                             <div className="images-select">

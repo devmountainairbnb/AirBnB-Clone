@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import chillbus from './backgrounds/chillbus2.jpg'
 import logo from './backgrounds/airbnb-red.png'
 import whiteLogo from './backgrounds/airbnb-512.png'
-import { BookingCardInput, BookingCardButton, CancelButton, LoginButton } from './../StyledComponents/StyledComponents'
+import { BookingCardInput, BookingCardButton, CancelButton, LoginButton, CounterButton } from './../StyledComponents/StyledComponents'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { getEightHomes, getHomes, getCities } from './../../ducks/homesReducer'
@@ -27,7 +27,9 @@ class Home extends Component {
             profile_pic_url: '',
             phone: '',
             email: '',
-            password: ''
+            password: '',
+            toggleGuests: false,
+            guests: 0
         }
     }
 
@@ -78,6 +80,24 @@ class Home extends Component {
         this.setState({
             [name]: value
         })
+    }
+
+    handleAddGuests = () => {
+        this.setState({
+            guests: this.state.guests + 1
+        })
+    }
+    handleSubtractGuests = () => {
+        if(this.state.guests >= 1) {
+            this.setState({
+                guests: this.state.guests - 1
+            })
+        }
+        else {
+            this.setState({
+                guests: 0
+            })
+        }
     }
 
     render() {
@@ -190,10 +210,43 @@ class Home extends Component {
                             </div>
                         </div>
                         <div>
-                            <div className="margin-top-guests">GUESTS</div>
-                            <select className="guests-dropdown">
+                            <div className="margin-top-guests" onClick={() => this.setState({toggleGuests: !this.state.toggleGuests})}>
+                                <div>{this.state.guests === 1 ?  
+                                    <span>{this.state.guests} guest</span> 
+                                    : this.state.guests > 1 ? 
+                                    <span>{this.state.guests} guests</span> 
+                                    : <span>Guests</span>}
+                                </div>&#8744;
+                            </div>
+
+                            <div className={this.state.toggleGuests ? 'guest-menu toggle' : 'guest-menu'}>
+                                <div className="guest-options">
+                                    <h3>Adults</h3>
+                                    <span>
+                                        <CounterButton onClick={this.handleSubtractGuests}>-</CounterButton> {this.state.guests} <CounterButton onClick={this.handleAddGuests}>+</CounterButton>
+                                    </span>
+                                </div>
+                                <div className="guest-options">
+                                    <span><h3>Children</h3>
+                                    <p>Ages 2-12</p></span>
+                                    <span>
+                                        <CounterButton onClick={this.handleSubtractGuests}>-</CounterButton> 0 <CounterButton>+</CounterButton>
+                                    </span>
+                                </div>
+
+                                <div className="guest-options">
+                                    <span><h3>Infants</h3>
+                                    <p>Under 2</p></span> 
+                                    <span>
+                                         <CounterButton >-</CounterButton> 0 <CounterButton>+</CounterButton>
+                                    </span>   
+                                </div>
+                                
+                                <h2 onClick={() => this.setState({toggleGuests: !this.state.toggleGuests})}>Apply</h2>
+                            </div>
+                            {/* <select className="guests-dropdown">
                                 <option>Guests</option>
-                            </select>
+                            </select> */}
                         </div>
                         <BookingCardButton>Search</BookingCardButton>
                     </div>
