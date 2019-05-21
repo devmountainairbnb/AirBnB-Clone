@@ -20,6 +20,19 @@
     border: .05rem solid #48484846;
     border-radius: .3rem;
     margin: .5rem .4rem;
+    cursor: pointer;
+}
+
+.dates-guests-bar p:hover {
+    background-color: #00797E;
+    border: .05rem solid #00797E;
+    color: #fff;
+}
+
+.guest-options p {
+    border: none;
+    padding: 0rem;
+    margin: 0rem;
 }
 
 .dates-guests-bar .dates {
@@ -127,13 +140,13 @@
 }
 
 
-#show-all {
+.show-all {
     color: rgba(0, 122, 126, 0.89);
     margin-left: 4rem;
     height: 2.3rem;
 }
 
-#show-all:hover {
+.show-all:hover {
     text-decoration: underline;
     cursor: pointer;
 }
@@ -155,5 +168,85 @@
     display: flex;
     width: 100%;
     flex-wrap: wrap;
+    padding-bottom: 5rem;
+    height: 50rem;
 }
 
+.guest-drop {
+    width: 22rem;
+    height: 16rem;
+    background: #fff;
+    position: absolute;
+    top: 8.55rem;
+    left: 8.9rem;
+    z-index: 1;
+    box-shadow: -.18rem .25rem .32rem rgba(155, 153, 150, 0.325);
+    border: .08rem solid rgba(155, 153, 150, 0.325);
+    border-top: none;
+    padding: .5rem 1.1rem;
+    cursor: pointer;
+    display: none;
+    font-size: .77rem;
+}
+
+.guest-drop h2 {
+    color: #0F8186;
+    float: right;
+    font-size: .9rem;
+}
+
+.drop-toggle {
+    display: block;
+}
+
+.guest-button {
+    background-color: #00797E;
+    border: .05rem solid #00797E;
+    color: #fff;
+}
+
+.price-button {
+    background-color: #00797E;
+    border: .05rem solid #00797E;
+    color: #fff;
+}    
+
+.fade {
+    opacity: .3;
+}
+
+.no-display {
+    display: none;
+}
+
+
+.price-drop {
+    width: 22rem;
+    height: 16rem;
+    background: #fff;
+    position: absolute;
+    top: 8.55rem;
+    left: 20.7rem;
+    z-index: 1;
+    box-shadow: -.18rem .25rem .32rem rgba(155, 153, 150, 0.325);
+    border: .08rem solid rgba(155, 153, 150, 0.325);
+    border-top: none;
+    padding: .5rem 1.1rem;
+    cursor: pointer;
+    display: none;
+    font-size: .77rem;
+}
+
+.price-toggle {
+    display: block
+}
+
+.slidercontainer {
+    display: flex;
+}
+
+
+.max-slider {
+    width: 12rem;
+    margin-left: -.5rem;
+}
