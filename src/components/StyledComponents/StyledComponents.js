@@ -1,9 +1,11 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 export const BookingCardInput = styled.input`
 width: ${props => props.login ? "25rem" : "18rem"};
 height: 2.7rem;
 border: 1px solid lightgray;
+margin: .2rem;
 border-radius: 2px;
 `
 
@@ -27,6 +29,7 @@ background-color: #F76464;
 color: white;
 border: none;
 margin: 1.5rem;
+&:hover {cursor: pointer};
 `
 
 export const BookingDateInput = styled.input`
@@ -46,6 +49,7 @@ font-weight: 200;
 background-color: white;
 border: 1px solid lightgray;
 margin: 1rem;
+&:hover {cursor: pointer};
 `
 
 export const PropertyInput = styled.input`
@@ -93,4 +97,15 @@ margin: ${props => props.after ? ".5rem 0rem 0rem .9rem" : ""}
 border-radius: 5px;
 font-size: .89rem;
 cursor: pointer;
+`
+
+export const LinkRed = styled(Link)`
+text-decoration: none;
+color: #484848e1;
+&:hover {color: #F84A4F};
+`
+export const LinkTeal = styled(Link)`
+text-decoration: none;
+color: #484848e1;
+&:hover {color: #039096};
 `
