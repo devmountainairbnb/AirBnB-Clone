@@ -22,6 +22,9 @@ import Home from './Home'
 import Location from './Location'
 import SprayBottle from './SprayBottle'
 
+import ArrowLeft from './ArrowLeft'
+import ArrowRight from './ArrowRight'
+
 
 const Icon = props => {
   switch (props.name) {
@@ -65,6 +68,10 @@ const Icon = props => {
       return <Location {...props} />;
     case 'spray_bottle':
       return <SprayBottle {...props} />;
+    case 'arrow_right':
+      return <ArrowRight {...props} />;
+    case 'arrow_left':
+      return <ArrowLeft {...props} />;
     default:
       return;
   }
