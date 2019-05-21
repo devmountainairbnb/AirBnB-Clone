@@ -107,7 +107,7 @@ export default function reducer(state = initialState, action) {
         case GET_LAST_HOME + '_FULFILLED':
             return {...state, lastHome: action.payload}
         case GET_HOMES_BY_CITY + '_FULFILLED':
-            return {...state, cityHomes: [...action.payload]}     
+            return {...state, cityHomes: action.payload}     
         default:
             return state;     
     }

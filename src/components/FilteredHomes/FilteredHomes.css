@@ -63,3 +63,8 @@
 .explore-section .explore-homes {
     margin-left: 4rem;
 }
+
+.homes-container {
+    display: flex;
+    flex-wrap: wrap;
+}

@@ -5,17 +5,17 @@ import {getListing} from '../../ducks/listingReducer'
 import {updateBookingDates, updateBookingStart, updateBookingEnd} from '../../ducks/bookingReducer'
 import Icon from '../StyledComponents/AmenitiesIcons/index'
 
-import 'react-dates/initialize'
-import {DateRangePicker, DayPickerRangeController, SingleDatePicker, DayPickerSingleDateController} from 'react-dates'
-import 'react-dates/lib/css/_datepicker.css'
-
-import {BookingCardButton} from '../StyledComponents/StyledComponents'
+// import 'react-dates/initialize'
+import {DateRangePicker, DayPickerRangeController} from 'react-dates'
+// import 'react-dates/lib/css/_datepicker.css'
 
 import './Listing.css'
 import 'react-image-lightbox/style.css'
 import { connect } from 'react-redux';
-import { stringLiteral } from '@babel/types';
 const moment = require('moment');
+
+const randomPercent = Math.floor(Math.random() * (100 - 70)) + 70
+const randomNum = Math.floor(Math.random() * (20 - 7)) + 7
 
 
 class Listing extends Component {
@@ -33,6 +33,7 @@ class Listing extends Component {
         }
     }
     componentDidMount(){
+        window.scrollTo(0, 0)
         this.props.getListing(this.props.match.params)
 
     }
@@ -61,8 +62,7 @@ class Listing extends Component {
                 return <div
                     key={i}
                     className='imagePrimary'
-                    onMouseOver={() => this.setState({opacity: 'listingImgHover'})}
-                    onMouseOut={() => (this.setState({opacity: 'listingImg'}))}>
+                    >
                 <img
                     className={this.state.opacity}
                     
@@ -77,8 +77,6 @@ class Listing extends Component {
                 return <div 
                     key={i}
                     className='imageWrapper'
-                    onMouseOver={() => this.setState({opacity: 'listingImgHover'})}
-                    onMouseOut={() => this.setState({opacity: 'listingImg'})}
                     >
                 <img
                     className={this.state.opacity}
@@ -105,19 +103,64 @@ class Listing extends Component {
                     return <div className='amenityFalse' key={i}>{<Icon name={keys[i]} color='#DDD' width={20}/>} {capitalize(keys[i])}</div>
                 }
             })
-
             return amenities.filter(item => item !== undefined)
+        }
 
+        // console.log(this.state)
+
+        let bookings = [
+            {
+                start_date: '2019-05-20',
+                end_date: '2019-05-27'
+            },
+            {
+                start_date: '2019-06-05',
+                end_date: '2019-06-10'
+            },
+            {
+                start_date: '2019-06-17',
+                end_date: '2019-06-18'
+            }
+        ]
+
+
+        let isDayBlocked = function() {
+                let index = 0
+                return {
+                    dayCheck: function(day){
+                        day.format('YYYY-MM-DD')
+                    let booking = bookings[index]
+                    if(booking){
+                        if(day < booking.start_date){
+                            return false
+                        }else if(day >= moment(`${booking.start_date}`) && day <= moment(`${booking.end_date}`)){
+                            return true
+                        }else if(day >= moment(`${booking.end_date}`)){
+                                index++
+                            return false
+                        }
+                    } else {
+                        return false
+                    }
+                }
+            }
+                
 
         }
 
-        console.log(this.state)
+        let blocked = isDayBlocked()
+
+
 
 
         return (
-            <div>
+            <div className='listingPage'>
                 <Header />
-                <div className='listingImages'>
+                <div
+                    className='listingImages'
+                    onMouseOver={() => this.setState({opacity: 'listingImgHover'})}
+                    onMouseOut={() => this.setState({opacity: 'listingImg'})}
+                    >
                     {imgView}
                     {isOpen && (
                         <Lightbox
@@ -158,7 +201,7 @@ class Listing extends Component {
                         </div>
                         <div className='propertyInfo'>
                             <section className='propertyDetails'>
-                                <span className='detailSubhead'>{<Icon name='air_conditioning' width={16}/>} <strong>Property Details</strong></span>
+                                <span className='detailSubhead'>{<Icon name='home' width={16} color='#484848'/>} <strong>Property details</strong></span>
                                 <br/>
                                 <div className='detailsContainer'>
                                     <span className='detailSpan'>{details.guests} guests</span>
@@ -166,14 +209,22 @@ class Listing extends Component {
                                     <span className='detailSpan'>{details.bed} beds</span>
                                     <span className='detailSpan'>{details.bath} baths</span>
                                 </div>   
-                            <div>
-                                {/* On airbnb, this is where other stuff like "Great Location"
-                            or "Great Check-in Experience" are listed. */}
-                            </div>
+                                <br/>
+                                <div>
+                                    <span className='detailSubhead'>{<Icon name='location' width={16} color='#484848'/>} <strong>Great location</strong></span>
+                                    <br/>
+                                    <span className='detailsContainer'>{randomPercent}% of recent guests gave the location a 5-star rating.</span>
+                                </div>
+                                <br/>
+                                <div>
+                                    <span className='detailSubhead'>{<Icon name='spray_bottle' width={16} color='#484848'/>} <strong>Sparkling clean</strong></span>
+                                    <br/>
+                                    <span className='detailsContainer'>{randomNum} recent guests said this place was sparkling clean.</span>
+                                </div>
                             </section>
                                 <hr className='divider'></hr>
                             <section>
-                        <p>{details.description}</p>
+                                <p>{details.description}</p>
                             </section>
                                 <hr className='divider'></hr>
                             <section>
@@ -186,24 +237,28 @@ class Listing extends Component {
                             </section>
                                 <hr className='divider'></hr>
                             <section>
-                                <label>
-                                    Availability
-                                    <br/>
-                                    <br/>
-                                    <div>
-                                    <DayPickerRangeController
+                                    <h3>Availability</h3>
+                                    <div id="dayPicker">
+                                    {/* <DayPickerRangeController
                                         startDate={this.state.startDateControlled || this.state.startDate} 
                                         endDate={this.state.endDateControlled || this.state.endDate} 
-                                        onDatesChange={({ startDate, endDate }) => this.setState({ startDateControlled: startDate, endDateControlled: endDate })}
+                                        onDatesChange={({ startDate, endDate }) => this.setState({ startDateControlled: startDate, endDateControlled: endDate, startDate, endDate })}
                                         focusedInput={this.state.focusedInputControlled || 'startDate'}
                                         onFocusChange={focusedInput => this.setState({focusedInputControlled: focusedInput})}
                                         numberOfMonths={2}
                                         hideKeyboardShortcutsPanel={true}
-                                        />
+                                        noBorder={true}
+                                        isOutsideRange={function(day){
+                                            if(day < moment().subtract(1, 'days')){
+                                                return true
+                                            }
+                                        }}
+                                        isDayBlocked={day => bookings.some(day2 => moment(day).isSame(day1, day2))}
+                                    
+                                        /> */}
                                         
 
                                     </div>
-                                </label>
                             </section>
     
                         </div>
@@ -224,18 +279,26 @@ class Listing extends Component {
                                 <label className='bookingLabels'>
                                     <span>Dates</span>
                                     <br/>
-                                    <DateRangePicker
+                                    {<DateRangePicker
                                         startDatePlaceholderText='Check-in'
                                         endDatePlaceholderText='Checkout'
                                         startDate={this.state.startDate || this.state.startDateControlled} 
                                         startDateId="start_date_id"
-                                        endDate={this.state.endDate || this.state.endDateControlled} 
+                                        endDate={this.state.endDate || this.state.endDateControlled}
                                         endDateId="end_date_id"
-                                        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                                        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate, startDateControlled: startDate, endDateControlled: endDate })}
                                         focusedInput={this.state.focusedInput}
                                         onFocusChange={focusedInput => this.setState({ focusedInput })}
                                         numberOfMonths={1}
-                                    />
+                                        isOutsideRange={function(day){
+                                            if(day < moment().subtract(1, 'days')){
+                                                return true
+                                            }
+                                        }}
+                                        isDayBlocked={blocked.dayCheck}
+                                        
+                                        
+                                    />}
                                 </label>
                                 <label className='bookingLabels'>
                                     <span>Guests</span>

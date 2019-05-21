@@ -28,6 +28,7 @@ class UnfilteredHomes extends Component {
         }
     }
     componentDidMount() {
+        window.scrollTo(0, 0)
         this.props.getHomes()
         this.props.getHomesAustin()
         this.props.getHomesTopRated()

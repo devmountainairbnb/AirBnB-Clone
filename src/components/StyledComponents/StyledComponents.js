@@ -5,6 +5,7 @@ export const BookingCardInput = styled.input`
 width: ${props => props.login ? "25rem" : "18rem"};
 height: 2.7rem;
 border: 1px solid lightgray;
+margin: .2rem;
 border-radius: 2px;
 `
 
@@ -28,6 +29,7 @@ background-color: #F76464;
 color: white;
 border: none;
 margin: 1.5rem;
+&:hover {cursor: pointer};
 `
 
 export const BookingDateInput = styled.input`
@@ -47,6 +49,7 @@ font-weight: 200;
 background-color: white;
 border: 1px solid lightgray;
 margin: 1rem;
+&:hover {cursor: pointer};
 `
 
 export const PropertyInput = styled.input`
