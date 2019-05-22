@@ -2,15 +2,17 @@ import React, {Component} from 'react'
 import Header from '../Header/Header'
 import Lightbox from 'react-image-lightbox'
 import {getListing} from '../../ducks/listingReducer'
-import {updateBookingDates, updateBookingStart, updateBookingEnd} from '../../ducks/bookingReducer'
+import {updateBooking, grabBookings} from '../../ducks/bookingReducer'
 import Icon from '../StyledComponents/AmenitiesIcons/index'
 
-// import 'react-dates/initialize'
-import {DateRangePicker, DayPickerRangeController} from 'react-dates'
-// import 'react-dates/lib/css/_datepicker.css'
+import {DateRangePicker} from 'react-dates'
+import GuestsDropdown from '../StyledComponents/GuestsDropdown'
+
+
 
 import './Listing.css'
 import 'react-image-lightbox/style.css'
+
 import { connect } from 'react-redux';
 const moment = require('moment');
 
@@ -28,27 +30,37 @@ class Listing extends Component {
             opacity: 'listingImg',
             focusedInput: null,
             focusedInputControlled: null,
-
-
+            guests: 0,
+            toggleGuests: false
         }
     }
+
     componentDidMount(){
         window.scrollTo(0, 0)
         this.props.getListing(this.props.match.params)
-
+        this.props.grabBookings(this.props.match.params)
     }
 
-    handleChange = (value) => {
-        this.props.updateBookingDates(value)
+    handleChange = async () => {
+        const {guests, startDate, endDate} = this.state
+        const property_id = this.props.match.params.property_id
+        const booking = {guests, property_id, startDate, endDate}
+        await this.props.updateBooking(booking)
+        window.location.reload()
+    }
+    handleApply = (guests) => {
+        this.setState({guests, toggleGuests: !this.state.toggleGuests})
     }
 
     render(){
         const {details, urls} = this.props.listing
-        const images = urls
-
-
+        const {booking} = this.props
         const {photoIndex, isOpen} = this.state
 
+        const images = urls
+
+        // details ? document.title=`${details.title}` : document.title = 'Airbnb Clone'
+        
         function capitalize(str) {
             let arr = str.split('_')
             let capitalized = arr[0].charAt(0).toUpperCase() + arr[0].slice(1)
@@ -59,43 +71,30 @@ class Listing extends Component {
 
         const imgView = images.map((img, i) => {
             if(i === 0){
-                return <div
-                    key={i}
-                    className='imagePrimary'
-                    >
+                return <div key={i} className='imagePrimary'>
                 <img
                     className={this.state.opacity}
-                    
                     src={img}
                     alt='property views'
                     onClick={() => this.setState({ photoIndex: i, isOpen: true })}
                     />
-
                 </div>
 
             } else {
-                return <div 
-                    key={i}
-                    className='imageWrapper'
-                    >
+                return <div key={i} className='imageWrapper'>
                 <img
                     className={this.state.opacity}
                     src={img}
                     alt='property views'
                     onClick={() => this.setState({ photoIndex: i, isOpen: true })}
-                    
-
                     />
-
                 </div>
             }
         })
 
-
         const amenities = (obj) => {
             const keys = Object.keys(obj)
             const values = Object.values(obj)
-
             const amenities = values.map((value, i) => {
                 if(value === true){
                     return <div className='amenityTrue' key={i}>{<Icon name={keys[i]} color='#555' width={20}/>} {capitalize(keys[i])}</div>
@@ -105,23 +104,12 @@ class Listing extends Component {
             })
             return amenities.filter(item => item !== undefined)
         }
-
-        // console.log(this.state)
-
-        let bookings = [
-            {
-                start_date: '2019-05-20',
-                end_date: '2019-05-27'
-            },
-            {
-                start_date: '2019-06-05',
-                end_date: '2019-06-10'
-            },
-            {
-                start_date: '2019-06-17',
-                end_date: '2019-06-18'
+        let bookings = booking.bookings.map((book, i) => {
+            return {
+                start_date: book.start_date.slice(0, 10),
+                end_date: book.end_date.slice(0, 10)
             }
-        ]
+        })
 
 
         let isDayBlocked = function() {
@@ -149,6 +137,8 @@ class Listing extends Component {
         }
 
         let blocked = isDayBlocked()
+
+        console.log(1111111, this)
 
 
 
@@ -188,7 +178,8 @@ class Listing extends Component {
                     <div className='listInfoContainer'>
                         <div className='listingHead'>
                             <div className='propertyTitle'>
-                                <h1>{details.title}</h1>
+                                <span className='titleSpan'>{details.title}</span>
+                                <br/>
                                 <span>{details.city_name}</span>
                                 <br/>
                                 <br/>
@@ -238,27 +229,6 @@ class Listing extends Component {
                                 <hr className='divider'></hr>
                             <section>
                                     <h3>Availability</h3>
-                                    <div id="dayPicker">
-                                    {/* <DayPickerRangeController
-                                        startDate={this.state.startDateControlled || this.state.startDate} 
-                                        endDate={this.state.endDateControlled || this.state.endDate} 
-                                        onDatesChange={({ startDate, endDate }) => this.setState({ startDateControlled: startDate, endDateControlled: endDate, startDate, endDate })}
-                                        focusedInput={this.state.focusedInputControlled || 'startDate'}
-                                        onFocusChange={focusedInput => this.setState({focusedInputControlled: focusedInput})}
-                                        numberOfMonths={2}
-                                        hideKeyboardShortcutsPanel={true}
-                                        noBorder={true}
-                                        isOutsideRange={function(day){
-                                            if(day < moment().subtract(1, 'days')){
-                                                return true
-                                            }
-                                        }}
-                                        isDayBlocked={day => bookings.some(day2 => moment(day).isSame(day1, day2))}
-                                    
-                                        /> */}
-                                        
-
-                                    </div>
                             </section>
     
                         </div>
@@ -282,11 +252,11 @@ class Listing extends Component {
                                     {<DateRangePicker
                                         startDatePlaceholderText='Check-in'
                                         endDatePlaceholderText='Checkout'
-                                        startDate={this.state.startDate || this.state.startDateControlled} 
+                                        startDate={this.state.startDate} 
                                         startDateId="start_date_id"
-                                        endDate={this.state.endDate || this.state.endDateControlled}
+                                        endDate={this.state.endDate}
                                         endDateId="end_date_id"
-                                        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate, startDateControlled: startDate, endDateControlled: endDate })}
+                                        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate})}
                                         focusedInput={this.state.focusedInput}
                                         onFocusChange={focusedInput => this.setState({ focusedInput })}
                                         numberOfMonths={1}
@@ -300,14 +270,22 @@ class Listing extends Component {
                                         
                                     />}
                                 </label>
+                                <br/>
                                 <label className='bookingLabels'>
-                                    <span>Guests</span>
-                                    <button></button>
+                                    <GuestsDropdown
+                                        guests={this.state.guests}
+                                        handleAddGuests={() => this.handleAddGuests()}
+                                        handleSubtractGuests={() => this.handleSubtractGuests()}
+                                        handleToggleGuests={() => this.setState({toggleGuests: !this.state.toggleGuests})}
+                                        toggleGuests={this.state.toggleGuests}
+                                        handleApply={this.handleApply}
+                                    
+                                    ></GuestsDropdown>
                                 </label>
                             <br/>
                             <br/>
                             
-                            <button className='request'>Request to Book</button>
+                            <button className='request' onClick={this.handleChange}>Request to Book</button>
                         </div>
     
                     </div>
@@ -324,4 +302,4 @@ class Listing extends Component {
 const mapState = (reduxState) => {
   return reduxState
 }
-export default connect(mapState, {getListing, updateBookingDates, updateBookingStart, updateBookingEnd})(Listing)
+export default connect(mapState, {getListing, updateBooking, grabBookings})(Listing)

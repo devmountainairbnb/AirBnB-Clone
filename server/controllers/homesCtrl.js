@@ -47,6 +47,21 @@ module.exports = {
 
         res.status(200).send(data)
     },
+    getBookings: async (req, res) => {
+        const db = req.app.get('db')
+        const {property_id} = req.params
+        let listing = await db.grab_bookings([property_id])
+
+        res.status(200).send(listing)
+    },
+    postBooking: async (req, res) => {
+        const db = req.app.get('db')
+        console.log(55555, req.body)
+        const {property_id, guests, start_date, end_date} = req.body.request
+        let booking = await db.submit_booking(property_id, guests, start_date, end_date)
+
+        res.status(200).send(booking)
+    },
 
     getHomesTopRated: async (req, res) => {
         const db = req.app.get('db')

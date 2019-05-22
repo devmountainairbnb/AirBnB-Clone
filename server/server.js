@@ -71,6 +71,8 @@ app.get('/api/cities', homesCtrl.getCities)
 app.get('/api/city/:city_id', homesCtrl.getHomesByCity)
 
 app.get('/api/listing/:property_id', homesCtrl.getListing)
+app.get('/api/listing/bookings/:property_id', homesCtrl.getBookings)
+app.post('/api/listing/bookings', homesCtrl.postBooking)
 
 app.get('/api/topratedhomes', homesCtrl.getHomesTopRated)
 app.get('/api/austinhomes', homesCtrl.getHomesAustin)
