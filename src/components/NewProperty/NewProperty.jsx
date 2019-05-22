@@ -5,12 +5,14 @@ import { createListing } from './../../ducks/homesReducer'
 import { PropertyInput, CounterButton, ListingButton, UploadImagesButton } from './../StyledComponents/StyledComponents'
 import './NewProperty.css'
 import Footer from './../Footer/Footer'
+import NewPropConfirm from './../NewPropConfirm/NewPropConfirm'
 import Icon from '../StyledComponents/AmenitiesIcons/index'
 import UploadedImage from './../UploadedImage/UploadedImage'
 import { v4 as randomString } from 'uuid';
 import Dropzone from 'react-dropzone';
 import axios from 'axios'
 import cloud from './icons8-upload-to-cloud-50.png'
+import Loading from './../Loading/Loading'
 
 class NewProperty extends Component {
     constructor(props) {
@@ -49,9 +51,10 @@ class NewProperty extends Component {
             smoke_dectector: false,
             carbon_monoxide_detector: false,
             private_bathroom: false,
-            isUploaded: false,
-            isUploading: false,
+            isUploaded: true,
+            isUploading: true,
             urls: [],
+            submit: false
         }
     }
 
@@ -149,7 +152,6 @@ class NewProperty extends Component {
 
         createListing(city_name, state_name, zipcode_name, street_address, title, cost, description, bed, bath, rooms, guests, image_1, image_2, image_3, image_4, image_5, kitchen, shampoo, heating,air_conditioning, washer, dryer, wifi, breakfast, indoor_fireplace, iron, hair_dryer, laptop_friendly_workspace, crib, tv, smoke_dectector, carbon_monoxide_detector, private_bathroom);
         
-        this.props.history.push('/propertyConfirm')
     }
 
     handleChange = e => {
@@ -214,7 +216,7 @@ class NewProperty extends Component {
             )
         })
 
-        return (
+        return !this.state.submit ? (
             <div className="new-property-listing">
                 <Header />
                 <h1>Let's get started listing your space.</h1>
@@ -422,10 +424,10 @@ class NewProperty extends Component {
                                     
                                     {this.state.isUploaded ? 
                                         <div className="uploaded-images-container">{uploadedImages}
-                                        {this.state.urls[0] ? 
+                                        {/* {this.state.urls[0] ? 
                                         <div></div>
-                                        : <UploadImagesButton after>Add Another +</UploadImagesButton> 
-                                    } 
+                                        : <UploadImagesButton after>Add Another +</UploadImagesButton>}  */}
+                                            {this.state.isUploading ? <Loading/> : <></> }
                                         </div>
                                         :
                                         <div  className="upload-container">
@@ -440,13 +442,19 @@ class NewProperty extends Component {
 
                             
                             </div>
-                            <ListingButton onClick={() => this.createListing()}>Create Listing</ListingButton>
+                            <ListingButton onClick={async () => {
+                                await this.createListing();
+                                this.setState({submit: true})
+                            }}>Create Listing</ListingButton>
 
                         </div> 
                     </div>
                 </div>
                 <Footer/>
             </div>
+        ) : (
+
+            <NewPropConfirm/>
         )
     }
 }
