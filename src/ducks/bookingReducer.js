@@ -1,47 +1,41 @@
-const initialState = {
-    start_date: '',
-    end_date: '',
+import axios from 'axios'
 
-    
+const initialState = {
+    bookings: []   
 }
 
 const UPDATE_BOOKING_DATES = 'UPDATE_BOOKING_DATES'
-const UPDATE_BOOKING_START = 'UPDATE_BOOKING_START'
-const UPDATE_BOOKING_END = 'UPDATE_BOOKING_END'
+const GRAB_BOOKINGS = 'GRAB_BOOKINGS'
 
-export function updateBookingDates(value) {
-    const start_date = value[0].toISOString().slice(0,10)
-    const end_date = value[1].toISOString().slice(0,10)
-    const dates = {start_date, end_date}
+export function updateBooking(booking) {
+    const start_date = booking.startDate.toISOString().slice(0,10)
+    const end_date = booking.endDate.toISOString().slice(0,10)
+    const {guests, property_id} = booking
+    const request = {property_id, guests, start_date, end_date}
+
+    let data = axios.post('/api/listing/bookings', {request}).then(res => res.data)
+
+
     return {
         type: UPDATE_BOOKING_DATES,
-        payload: dates
+        payload: data
     }
 }
-export function updateBookingStart(value) {
+export function grabBookings(params){
+    let data = axios.get(`/api/listing/bookings/${params.property_id}`).then(res => res.data)
+    
     return {
-        type: UPDATE_BOOKING_START,
-        payload: value
-    }
-}
-export function updateBookingEnd(value) {
-    return {
-        type: UPDATE_BOOKING_END,
-        payload: value
+        type: GRAB_BOOKINGS,
+        payload: data
     }
 }
 
 export default function reducer(state = initialState, action) {
     switch(action.type) {
-        case UPDATE_BOOKING_DATES:
-            const {start_date, end_date} = action.payload
-            return {...state, start_date, end_date};
-        case UPDATE_BOOKING_START:
-            // action.payload.toISOString().slice(0,10)
-            return {...state, start_date: ((action.payload.getMonth() + 1) + '/' + action.payload.getDate() + '/' + action.payload.getFullYear())}  
-        case UPDATE_BOOKING_END:
-            action.payload.toISOString().slice(0,10)
-            return {...state, end_date: action.payload}  
+        case UPDATE_BOOKING_DATES + '_FULFILLED':
+            return {...state};
+        case GRAB_BOOKINGS + '_FULFILLED':
+            return {...state, bookings: [...action.payload]};
         default:
             return state;     
     }
