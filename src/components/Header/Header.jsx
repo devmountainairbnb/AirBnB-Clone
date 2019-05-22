@@ -47,7 +47,7 @@ class Header extends Component {
                 <div className="header-top-right-content">
                     <LinkTeal to='/newProperty'>Add Listing</LinkTeal>
                     <LinkTeal to='/newProperty'>Host</LinkTeal>
-                    <LinkTeal to='/'>Saved</LinkTeal>
+                    <LinkTeal to='/propertyConfirm'>Saved</LinkTeal>
                     <LinkTeal to='/'>Trips</LinkTeal>
                     <LinkTeal onClick={() => this.setState({showHelpMenu: !this.state.showHelpMenu})}>Help</LinkTeal>
                     <img 
@@ -94,9 +94,10 @@ class Header extends Component {
 
                 </div>
                 <div className="header-top-right-content">
-                    <LinkRed to='/newProperty'>Become a host</LinkRed>
+                    <LinkRed to='/newProperty'>Host a home</LinkRed>
+                    <LinkRed to='/newProperty'>Host an experience</LinkRed>
                     <LinkRed onClick={() => this.setState({showHelpMenu: !this.state.showHelpMenu})}>Help</LinkRed>
-                    <LinkRed>Sign Up</LinkRed>
+                    <LinkRed to='/'>Sign Up</LinkRed>
                     <LinkRed to="/">Log in</LinkRed>
                 </div>
                 <div onClick={() => this.setState({showHelpMenu: !this.state.showHelpMenu})} className={this.state.showHelpMenu ? 'helpmenu helpslide' : 'helpmenu'}>

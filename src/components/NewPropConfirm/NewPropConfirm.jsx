@@ -13,7 +13,6 @@ componentDidMount() {
 }
 
 render() {
-    console.log(this.props.homes.lastHome)
     let lastHome = this.props.homes.lastHome.map((home, i ) => {
         return (
             <div key={i} className="property-info">
@@ -24,6 +23,7 @@ render() {
             </div>
         )
     })
+    console.log(this.props.homes.lastHome)
     return (
       <div className="property-confirm">
         <Header/>

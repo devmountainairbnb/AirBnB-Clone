@@ -168,6 +168,7 @@
     align-items: flex-start;  
     flex-wrap: wrap; 
     border: dashed .13rem rgb(3, 155, 160);
+    position: relative;
 }
 
 .uploaded-images-container img {
