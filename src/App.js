@@ -11,6 +11,8 @@ import NewProperty from './components/NewProperty/NewProperty.jsx'
 import NewPropConfirm from './components/NewPropConfirm/NewPropConfirm'
 
 function App() {
+  console.log(2323232, window)
+  document.title = 'Airbnb Clone'
   return (
     <div>
       <HashRouter>

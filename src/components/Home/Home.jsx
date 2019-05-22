@@ -188,8 +188,8 @@ class Home extends Component {
                         </div>
                     </header>
                     {/* <img className="background-img" src={chillbus} alt="" /> */}
-                    <div className="background-img"></div>
-                    {/* <HomeCarousel></HomeCarousel> */}
+                    {/* <div className="background-img"></div> */}
+                    <HomeCarousel></HomeCarousel>
                     <div className="book-home-content">
                         <div className="book-unique-homes">Book unique homes and experiences.</div>
                         <div>
