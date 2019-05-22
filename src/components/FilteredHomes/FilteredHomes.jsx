@@ -9,7 +9,7 @@ import flowerBanner from './../Home/backgrounds/flowerbanner.jpg'
 class FilteredHomes extends Component {
 
     componentDidMount() {
-        // window.scrollTo(0, 0)
+        window.scrollTo(0, 0)
         this.props.getHomesByCity(this.props.match.params)
     }
 
@@ -17,14 +17,14 @@ class FilteredHomes extends Component {
         // console.log(this.props.homes.cityHomes[0].city_name)     
         let map = this.props.homes.cityHomes.map(home => {
             return (
-                <Link to={`/listing/${home.property_id}`} key={home.property_id} style={{ textDecoration: 'none' }}>
-                    <div className="house-box">
+                <div className="house-box">
+                    <Link to={`/listing/${home.property_id}`} key={home.property_id} style={{ textDecoration: 'none' }}>
                         <img className="home-img" src={home.img_url} alt="" />
                         <div>{home.title}</div>
                         <div className="cost-per-night">${home.cost} per night</div>
                         <h6><span style={{ color: "#00797E" }}>&#9733;&#9733;&#9733;&#9733;&#9733;</span> &#8729;Superhost</h6>
-                    </div>
-                </Link>
+                    </Link>
+                </div>
             )
         })
         return (
