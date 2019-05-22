@@ -52,10 +52,11 @@
     margin-bottom: 4rem;
 }
 
+
 .travel-world-section div {
-    width: 21%;
+    margin-left: 2.8rem;
+    width: 20.5%;
     height: 4.7rem;
-    margin-left: 1rem;
     display: flex;
     font-family: 'Roboto', sans-serif;
     color: #3F3F3F;
@@ -63,11 +64,20 @@
     position: relative;
 }
 
+.travel-world-section .london {
+    margin-left: 4rem;
+}
+
 .travel-world-section h4 {
     position: absolute;
     left: 7.5rem;
     top: 1.1rem;
     letter-spacing: .027rem;
+    color: #000;
+}
+
+.travel-world-section h4:hover {
+    color: #00797E;
 }
 
 .travel-world-section h6 {
@@ -80,7 +90,7 @@
 }
 
 .travel-world-section img {
-    width: 6.4rem;
+    height: 100%;
 }
 
 .travel-world-section .paris {

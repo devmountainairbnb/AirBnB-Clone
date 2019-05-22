@@ -208,25 +208,33 @@ class UnfilteredHomes extends Component {
 
                 <h2 className="travel-h2">Travel the world with Airbnb</h2>
                 <div className= "travel-world-section">
-                    <div className="paris">
-                        <img src="https://images.unsplash.com/photo-1458262488536-98366625ae59?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""/>
-                        <h4>Paris</h4>
-                        <h6>France</h6>
+                    <div className="london">
+                        <Link to={`/filteredhomes/26`}>
+                            <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""/>
+                            <h4>London</h4>
+                            <h6>England</h6>
+                        </Link>
                     </div>
                     <div className="new-york">
-                        <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""/>
-                        <h4>New York</h4>
-                        <h6>United States</h6>
+                        <Link to={`/filteredhomes/65`}>
+                            <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""/>
+                            <h4>New York</h4>
+                            <h6>United States</h6>
+                        </Link>
                     </div>
-                    <div className="sydney">
-                        <img src="https://images.unsplash.com/photo-1523428096881-5bd79d043006?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""/>
-                        <h4>Sydney</h4>
-                        <h6>Australia</h6>
+                    <div className="bali">
+                        <Link to={`/filteredhomes/90`}>
+                            <img src="https://images.unsplash.com/photo-1540776398900-46755652c969?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""/>
+                            <h4>Bali</h4>
+                            <h6>Indonesia</h6>
+                        </Link>
                     </div>  
-                    <div className="cape-town">
-                        <img src="https://images.unsplash.com/photo-1526052548799-60c6d6c666b5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""/>
-                        <h4>Cape Town</h4>
-                        <h6>South Africa</h6>
+                    <div className="san-francisco">
+                        <Link to={`/filteredhomes/66`}>
+                            <img src="https://images.unsplash.com/photo-1522735555435-a8fe18da2089?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""/>
+                            <h4>San Francisco</h4>
+                            <h6>United States</h6>
+                        </Link>
                     </div>  
                 </div>
 

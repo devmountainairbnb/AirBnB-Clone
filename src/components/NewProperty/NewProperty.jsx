@@ -12,6 +12,7 @@ import { v4 as randomString } from 'uuid';
 import Dropzone from 'react-dropzone';
 import axios from 'axios'
 import cloud from './icons8-upload-to-cloud-50.png'
+import Loading from './../Loading/Loading'
 
 class NewProperty extends Component {
     constructor(props) {
@@ -50,8 +51,8 @@ class NewProperty extends Component {
             smoke_dectector: false,
             carbon_monoxide_detector: false,
             private_bathroom: false,
-            isUploaded: false,
-            isUploading: false,
+            isUploaded: true,
+            isUploading: true,
             urls: [],
             submit: false
         }
@@ -423,10 +424,10 @@ class NewProperty extends Component {
                                     
                                     {this.state.isUploaded ? 
                                         <div className="uploaded-images-container">{uploadedImages}
-                                        {this.state.urls[0] ? 
+                                        {/* {this.state.urls[0] ? 
                                         <div></div>
-                                        : <UploadImagesButton after>Add Another +</UploadImagesButton> 
-                                    } 
+                                        : <UploadImagesButton after>Add Another +</UploadImagesButton>}  */}
+                                            {this.state.isUploading ? <Loading/> : <></> }
                                         </div>
                                         :
                                         <div  className="upload-container">
