@@ -16,6 +16,7 @@ import { getEightHomes, getHomes, getCities } from './../../ducks/homesReducer'
 import { getData } from './../../ducks/userReducer'
 import banner from './backgrounds/banner.jpg'
 import Icon from './../StyledComponents/AmenitiesIcons/index'
+import { bangAsAFunction } from './../../unit testing/functions/spencersFunction'
 // import HomeCarousel from './Carousel'
 // import RecommendedCarousel from './../RecommendedCarousel/RecommendedCarousel'
 
@@ -33,6 +34,7 @@ class Home extends Component {
             email: '',
             password: '',
             toggleGuests: false,
+            currentWhere: '',
             guests: 0,
             togglePassword: true,
             sliderAmount: 0,
@@ -168,7 +170,7 @@ class Home extends Component {
                     {/* login toggle */}
                     <div className={!toggleLogin ? '' : 'dark'}></div>
                     <div className={toggleLogin ? 'login' : 'login hidden'}>
-                        <CancelButton onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })}>X</CancelButton>
+                        <CancelButton onClick={() => this.setState({ toggleLogin: bangAsAFunction(this.state.toggleLogin) })}>X</CancelButton>
                         <BookingCardInput className="padding-input" value={this.state.email} name="email" onChange={(e) => this.handleInputChange('email', e.target.value)} login placeholder="Email Address" />
                         <BookingCardInput className="padding-input" type={togglePassword ? 'password' : 'text'} value={this.state.password} name="password" onChange={(e) => this.handleInputChange('password', e.target.value)} login placeholder="Password" />
                         <div className="flex-remember">
@@ -226,8 +228,8 @@ class Home extends Component {
                             <div onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })} className="link-styles" >Log in</div>
                         </div>
                     </header>
-                    {/* <img className="background-img" src={forest} alt="" /> */}
-                    <div className="background-img"></div>
+                    <img className="background-img" src={forest} alt="" />
+                    {/* <div className="background-img"></div> */}
                     {/* <HomeCarousel></HomeCarousel> */}
                     {/* <img className="background-img" src={chillbus} alt="" /> */}
                     {/* <div className="background-img"></div> */}
@@ -236,7 +238,7 @@ class Home extends Component {
                         <div className="book-unique-homes">Book unique homes and experiences.</div>
                         <div>
                             <div>WHERE</div>
-                            <BookingCardInput className="padding-input" placeholder="Anywhere" />
+                            <BookingCardInput value={this.state.currentWhere} name="currentWhere" onChange={(e) => this.handleInputChange('currentWhere', e.target.value)} className="padding-input-where" placeholder="Anywhere" />
                         </div>
                         <div>
                         </div>
