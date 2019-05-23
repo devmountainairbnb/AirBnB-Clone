@@ -135,6 +135,10 @@
     padding-left: .7rem;
 }
 
+.padding-input-where {
+    padding-left: .7rem;
+}
+
 .flex-check-inout {
     display: flex;
     margin-top: 1rem;

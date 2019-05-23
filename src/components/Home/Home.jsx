@@ -218,7 +218,7 @@ class Home extends Component {
                         <div className="book-unique-homes">Book unique homes and experiences.</div>
                         <div>
                             <div>WHERE</div>
-                            <BookingCardInput value={this.state.currentWhere} name="currentWhere" onChange={(e) => this.handleInputChange('currentWhere', e.target.value)} className="padding-input" placeholder="Anywhere" />
+                            <BookingCardInput value={this.state.currentWhere} name="currentWhere" onChange={(e) => this.handleInputChange('currentWhere', e.target.value)} className="padding-input-where" placeholder="Anywhere" />
                         </div>
                         <div>
                         </div>
