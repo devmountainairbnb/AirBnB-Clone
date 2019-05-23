@@ -51,8 +51,8 @@ class NewProperty extends Component {
             smoke_dectector: false,
             carbon_monoxide_detector: false,
             private_bathroom: false,
-            isUploaded: true,
-            isUploading: true,
+            isUploaded: false,
+            isUploading: false,
             urls: [],
             submit: false
         }

@@ -36,7 +36,7 @@ class FilteredHomes extends Component {
                 </div>
                 <h2>Explore City</h2>
                 <div className="explore-section">
-                    <div className="explore-homes">
+                    <div className="explore-homes" onClick={() => this.props.history.push('/unfilteredHomes')}>
                         <img src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
                         <h4>Homes</h4>
                     </div>

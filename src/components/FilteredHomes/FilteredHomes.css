@@ -41,13 +41,14 @@
 
 .explore-section div {
     width: 21.3%;
-    height: 5.2rem;
+    height: 5rem;
     /* border: 1px solid black; */
     margin-left: 1rem;
     display: flex;
     font-family: 'Roboto', sans-serif;
     color: #3F3F3F;
-    box-shadow: .03rem .1rem .22rem rgba(63, 63, 63, 0.21);
+    box-shadow: .12rem .15rem .2rem rgba(63, 63, 63, 0.34);
+    border: .009rem solid rgba(63, 63, 63, 0.14);
 }
 
 .explore-section h4 {
@@ -60,8 +61,12 @@
     width: 6.4rem;
 }
 
-.explore-section .explore-homes {
+.explore-section .explore-homes,
+.explore-section .explore-experiences,
+.explore-section .explore-restaurants
+  {
     margin-left: 4rem;
+    cursor: pointer;
 }
 
 .homes-container {
