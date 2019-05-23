@@ -34,7 +34,6 @@ class Header extends Component {
     }
 
     render() {
-        console.log(this.state.input)
         let { profile_pic_url } = this.props.user
         return this.props.user.user_id ? (
             <header className="header-container">
