@@ -63,7 +63,7 @@ class UnfilteredHomes extends Component {
     render() {
         let homes = this.props.homes.homes.map((home, i) => {
             return (
-                <Link to={`/listing/${home.property_id}`} style={       {"textDecoration": "none"}} key={i}>
+                <Link to={`/listing/${home.property_id}`} style={{"textDecoration": "none"}} key={i}>
                     <HomeCard key={home.title} home={home}/>
                  </Link>
                 )
@@ -73,7 +73,7 @@ class UnfilteredHomes extends Component {
         
         let displayFilter = guestFilter.map((home, i) => {
             return (
-                <Link to={`/listing/${home.property_id}`} style={       {"textDecoration": "none"}}>
+                <Link to={`/listing/${home.property_id}`} style={{"textDecoration": "none"}}>
                     <HomeCard key={home.title} home={home}/>
                  </Link>
                 )
@@ -83,7 +83,7 @@ class UnfilteredHomes extends Component {
         
         let displayCostFilter = costFilter.map((home, i) => {
             return (
-                <Link to={`/listing/${home.property_id}`} style={       {"textDecoration": "none"}}>
+                <Link to={`/listing/${home.property_id}`} style={{"textDecoration": "none"}}>
                     <HomeCard key={home.cost} home={home} />
                  </Link>
                 )
@@ -91,7 +91,7 @@ class UnfilteredHomes extends Component {
 
         let topRatedHomes = this.props.homes.topRatedHomes.map((home, i) => {
             return (
-                <Link to={`/listing/${home.property_id}`} style={   {"textDecoration": "none"}}>
+                <Link to={`/listing/${home.property_id}`} style={{"textDecoration": "none"}}>
                     <HomeCard key={home.property_id} home={home}/>
                 </Link>
             )
@@ -99,7 +99,7 @@ class UnfilteredHomes extends Component {
         
         let homesAustin = this.props.homes.austinHomes.map((home, i) => {
             return (
-                <Link to={`/listing/${home.property_id}`} style={       {"textDecoration": "none"}}>
+                <Link to={`/listing/${home.property_id}`} style={{"textDecoration": "none"}}>
                     <HomeCard key={home.title} home={home}/>
                  </Link>
                 )
