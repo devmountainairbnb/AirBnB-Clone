@@ -22,6 +22,7 @@ class Header extends Component {
     logout = async () => {
         await axios.get('/auth/logout')
         .catch(err => {console.log(err)})
+        window.location.reload()
       }
 
       handleInput(val) {

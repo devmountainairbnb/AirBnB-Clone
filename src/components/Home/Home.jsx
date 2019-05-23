@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import chillbus from './backgrounds/chillbus2.jpg'
+import forest from './backgrounds/bridge.jpg'
 import logo from './backgrounds/airbnb-red.png'
 import whiteLogo from './backgrounds/airbnb-512.png'
 import { BookingCardInput, BookingCardButton, CancelButton, LoginButton, CounterButton } from './../StyledComponents/StyledComponents'
@@ -15,8 +15,9 @@ import Footer from './../Footer/Footer'
 import { getEightHomes, getHomes, getCities } from './../../ducks/homesReducer'
 import { getData } from './../../ducks/userReducer'
 import banner from './backgrounds/banner.jpg'
-
-import HomeCarousel from './Carousel'
+import Icon from './../StyledComponents/AmenitiesIcons/index'
+// import HomeCarousel from './Carousel'
+// import RecommendedCarousel from './../RecommendedCarousel/RecommendedCarousel'
 
 class Home extends Component {
     constructor() {
@@ -33,7 +34,8 @@ class Home extends Component {
             password: '',
             toggleGuests: false,
             guests: 0,
-            togglePassword: true
+            togglePassword: true,
+            sliderAmount: 0
         }
     }
 
@@ -58,6 +60,7 @@ class Home extends Component {
             password: '',
             toggleLogin: false
         })
+        window.location.reload()
     }
 
     async register() {
@@ -92,7 +95,7 @@ class Home extends Component {
         })
     }
     handleSubtractGuests = () => {
-        if(this.state.guests >= 1) {
+        if (this.state.guests >= 1) {
             this.setState({
                 guests: this.state.guests - 1
             })
@@ -104,8 +107,24 @@ class Home extends Component {
         }
     }
 
+    slideLeft = async () => {
+        let targetClass = await document.querySelector('.recommended-pictures-box')
+        this.setState({
+            sliderAmount: this.state.sliderAmount + 245
+        })
+        targetClass.style.transform = `translate(${this.state.sliderAmount}px)`
+    }
+
+    slideRight = async () => {
+        // console.log(this.state.sliderAmount)
+        let targetClass = await document.querySelector('.recommended-pictures-box')
+        this.setState({
+            sliderAmount: this.state.sliderAmount - 245
+        })
+        targetClass.style.transform = `translate(${this.state.sliderAmount}px)`
+    }
+
     render() {
-        console.log(this.props)
         let { eightHomes } = this.props.homes
         let { cities } = this.props.homes
         let { toggleLogin, toggleSignup, togglePassword } = this.state
@@ -141,8 +160,8 @@ class Home extends Component {
                     this.props.userData.user_id ? (
                         <Header />
                     ) : (
-                        <div></div>
-                    )
+                            <div></div>
+                        )
                 }
                 <div className={this.props.userData.user_id ? 'display-none' : 'homeheader-relative'}>
                     {/* login toggle */}
@@ -187,9 +206,12 @@ class Home extends Component {
                             <div onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })} className="link-styles" >Log in</div>
                         </div>
                     </header>
+                    {/* <img className="background-img" src={forest} alt="" /> */}
+                    <div className="background-img"></div>
+                    {/* <HomeCarousel></HomeCarousel> */}
                     {/* <img className="background-img" src={chillbus} alt="" /> */}
                     {/* <div className="background-img"></div> */}
-                    <HomeCarousel></HomeCarousel>
+                    {/* <HomeCarousel></HomeCarousel> */}
                     <div className="book-home-content">
                         <div className="book-unique-homes">Book unique homes and experiences.</div>
                         <div>
@@ -222,12 +244,12 @@ class Home extends Component {
                             </div>
                         </div>
                         <div>
-                            <div className="margin-top-guests" onClick={() => this.setState({toggleGuests: !this.state.toggleGuests})}>
-                                <div>{this.state.guests === 1 ?  
-                                    <span>{this.state.guests} guest</span> 
-                                    : this.state.guests > 1 ? 
-                                    <span>{this.state.guests} guests</span> 
-                                    : <span>Guests</span>}
+                            <div className="margin-top-guests" onClick={() => this.setState({ toggleGuests: !this.state.toggleGuests })}>
+                                <div>{this.state.guests === 1 ?
+                                    <span>{this.state.guests} guest</span>
+                                    : this.state.guests > 1 ?
+                                        <span>{this.state.guests} guests</span>
+                                        : <span>Guests</span>}
                                 </div>&#8744;
                             </div>
 
@@ -240,7 +262,7 @@ class Home extends Component {
                                 </div>
                                 <div className="guest-options">
                                     <span><h3>Children</h3>
-                                    <p>Ages 2-12</p></span>
+                                        <p>Ages 2-12</p></span>
                                     <span>
                                         <CounterButton onClick={this.handleSubtractGuests}>-</CounterButton> 0 <CounterButton>+</CounterButton>
                                     </span>
@@ -248,23 +270,19 @@ class Home extends Component {
 
                                 <div className="guest-options">
                                     <span><h3>Infants</h3>
-                                    <p>Under 2</p></span> 
+                                        <p>Under 2</p></span>
                                     <span>
-                                         <CounterButton >-</CounterButton> 0 <CounterButton>+</CounterButton>
-                                    </span>   
+                                        <CounterButton >-</CounterButton> 0 <CounterButton>+</CounterButton>
+                                    </span>
                                 </div>
-                                
-                                <h2 onClick={() => this.setState({toggleGuests: !this.state.toggleGuests})}>Apply</h2>
+
+                                <h2 onClick={() => this.setState({ toggleGuests: !this.state.toggleGuests })}>Apply</h2>
                             </div>
-                            {/* <select className="guests-dropdown">
-                                <option>Guests</option>
-                            </select> */}
                         </div>
                         <BookingCardButton>Search</BookingCardButton>
                     </div>
-                    <Footer />
                 </div>
-                
+
                 <div className="explore-box">
                     <h4 className="explore-airbnb">Explore Airbnb</h4>
                     <div className="explore-container">
@@ -290,8 +308,26 @@ class Home extends Component {
                 </div>
                 <div className="explore-box">
                     <h4 className="recommended-for-you">Recommended for you</h4>
-                    <div className="recommended-pictures-box">
-                        {mapPlaces}
+                    <div className="hidden-recommended">
+                        <div className="recommended-pictures-box">
+                            {mapPlaces}
+                        </div>
+                        {this.state.sliderAmount === 0 ? (
+                            <div></div>
+                        ) : (
+                                <div onClick={() => this.slideLeft()}>
+                                    <Icon className="left-arrow" name='arrow_left' width="23" />
+                                </div>
+                            )
+                        }
+                        {this.state.sliderAmount === -490 ? (
+                            <div></div>
+                        ) : (
+                                <div onClick={() => this.slideRight()}>
+                                    <Icon className="right-arrow" name='arrow_right' width="23" />
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
                 <div className="banner-center">
@@ -312,6 +348,7 @@ class Home extends Component {
                         {mapHomes}
                     </div>
                 </div>
+                <Footer />
             </div>
         )
     }

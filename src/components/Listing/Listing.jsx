@@ -42,11 +42,15 @@ class Listing extends Component {
     }
 
     handleChange = async () => {
-        const {guests, startDate, endDate} = this.state
-        const property_id = this.props.match.params.property_id
-        const booking = {guests, property_id, startDate, endDate}
-        await this.props.updateBooking(booking)
-        window.location.reload()
+        if(!this.state.startDate || !this.state.endDate || this.state.guests > 1) {
+            window.alert('Please fill out Check-in, Checkout, and/or Guests')
+        } else {
+            const {guests, startDate, endDate} = this.state
+            const property_id = this.props.match.params.property_id
+            const booking = {guests, property_id, startDate, endDate}
+            await this.props.updateBooking(booking)
+            window.location.reload()
+        }
     }
     handleApply = (guests) => {
         this.setState({guests, toggleGuests: !this.state.toggleGuests})

@@ -11,7 +11,6 @@ export default class GuestsDropdown extends Component {
     }
 
     componentDidMount(){
-        console.log(this.props.guests)
         this.setState({guests: this.props.guests})
     }
 
