@@ -94,10 +94,15 @@
     height: 5.5vh;
     font-size: .7rem;
     font-weight: 600;
-    border: none;
     background-color: transparent;
     color: #ffffff;
     font-family: sans-serif;
+    border: none;
+}
+
+.link-styles h6 {
+    text-decoration: none;
+
 }
 
 .link-styles:hover {
@@ -259,12 +264,8 @@
 /* explore airbnb */
 
 .explore-link-tags {
-    width: 22%;
     text-decoration: none;
-    /* border: 1px solid black; */
-    height: 9.2vh;
     margin-right: 1rem;
-    box-shadow: .03rem .1rem .22rem rgba(63, 63, 63, 0.21);
 }
 
 .explore-box {
@@ -285,21 +286,24 @@
 }
 
 .explore-container {
-    height: 4.2rem;
+    height: 4.9rem;
     display: flex;
+    justify-content: space-between;
     /* border: 1px solid black; */
     color: #00383ae8;
+    width: 87%;
 }
 
-.explore-container div {
-    width: 23%;
-    height: 3.6rem;
-    /* border: 1px solid black; */
-    margin-right: 1rem;
+.explore-content {
+    display: flex;
+    align-items: center;
     display: flex;
     font-family: 'Roboto', sans-serif;
     color: #3F3F3F;
-    box-shadow: .03rem .1rem .22rem rgba(63, 63, 63, 0.21);
+    height: 4.6rem;
+    width: 18rem;
+    box-shadow: .12rem .15rem .2rem rgba(63, 63, 63, 0.24);
+    border: .009rem solid rgba(63, 63, 63, 0.14);
 }
 
 .explore-container div:hover {
@@ -307,7 +311,7 @@
 }
 
 .explore-airbnb {
-    margin: 1rem 0;
+    margin: 2rem 0;
     letter-spacing: .027rem;
     font-weight: 600;
     font-size: 1.1rem;
@@ -316,13 +320,9 @@
 }
 
 .explore-container img {
-    height: 3.6rem;
+    height: 4.6rem;
 }
 
-.explore-content {
-    display: flex;
-    align-items: center;
-}
 
 .space {
     margin-left: .8rem;
@@ -554,4 +554,76 @@
 .guest-options h3 {
     margin-right: 1.8rem;
     margin-bottom: .2rem;
+}
+
+.homemenu {
+    width: 25rem;
+    height: 44rem;
+    background: #fff;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    box-shadow: -.18rem .25rem .32rem rgba(155, 153, 150, 0.325);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: .5rem 1.7rem;
+    z-index: 55;
+    display: none;
+    cursor: pointer;
+    color: #565656;
+}
+
+.helpslide {
+    display: block;
+}
+
+.homemenu input {
+    font-size: .88rem;
+    font-weight: bolder;
+    opacity: .75;
+    width: 21rem;
+    height: 2.4rem;
+}
+
+.homemenu input::placeholder {
+    background-image: url('https://img.icons8.com/material/24/000000/search.png');
+    background-repeat: no-repeat;
+    background-position: 3% 45%;
+    background-size: 6%;
+    padding-left: 2.3rem;
+}
+
+.homemenu h2 {
+    font-size: .97rem;
+    padding: .9rem 0rem 1.1rem 5.5rem;
+    border-bottom: 1px solid rgba(211, 211, 211, 0.781); 
+}
+
+.homemenu h3 {
+    padding-top: 1rem;
+    font-size: .9rem;
+}
+
+.homemenu h4 {
+    padding-top: .4rem;
+    font-weight: lighter;
+    font-size: .88rem;
+    color: #039096;
+}
+
+.homemenu h5 {
+    padding: 2rem 0rem 0rem 0rem;
+}
+
+.homemenu h6 {
+    font-size: .96rem;
+    padding: 1.7rem 0rem .76rem 0rem;
+}
+
+.homemenu p {
+    font-weight: lighter;
+    font-size: .87rem;
 }
