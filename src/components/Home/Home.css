@@ -37,7 +37,6 @@
     border: none;
     width: 100vw;
     height: 100vh;
-    background-size: 100% 100%;
     animation: slider 40s infinite;
 }
 
@@ -50,7 +49,7 @@
     60% { background-image: url('./backgrounds/bridge.jpg')}
     50.1% { background-image: url('./backgrounds/cliffJumping.jpg')}
     70% { background-image: url('./backgrounds/cliffJumping.jpg')}
-    90% { background-image: url('./backgrounds/yellowbus.jpg')}
+    72% { background-image: url('./backgrounds/yellowbus.jpg')}
 }
 .homeheader-relative {
     position: relative;
