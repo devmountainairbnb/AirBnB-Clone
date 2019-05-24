@@ -7,15 +7,34 @@ import { getHomesByCity } from './../../ducks/homesReducer'
 import flowerBanner from './../Home/backgrounds/flowerbanner.jpg'
 
 class FilteredHomes extends Component {
+    constructor() {
+        super()
+        this.state = {
+            startDate: '',
+            endDate: '',
+            guests: 0
+        }
+    }
 
     componentDidMount() {
         window.scrollTo(0, 0)
+        this.setState({
+            startDate: this.props.filtered.startDate,
+            endDate: this.props.filtered.endDate,
+            guests: this.props.filtered.guests
+        })
         this.props.getHomesByCity(this.props.match.params)
     }
-
+    //2880x1800
     render() {
-        // console.log(this.props.homes.cityHomes[0].city_name)     
-        let map = this.props.homes.cityHomes.map(home => {
+        console.log("FilteredSta", this.state)
+        let { cityHomes } = this.props.homes 
+        console.log(cityHomes)
+        let { startDate, endDate, guests } = this.state
+        //property end date and compare it to startDate || end date <= startDate  
+        let filtered = cityHomes.filter(home => home.guests >= guests)
+        console.log(11111111, filtered)
+        let map = filtered.map(home => {
             return (
                 <div className="house-box">
                     <Link to={`/listing/${home.property_id}`} key={home.property_id} style={{ textDecoration: 'none', color: 'black' }}>
@@ -65,10 +84,6 @@ class FilteredHomes extends Component {
     }
 }
 
-function mapStatetoProps(reduxStoreState) {
-    return {
-        homes: reduxStoreState.homes
-    }
-}
+const mapStateToProps = (reduxState) => reduxState
 
-export default connect(mapStatetoProps, { getHomesByCity })(FilteredHomes)
+export default connect(mapStateToProps, { getHomesByCity })(FilteredHomes)
