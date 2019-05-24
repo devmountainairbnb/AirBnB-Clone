@@ -30,7 +30,7 @@ class Listing extends Component {
             opacity: 'listingImg',
             focusedInput: null,
             focusedInputControlled: null,
-            guests: 0,
+            guests: 1,
             toggleGuests: false
         }
     }
@@ -230,10 +230,9 @@ class Listing extends Component {
                                 </div>
                                         
                             </section>
-                                <hr className='divider'></hr>
-                            <section>
-                                    <h3>Availability</h3>
-                            </section>
+                                {/* <hr className='divider'></hr> */}
+                                <br/>
+                                <br/>
     
                         </div>
                     </div>
@@ -243,8 +242,6 @@ class Listing extends Component {
                         <div>
                             <label>
                                 <span><span className='cost'><strong>${details.cost}</strong></span> per night</span>
-                                <br/>
-                                Reviews
                             </label>
                                 <br/>
                                 <br/>

@@ -63,7 +63,7 @@ class UnfilteredHomes extends Component {
     render() {
         let homes = this.props.homes.homes.map((home, i) => {
             return (
-                <Link to={`/listing/${home.property_id}`} style={       {"textDecoration": "none"}} key={i}>
+                <Link to={`/listing/${home.property_id}`} style={       {"textDecoration": "none"}} key={i} className='homecard-container'>
                     <HomeCard key={home.title} home={home}/>
                  </Link>
                 )
@@ -73,7 +73,7 @@ class UnfilteredHomes extends Component {
         
         let displayFilter = guestFilter.map((home, i) => {
             return (
-                <Link to={`/listing/${home.property_id}`} style={       {"textDecoration": "none"}}>
+                <Link to={`/listing/${home.property_id}`} style={       {"textDecoration": "none"}} className='homecard-container'>
                     <HomeCard key={home.title} home={home}/>
                  </Link>
                 )
@@ -83,7 +83,7 @@ class UnfilteredHomes extends Component {
         
         let displayCostFilter = costFilter.map((home, i) => {
             return (
-                <Link to={`/listing/${home.property_id}`} style={       {"textDecoration": "none"}}>
+                <Link to={`/listing/${home.property_id}`} style={       {"textDecoration": "none"}} className='homecard-container'>
                     <HomeCard key={home.cost} home={home} />
                  </Link>
                 )
@@ -91,7 +91,7 @@ class UnfilteredHomes extends Component {
 
         let topRatedHomes = this.props.homes.topRatedHomes.map((home, i) => {
             return (
-                <Link to={`/listing/${home.property_id}`} style={   {"textDecoration": "none"}}>
+                <Link to={`/listing/${home.property_id}`} style={   {"textDecoration": "none"}} className='homecard-container'>
                     <HomeCard key={home.property_id} home={home}/>
                 </Link>
             )
@@ -99,14 +99,14 @@ class UnfilteredHomes extends Component {
         
         let homesAustin = this.props.homes.austinHomes.map((home, i) => {
             return (
-                <Link to={`/listing/${home.property_id}`} style={       {"textDecoration": "none"}}>
+                <Link to={`/listing/${home.property_id}`} style={       {"textDecoration": "none"}} className='homecard-container'>
                     <HomeCard key={home.title} home={home}/>
                  </Link>
                 )
         })
 
         return (
-            <div>
+            <div className='homesBody'>
                 <Header/>
                 
                 <div className="dates-guests-bar">
@@ -229,8 +229,8 @@ class UnfilteredHomes extends Component {
                             <h6>Indonesia</h6>
                         </Link>
                     </div>  
-                    <div className="san-francisco">
-                        <Link to={`/filteredhomes/66`}>
+                    <div>
+                        <Link to={`/filteredhomes/66`} className='travel-world-section-card'>
                             <img src="https://images.unsplash.com/photo-1522735555435-a8fe18da2089?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""/>
                             <h4>San Francisco</h4>
                             <h6>United States</h6>
