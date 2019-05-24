@@ -3,7 +3,7 @@ import './HomeCard.css'
 
 export default function HomeCard(props) {
     return (
-        <div className="homecard-container">
+        <div>
             <img src={props.home.img_url} alt="home" />
             <h4>{props.home.title}</h4>
             <h5>${props.home.cost} per night</h5>
