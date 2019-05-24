@@ -40,7 +40,8 @@ class Home extends Component {
             startDate: '',
             endDate: '',
             togglePassword: true,
-            sliderAmount: 0
+            sliderAmount: 0,
+            showHelpMenu: false,
         }
     }
 
@@ -214,9 +215,28 @@ class Home extends Component {
                         </div>
                         {/* links in the top left */}
                         <div className="header-top-right-content">
-                            <div className="link-styles">Host a home</div>
+                            <div onClick={() =>  this.props.history.push('/newProperty')}className="link-styles">Host a home</div>
                             <div className="link-styles">Host an experience</div>
-                            <div className="link-styles">Help</div>
+                           
+                            <div onClick={() => this.setState({showHelpMenu: !this.state.showHelpMenu})} className="link-styles">Help</div>
+                            <div onClick={() => this.setState({showHelpMenu: !this.state.showHelpMenu})} className={this.state.showHelpMenu ? 'homemenu helpslide' : 'homemenu'}>
+                                <h2>Recommended Help</h2>
+                                <h6>Search by keyword</h6>
+                                <BookingCardInput placeholder="Ex: reservation status" />
+                                <h5>RECOMMENDED ARTICLES</h5>
+                                <h3>What is the Airbnb cancellation policy?</h3>
+                                <p>Airbnb enables hosts to choose among three standardized cancellation policies (F..</p>
+                                <h4>Read more ></h4><br/>
+                                <h3>What is I need to cancel because of an<br/>
+                                emergency or unavoidable circumstance?</h3>
+                                <p>We may be able to give you a refund or waive the<br/> penalties if you have to cancel...</p>
+                                <h4>Read more ></h4><br/>
+                                <h3>What methods of payment deos Airbnb<br/>accept?</h3>
+                                <p>We support different payment methods, which<br/>depend on the country your payment a...</p>
+                                <h4>Read more ></h4><br/>
+                                <h5>EXPLORE MORE ARTICLES BY TOPIC</h5>
+                            </div>
+
                             <div onClick={() => this.setState({ toggleSignup: !this.state.toggleSignup })} className="link-styles">Sign Up</div>
                             <div onClick={() => this.setState({ toggleLogin: !this.state.toggleLogin })} className="link-styles" >Log in</div>
                         </div>
