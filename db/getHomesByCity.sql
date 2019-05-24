@@ -3,6 +3,7 @@ select
     p.title,
     p.rating,
     p.cost,
+    p.guests,
     (array_agg(i.image_url))[1] as img_url,
     c.city_name
 from property p

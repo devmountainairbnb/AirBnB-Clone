@@ -24,6 +24,13 @@ module.exports = {
         return res.status(200).send(response)
     },
 
+    getCityByName: async (req, res) => {
+        const db = req.app.get('db')
+        let { currentWhere } = req.body
+        let response = await db.get_cityId_from_cityName([currentWhere])
+        return res.status(200).send(response)
+    },
+
     getCities: async (req, res) => {
         const db = req.app.get('db')
         let response = await db.get_Cities()

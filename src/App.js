@@ -16,7 +16,6 @@ function App() {
       <HashRouter>
         <Switch>
           <Route exact path="/" component={Home} />
-          {/* <Route path="/filteredHomes" component={FilteredHomes} /> */}
           <Route path="/filteredHomes/:city_id" component={FilteredHomes} />
           <Route path="/unfilteredHomes" component={UnfilteredHomes} />
           <Route path="/listing/:property_id" component={Listing} />

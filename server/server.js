@@ -69,6 +69,7 @@ app.get('/auth/user-data', authCtrl.userData)
 app.get('/api/homes', homesCtrl.getHomes)
 app.get('/api/cities', homesCtrl.getCities)
 app.get('/api/city/:city_id', homesCtrl.getHomesByCity)
+app.post('/grab-city-by-name', homesCtrl.getCityByName)
 
 app.get('/api/listing/:property_id', homesCtrl.getListing)
 app.get('/api/listing/bookings/:property_id', homesCtrl.getBookings)
