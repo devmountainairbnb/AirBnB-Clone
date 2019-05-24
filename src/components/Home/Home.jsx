@@ -13,6 +13,7 @@ import './Home.css'
 import Header from './../Header/Header'
 import Footer from './../Footer/Footer'
 import { getEightHomes, getHomes, getCities } from './../../ducks/homesReducer'
+import { filterByGuestAndDates } from './../../ducks/filterReducer'
 import { getData } from './../../ducks/userReducer'
 import banner from './backgrounds/banner.jpg'
 import Icon from './../StyledComponents/AmenitiesIcons/index'
@@ -36,6 +37,8 @@ class Home extends Component {
             toggleGuests: false,
             currentWhere: '',
             guests: 0,
+            startDate: '',
+            endDate: '',
             togglePassword: true,
             sliderAmount: 0,
             showHelpMenu: false,
@@ -127,7 +130,17 @@ class Home extends Component {
         targetClass.style.transform = `translate(${this.state.sliderAmount}px)`
     }
 
+    handleSearch = async () => {
+        let { currentWhere, guests, startDate, endDate } = this.state
+        //send startdate enddate and guests to reduxState and then update filteredHomes state so we can filter
+        this.props.filterByGuestAndDates({guests, startDate, endDate})
+        let grabCityId = await axios.post('/grab-city-by-name', { currentWhere }).then(res => res.data)
+        let cityId = grabCityId[0].city_id
+        this.props.history.push(`/filteredhomes/${cityId}`)
+    }
+
     render() {
+        // console.log("Start Dates", this.state.startDate, this.state.endDate)
         let { eightHomes } = this.props.homes
         let { cities } = this.props.homes
         let { toggleLogin, toggleSignup, togglePassword } = this.state
@@ -301,7 +314,7 @@ class Home extends Component {
                                 <h2 onClick={() => this.setState({ toggleGuests: !this.state.toggleGuests })}>Apply</h2>
                             </div>
                         </div>
-                        <BookingCardButton>Search</BookingCardButton>
+                        <BookingCardButton onClick={() => this.handleSearch()}>Search</BookingCardButton>
                     </div>
                 </div>
 
@@ -383,4 +396,4 @@ function mapStatetoProps(reduxStoreState) {
     }
 }
 
-export default connect(mapStatetoProps, { getEightHomes, getHomes, getData, getCities })(Home)
+export default connect(mapStatetoProps, { getEightHomes, getHomes, getData, getCities, filterByGuestAndDates })(Home)
