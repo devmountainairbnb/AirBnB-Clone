@@ -56,7 +56,7 @@ app.use(session({
     saveUninitialized: false
 }))
 
-  
+ 
 
 //AUTH ENDPOINTS
 app.post('/auth/register', authCtrl.register)
