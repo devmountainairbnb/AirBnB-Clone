@@ -42,14 +42,13 @@ app.get('/api/signs3', (req, res) => {
     return res.send(returnData);
   });
 });
-
+app.use( express.static( `${__dirname}/../build` ))
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db);
     app.listen(SERVER_PORT, () => {
         console.log(`listening on ${SERVER_PORT}`)
     })
 })
-
 app.use(express.json());
 app.use(session({
     secret: SESSION_SECRET,
