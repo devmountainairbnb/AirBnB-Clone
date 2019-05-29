@@ -5,9 +5,9 @@ import Footer from './../Footer/Footer'
 import { getLastHome } from './../../ducks/homesReducer'
 import { ListingButton } from './../StyledComponents/StyledComponents'
 import { Link } from 'react-router-dom'
-// import './NewPropConfirm.css'
+import './NewPropConfirm.css'
 
-export class NewPropConfirm extends Component {
+class NewPropConfirm extends Component {
 componentDidMount() {
     this.props.getLastHome()
 }
