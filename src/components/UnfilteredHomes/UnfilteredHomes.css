@@ -5,6 +5,9 @@
     margin: 0rem;
     padding: 0rem;
 }
+.homesBody{
+    width: 100%
+}
 
 /****** Dates Guests Top Bar Styling ******/
 .dates-guests-bar {  
@@ -44,11 +47,15 @@
     letter-spacing: .04rem;
 }
 .travel-world-section {
+    width: 100%;
     height: 5.2rem;
     display: flex;
     margin-bottom: 4rem;
 }
 
+.travel-world-section-card{
+    width: 100%
+}
 
 .travel-world-section div {
     margin: 0rem 1.4rem;
@@ -103,6 +110,7 @@
 .rated-homes-container,
 .picked-homes-container {
     height: 24rem;
+    width: 100%;
 }
 
 .rated-homes-container p {
@@ -177,10 +185,12 @@
 
 .homes-display-container {
     display: flex;
-    width: 100%;
     flex-wrap: wrap;
     padding-bottom: 5rem;
     height: 50rem;
+    padding-left: 4em;
+    padding-right: 4em;
+    width: 100%
 }
 
 .guest-drop {
@@ -225,6 +235,7 @@
 .fade {
     opacity: .3;
 }
+
 
 .no-display {
     display: none;

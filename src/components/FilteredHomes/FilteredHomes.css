@@ -71,7 +71,8 @@
 
 .homes-container {
     width: 100%;
-    margin-left: 4rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
     display: flex;
     flex-wrap: wrap;
 }
@@ -84,9 +85,9 @@
 
 .flower-banner-box {
     margin-left: 4rem;
+    margin-right: 4rem;
     margin-bottom: 3rem;
-    width: 88%;
-    height: 44vh;
+    height: 25em;
     position: relative;
 }
 
