@@ -321,7 +321,7 @@ class Home extends Component {
                 <div className="explore-box">
                     <h4 className="explore-airbnb">Explore Airbnb</h4>
                     <div className="explore-container">
-                        <Link to="/unfilteredhomes" className="explore-link-tags">
+                        <Link to="/unfilteredhomes" className="explore-link-tags1">
                             <div className="explore-content">
                                 <img src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="" />
                                 <h4 className="space">Homes</h4>

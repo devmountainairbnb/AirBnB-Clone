@@ -14,16 +14,20 @@ describe('Input form', () => {
     })
 })
 
-describe('value to be truthy', function() {
+
     it('value is equal to false', function() {
       expect('.padding-input-where').to.equal('.padding-input-where')
     })
+
+  it('clicking "type" navigates to a new url', function() {
+    cy.visit('http://localhost:3000/#/')
+    cy.get('.explore-link-tags')
   })
 
-// describe('link to a different page', () => {
-//     it('routes from home to filteredHomes page', () => {
-//         cy.visit('http://localhost:3000/#/')
-//         cy.get('.house-box')
-//         cy.server(cy.route('http://localhost:3000/#/filteredhomes'))
-//     })
-// })
+
+
+  it('clicking "type" navigates to a new url', function() {
+    cy.visit('http://localhost:3000/#/')
+    cy.get('.explore-link-tags1').click()
+    cy.url().should('include', '/unfilteredhomes')
+  })
