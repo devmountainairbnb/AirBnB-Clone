@@ -27,3 +27,17 @@ describe('value to be truthy', function() {
 //         cy.server(cy.route('http://localhost:3000/#/filteredhomes'))
 //     })
 // })
+
+
+  it('clicking "type" navigates to a new url', function() {
+    cy.visit('http://localhost:3000/#/')
+    cy.get('.explore-link-tags')
+  })
+
+
+
+  it('clicking "type" navigates to a new url', function() {
+    cy.visit('http://localhost:3000/#/')
+    cy.get('.explore-link-tags1').click()
+    cy.url().should('include', '/unfilteredhomes')
+  })
